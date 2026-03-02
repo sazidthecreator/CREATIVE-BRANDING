@@ -1,0 +1,189 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const services = [
+  {
+    icon: '⬡',
+    title: 'AI-Native Systems',
+    titleBn: 'এআই-নেটিভ সিস্টেম',
+    tagline: 'Intelligence by design',
+    price: 'From $800',
+    features: [
+      'Custom AI chatbots & assistants',
+      'Automation workflow design (n8n, Make)',
+      'AI content generation pipelines',
+      'Data processing & analytics',
+      'LLM integration & fine-tuning',
+    ],
+    color: 'var(--accent)',
+  },
+  {
+    icon: '◈',
+    title: 'Brand Architecture',
+    titleBn: 'ব্র্যান্ড আর্কিটেকচার',
+    tagline: 'Identity that resonates',
+    price: 'From $600',
+    features: [
+      'Brand strategy & positioning',
+      'Visual identity system',
+      'Logo design & icon sets',
+      'Typography & color system',
+      'Brand guidelines document',
+    ],
+    color: 'var(--accent2)',
+  },
+  {
+    icon: '⬟',
+    title: 'Full-Stack Design & Dev',
+    titleBn: 'ফুল-স্ট্যাক ডিজাইন',
+    tagline: 'From concept to deployment',
+    price: 'From $1,200',
+    features: [
+      'UX research & wireframing',
+      'Figma prototyping',
+      'React/Next.js/Astro development',
+      'Performance optimization',
+      'Ongoing maintenance',
+    ],
+    color: 'var(--gold)',
+    featured: true,
+  },
+  {
+    icon: '◇',
+    title: 'Digital Strategy',
+    titleBn: 'ডিজিটাল স্ট্র্যাটেজি',
+    tagline: 'Ideas that convert',
+    price: 'From $400',
+    features: [
+      'Growth funnel design',
+      'Content strategy',
+      'Bilingual UX consulting',
+      'Analytics setup & reporting',
+      'Competitor analysis',
+    ],
+    color: 'var(--accent3)',
+  },
+];
+
+const process = [
+  { step: '01', title: 'Discovery Call', desc: '30-min free call to understand your vision, goals, and constraints.' },
+  { step: '02', title: 'Proposal', desc: 'Detailed scope, timeline, and investment proposal within 24 hours.' },
+  { step: '03', title: 'Design Sprint', desc: 'Weekly check-ins, iterative feedback, transparent progress.' },
+  { step: '04', title: 'Delivery', desc: 'Final deliverables with documentation and handoff materials.' },
+];
+---
+
+<Layout title="Services • Sazid Hossain — Creative Technologist" page="/services">
+  <!-- Hero -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+    text-align: center;
+  ">
+    <div style="max-width:800px;margin:0 auto;">
+      <p class="section-label" style="justify-content:center;">Services</p>
+      <h1 style="
+        font-family:var(--font-display);font-weight:800;
+        font-size:var(--text-4xl);line-height:1.05;
+        margin-bottom:20px;color:var(--text);
+      ">
+        Building Digital<br/>
+        <span class="gradient-text">Excellence</span>
+      </h1>
+      <p style="font-size:var(--text-lg);color:var(--text2);line-height:1.8;margin-bottom:8px;">
+        Strategic design and technology services tailored for startups, agencies, and forward-thinking businesses.
+      </p>
+      <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted);margin-bottom:40px;">
+        স্টার্টআপ থেকে এজেন্সি — আপনার ডিজিটাল লক্ষ্য অর্জনে আমার সেবা।
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section style="padding: clamp(60px,10vw,100px) clamp(20px,5vw,80px) clamp(80px,12vw,140px);">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;">
+        {services.map((s, i) => (
+          <div class={`card reveal${s.featured ? ' featured-card' : ''}`} style={`
+            padding:36px;
+            ${s.featured ? `border-color:rgba(255,215,0,0.3);background:linear-gradient(135deg,var(--surface) 0%,rgba(255,215,0,0.04) 100%);` : ''}
+            animation-delay:${i*0.1}s;
+          `}>
+            {s.featured && (
+              <div style="
+                display:inline-block;padding:4px 12px;border-radius:99px;
+                background:rgba(255,215,0,0.15);color:var(--gold);
+                font-size:var(--text-xs);font-family:var(--font-mono);
+                margin-bottom:16px;border:1px solid rgba(255,215,0,0.2);
+              ">Most Popular</div>
+            )}
+            <div style={`
+              width:52px;height:52px;border-radius:14px;
+              background:${s.color}20;border:1px solid ${s.color}30;
+              display:flex;align-items:center;justify-content:center;
+              font-size:22px;color:${s.color};
+              font-family:var(--font-display);font-weight:700;
+              margin-bottom:20px;
+            `}>{s.icon}</div>
+            <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:4px;">{s.title}</h2>
+            <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted);margin-bottom:8px;">{s.titleBn}</p>
+            <p style={`font-size:var(--text-sm);color:${s.color};font-family:var(--font-mono);margin-bottom:20px;`}>{s.tagline}</p>
+
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
+              {s.features.map(f => (
+                <li style="display:flex;align-items:flex-start;gap:10px;font-size:var(--text-sm);color:var(--text2);">
+                  <span style={`color:${s.color};flex-shrink:0;font-size:12px;margin-top:2px;`}>◆</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:20px;">
+              <span style={`font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:${s.color};`}>{s.price}</span>
+              <a href="/contact" class="btn btn-outline" style="padding:8px 20px;font-size:var(--text-xs);">Get Quote</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  " class="reveal">
+    <div style="max-width:900px;margin:0 auto;text-align:center;">
+      <p class="section-label" style="justify-content:center;">How It Works</p>
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:clamp(40px,6vw,60px);color:var(--text);">
+        Simple, <span class="gradient-text">Transparent</span> Process
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;text-align:left;">
+        {process.map((p, i) => (
+          <div class="reveal" style={`animation-delay:${i*0.1}s`}>
+            <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent);margin-bottom:12px;">{p.step}</div>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:var(--text);margin-bottom:8px;">{p.title}</h3>
+            <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.7;">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    text-align:center;
+  " class="reveal">
+    <div style="max-width:600px;margin:0 auto;">
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:20px;color:var(--text);">
+        Ready to Start? <span class="gradient-text">Let's Talk.</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text2);margin-bottom:32px;">
+        Book a free 30-minute discovery call and let's figure out how I can help.
+      </p>
+      <a href="/contact" class="btn btn-primary">Book Discovery Call →</a>
+    </div>
+  </section>
+</Layout>

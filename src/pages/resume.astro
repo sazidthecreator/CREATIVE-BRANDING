@@ -1,0 +1,204 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const experience = [
+  {
+    period: '2024 – Present',
+    role: 'Creative Technologist & AI Strategist',
+    roleBn: 'ক্রিয়েটিভ টেকনোলজিস্ট',
+    company: 'Freelance',
+    desc: 'Building AI-native products, automated systems, and brand identities for clients across Bangladesh and internationally.',
+    skills: ['React', 'Astro', 'OpenAI', 'n8n', 'Figma', 'Brand Design'],
+  },
+  {
+    period: '2024',
+    role: 'Lead Designer & Developer',
+    roleBn: 'লিড ডিজাইনার',
+    company: 'Vabuuk Studio',
+    desc: 'Led the full brand system and digital product for philosophy-AI startup Vabuuk, from concept to deployment.',
+    skills: ['Brand Identity', 'React', 'UX Design', 'AI Integration'],
+  },
+  {
+    period: '2023 – 2024',
+    role: 'UI/UX Designer',
+    roleBn: 'UI/UX ডিজাইনার',
+    company: 'Various Clients',
+    desc: 'Designed user interfaces for healthcare, education, and e-commerce platforms across multiple industries.',
+    skills: ['Figma', 'User Research', 'Prototyping', 'Design Systems'],
+  },
+];
+
+const education = [
+  {
+    period: '2021 – 2025',
+    degree: 'Bachelor of Arts — Philosophy',
+    degreeBn: 'বিএ — দর্শন',
+    institution: 'Jahangirnagar University',
+    desc: 'Focus on epistemology, ethics, and philosophy of mind. Minor in digital humanities.',
+  },
+];
+
+const certifications = [
+  { name: 'UI/UX Design Professional', issuer: 'Google', year: '2024' },
+  { name: 'AI Fundamentals', issuer: 'IBM', year: '2024' },
+  { name: 'React Developer', issuer: 'Meta', year: '2023' },
+  { name: 'Figma Advanced', issuer: 'Figma', year: '2023' },
+];
+
+const skills = [
+  { name: 'UI/UX Design', level: 95 },
+  { name: 'React / Next.js', level: 85 },
+  { name: 'Brand Design', level: 92 },
+  { name: 'AI Automation', level: 80 },
+  { name: 'TypeScript', level: 78 },
+  { name: 'Design Systems', level: 88 },
+];
+---
+
+<Layout title="Resume • Sazid Hossain — Creative Technologist" page="/resume">
+  <!-- Hero -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+  ">
+    <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+      <div>
+        <p class="section-label">Resume / CV</p>
+        <h1 style="
+          font-family:var(--font-display);font-weight:800;
+          font-size:var(--text-4xl);line-height:1.05;
+          margin-bottom:16px;color:var(--text);
+        ">
+          Sazid Hossain<br/>
+          <span class="gradient-text">Creative Technologist</span>
+        </h1>
+        <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted2);">সাজিদ হোসেন — ক্রিয়েটিভ টেকনোলজিস্ট</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="/data/resume.pdf" download class="btn btn-primary">↓ Download PDF</a>
+        <a href="/contact" class="btn btn-outline">Hire Me →</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: clamp(60px,8vw,80px) clamp(20px,5vw,80px) clamp(80px,12vw,140px);">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:clamp(40px,6vw,80px);align-items:start;" class="resume-grid">
+      <!-- Left column -->
+      <div>
+        <!-- Experience -->
+        <section style="margin-bottom:60px;" class="reveal">
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-2xl);color:var(--text);margin-bottom:32px;display:flex;align-items:center;gap:12px;">
+            <span style="color:var(--accent);font-family:var(--font-mono);font-size:var(--text-sm);">01</span>
+            Experience
+          </h2>
+          <div style="display:flex;flex-direction:column;gap:32px;">
+            {experience.map(exp => (
+              <div class="card" style="padding:28px;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+                  <div>
+                    <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:var(--text);">{exp.role}</h3>
+                    <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted);">{exp.roleBn}</p>
+                  </div>
+                  <div style="text-align:right;">
+                    <p style="font-size:var(--text-xs);color:var(--accent);font-family:var(--font-mono);">{exp.period}</p>
+                    <p style="font-size:var(--text-xs);color:var(--muted2);">{exp.company}</p>
+                  </div>
+                </div>
+                <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.7;margin-bottom:16px;">{exp.desc}</p>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                  {exp.skills.map(s => <span class="tag">{s}</span>)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section class="reveal">
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-2xl);color:var(--text);margin-bottom:32px;display:flex;align-items:center;gap:12px;">
+            <span style="color:var(--accent);font-family:var(--font-mono);font-size:var(--text-sm);">02</span>
+            Education
+          </h2>
+          {education.map(edu => (
+            <div class="card" style="padding:28px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+                <div>
+                  <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:var(--text);">{edu.degree}</h3>
+                  <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted);">{edu.degreeBn}</p>
+                </div>
+                <div style="text-align:right;">
+                  <p style="font-size:var(--text-xs);color:var(--accent);font-family:var(--font-mono);">{edu.period}</p>
+                  <p style="font-size:var(--text-xs);color:var(--muted2);">{edu.institution}</p>
+                </div>
+              </div>
+              <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.7;">{edu.desc}</p>
+            </div>
+          ))}
+        </section>
+      </div>
+
+      <!-- Right column: Skills + Certs -->
+      <div style="position:sticky;top:80px;" class="reveal">
+        <!-- Skills -->
+        <section style="margin-bottom:40px;">
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:24px;">Skills</h2>
+          <div class="card" style="padding:24px;display:flex;flex-direction:column;gap:16px;">
+            {skills.map(s => (
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                  <span style="font-size:var(--text-sm);color:var(--text2);">{s.name}</span>
+                  <span style="font-size:var(--text-xs);color:var(--accent);font-family:var(--font-mono);">{s.level}%</span>
+                </div>
+                <div style="height:4px;background:var(--surface2);border-radius:4px;overflow:hidden;">
+                  <div style={`height:100%;width:${s.level}%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px;transition:width 1s var(--ease);`}></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Certifications -->
+        <section>
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:24px;">Certifications</h2>
+          <div class="card" style="padding:24px;display:flex;flex-direction:column;gap:14px;">
+            {certifications.map(c => (
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                <div>
+                  <p style="font-size:var(--text-sm);color:var(--text2);font-weight:500;">{c.name}</p>
+                  <p style="font-size:var(--text-xs);color:var(--muted);">{c.issuer}</p>
+                </div>
+                <span style="font-size:var(--text-xs);color:var(--accent);font-family:var(--font-mono);">{c.year}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Languages -->
+        <section style="margin-top:40px;">
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:24px;">Languages</h2>
+          <div class="card" style="padding:24px;display:flex;flex-direction:column;gap:12px;">
+            {[
+              { lang: 'Bengali', langBn: 'বাংলা', level: 'Native' },
+              { lang: 'English', langBn: 'ইংরেজি', level: 'Fluent' },
+            ].map(l => (
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <span style="font-size:var(--text-sm);color:var(--text2);">{l.lang}</span>
+                  <span style="font-family:var(--font-bn);font-size:var(--text-xs);color:var(--muted);margin-left:8px;">{l.langBn}</span>
+                </div>
+                <span style="font-size:var(--text-xs);color:var(--accent);font-family:var(--font-mono);">{l.level}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @media (max-width: 768px) {
+    .resume-grid { grid-template-columns: 1fr !important; }
+    .resume-grid > div:last-child { position: static !important; }
+  }
+</style>

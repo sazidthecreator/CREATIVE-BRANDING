@@ -1,0 +1,212 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const skills = [
+  { category: 'Design', items: ['Figma', 'Adobe XD', 'Illustrator', 'Photoshop', 'Framer', 'Spline'] },
+  { category: 'Development', items: ['React', 'Next.js', 'Astro', 'TypeScript', 'TailwindCSS', 'Node.js'] },
+  { category: 'AI & Tools', items: ['OpenAI API', 'LangChain', 'n8n', 'Make.com', 'Zapier', 'Notion AI'] },
+  { category: 'Strategy', items: ['Brand Architecture', 'UX Research', 'Growth Funnels', 'Analytics', 'SEO'] },
+];
+
+const timeline = [
+  { year: '2025', title: 'Creative Technologist', org: 'Freelance', desc: 'Building AI-native products and automated systems for startups across Bangladesh and beyond.' },
+  { year: '2024', title: 'Brand Designer & Developer', org: 'Vabuuk Studio', desc: 'Led brand identity and digital product design for philosophy-tech startup Vabuuk.' },
+  { year: '2023', title: 'UI/UX Designer', org: 'Various Clients', desc: 'Designed interfaces for healthcare, education, and e-commerce platforms.' },
+  { year: '2022', title: 'Philosophy Student → Tech', org: 'Jahangirnagar University', desc: 'Began merging philosophical inquiry with digital design practice.' },
+];
+
+const values = [
+  { icon: '∴', title: 'Clarity', titleBn: 'স্পষ্টতা', desc: 'Every design decision must be explainable.' },
+  { icon: '∞', title: 'Systems', titleBn: 'সিস্টেম', desc: 'Think in patterns, not one-offs.' },
+  { icon: '◎', title: 'Meaning', titleBn: 'অর্থ', desc: 'Build things that matter to people.' },
+  { icon: '⊕', title: 'Growth', titleBn: 'বৃদ্ধি', desc: 'Every project is a lesson in disguise.' },
+];
+---
+
+<Layout title="About • Sazid Hossain — Creative Technologist" page="/about">
+  <!-- Hero -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+  ">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-label">About Me</p>
+      <h1 style="
+        font-family:var(--font-display);font-weight:800;
+        font-size:var(--text-4xl);line-height:1.05;
+        margin-bottom:32px;color:var(--text);
+      ">
+        Philosophy-Trained<br/>
+        <span class="gradient-text">Creative Technologist</span>
+      </h1>
+
+      <div style="display:grid;grid-template-columns:3fr 2fr;gap:clamp(40px,8vw,100px);align-items:start;" class="about-hero-grid">
+        <div>
+          <p style="font-size:var(--text-xl);color:var(--text2);line-height:1.8;margin-bottom:20px;">
+            I'm <strong style="color:var(--text);font-family:var(--font-display);">Sazid Hossain</strong> — a Creative Technologist and AI Automation Strategist
+            based in Dhaka, Bangladesh. My journey started in the philosophy department of Jahangirnagar University,
+            where I learned to question <em style="color:var(--accent);font-family:var(--font-serif);">why</em> before asking <em style="color:var(--accent2);font-family:var(--font-serif);">how</em>.
+          </p>
+          <p style="font-size:var(--text-base);color:var(--text2);line-height:1.8;margin-bottom:20px;">
+            That philosophical foundation shapes everything I build. When I design a brand, I ask what values it represents.
+            When I architect an AI system, I consider what problems it truly solves. When I write code, I think about
+            who will maintain it and why.
+          </p>
+          <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted2);line-height:1.9;margin-bottom:32px;">
+            জাহাঙ্গীরনগর বিশ্ববিদ্যালয়ের দর্শন বিভাগ থেকে প্রযুক্তির পথে আসা আমার যাত্রা।
+            প্রতিটি ডিজাইনে, প্রতিটি সিস্টেমে আমি অর্থ খুঁজি।
+          </p>
+
+          <div style="display:flex;gap:16px;flex-wrap:wrap;">
+            <a href="/portfolio" class="btn btn-primary">View My Work →</a>
+            <a href="/resume" class="btn btn-outline">Download Resume</a>
+          </div>
+        </div>
+
+        <div style="position:sticky;top:80px;">
+          <!-- Profile Card -->
+          <div class="card" style="padding:32px;text-align:center;">
+            <div style="
+              width:80px;height:80px;border-radius:50%;
+              background:linear-gradient(135deg,var(--accent),var(--accent2));
+              margin:0 auto 16px;
+              display:flex;align-items:center;justify-content:center;
+              font-size:36px;
+            ">🧠</div>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:4px;">Sazid Hossain</h3>
+            <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted2);margin-bottom:4px;">সাজিদ হোসেন</p>
+            <p style="font-size:var(--text-sm);color:var(--accent);font-family:var(--font-mono);margin-bottom:20px;">Creative Technologist</p>
+            <div style="border-top:1px solid var(--border);padding-top:16px;display:flex;flex-direction:column;gap:10px;">
+              {[
+                { icon: '📍', text: 'Dhaka, Bangladesh', sub: 'GMT+6' },
+                { icon: '🎓', text: 'Jahangirnagar University', sub: 'Philosophy' },
+                { icon: '💼', text: 'Available for hire', sub: 'Open to projects' },
+              ].map(item => (
+                <div style="display:flex;align-items:center;gap:10px;text-align:left;">
+                  <span style="font-size:14px;">{item.icon}</span>
+                  <div>
+                    <p style="font-size:var(--text-xs);color:var(--text2);">{item.text}</p>
+                    <p style="font-size:var(--text-xs);color:var(--muted);">{item.sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  " class="reveal">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-label">Core Values</p>
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:clamp(40px,6vw,60px);color:var(--text);">
+        What Drives Me
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;">
+        {values.map(v => (
+          <div class="card" style="padding:32px;text-align:center;">
+            <div style="
+              font-size:32px;color:var(--accent);
+              font-family:var(--font-display);font-weight:700;
+              margin-bottom:16px;
+            ">{v.icon}</div>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:4px;">{v.title}</h3>
+            <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted);margin-bottom:12px;">{v.titleBn}</p>
+            <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.6;">{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section style="padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);" class="reveal">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-label">Skills & Tools</p>
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:clamp(40px,6vw,60px);color:var(--text);">
+        My <span class="gradient-text">Toolkit</span>
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px;">
+        {skills.map(s => (
+          <div>
+            <h3 style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">
+              {s.category}
+            </h3>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              {s.items.map(item => (
+                <span class="tag">{item}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  " class="reveal">
+    <div style="max-width:800px;margin:0 auto;">
+      <p class="section-label">Experience</p>
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:clamp(40px,6vw,60px);color:var(--text);">
+        My Journey
+      </h2>
+      <div style="position:relative;">
+        <div style="
+          position:absolute;left:0;top:0;bottom:0;
+          width:1px;background:linear-gradient(180deg,var(--accent),transparent);
+          margin-left:8px;
+        "></div>
+        {timeline.map((item, i) => (
+          <div style="display:flex;gap:24px;margin-bottom:40px;padding-left:8px;" class="reveal">
+            <div style="
+              width:16px;height:16px;border-radius:50%;
+              background:var(--accent);flex-shrink:0;
+              margin-top:4px;margin-left:-8px;
+              box-shadow:0 0 12px var(--accent-glow);
+            "></div>
+            <div>
+              <div style="display:flex;gap:12px;align-items:baseline;margin-bottom:6px;flex-wrap:wrap;">
+                <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent);">{item.year}</span>
+                <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:var(--text);">{item.title}</h3>
+                <span style="font-size:var(--text-xs);color:var(--muted2);font-family:var(--font-mono);">@ {item.org}</span>
+              </div>
+              <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.7;">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    text-align:center;
+  " class="reveal">
+    <div style="max-width:600px;margin:0 auto;">
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:20px;color:var(--text);">
+        Let's Create <span class="gradient-text">Together</span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text2);margin-bottom:32px;">
+        Ready to collaborate? Let's build something meaningful.
+      </p>
+      <a href="/contact" class="btn btn-primary">Get In Touch →</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @media (max-width: 768px) {
+    .about-hero-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
