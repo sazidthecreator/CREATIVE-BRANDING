@@ -1,0 +1,234 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/HeroSection.tsx';
+import ProjectCard from '../components/ProjectCard.tsx';
+import projectsData from '../../data/projects.json';
+
+const featuredProjects = projectsData.filter(p => p.featured).slice(0, 3);
+const allProjects = projectsData.slice(0, 4);
+
+const services = [
+  { icon: '⬡', title: 'AI-Native Systems', titleBn: 'এআই সিস্টেম', desc: 'Intelligent automation pipelines, AI chatbots, and data-driven workflows that scale your business.' },
+  { icon: '◈', title: 'Brand Architecture', titleBn: 'ব্র্যান্ড আর্কিটেকচার', desc: 'Identity systems, visual language, and strategic positioning that make brands unforgettable.' },
+  { icon: '⬟', title: 'Full-Stack Design', titleBn: 'ফুল-স্ট্যাক ডিজাইন', desc: 'From Figma to deployed product — responsive, performant, and beautifully crafted digital experiences.' },
+  { icon: '◇', title: 'Digital Strategy', titleBn: 'ডিজিটাল স্ট্র্যাটেজি', desc: 'Growth funnels, content systems, and go-to-market strategies that convert ideas into revenue.' },
+];
+
+const testimonials = [
+  {
+    text: "Sazid doesn't just design — he architects. The system he built for us doubled our conversion rate in 3 months.",
+    author: "Rahim Uddin", role: "CEO, TechStartBD", avatar: "R"
+  },
+  {
+    text: "His bilingual design sensibility is rare and incredibly valuable. He understands both digital and cultural context.",
+    author: "Nasrin Akter", role: "Brand Director, Oporajey", avatar: "N"
+  },
+];
+---
+
+<Layout title="Sazid Hossain — Creative Technologist & AI Automation Strategist" page="/">
+  <!-- Hero -->
+  <HeroSection client:load />
+
+  <!-- About Strip -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  " class="reveal">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,100px);align-items:center;" class="about-grid">
+      <div>
+        <p class="section-label">Who I Am</p>
+        <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-4xl);line-height:1.1;margin-bottom:24px;color:var(--text);">
+          Philosophy Meets<br/>
+          <span class="gradient-text">Technology</span>
+        </h2>
+        <p style="font-size:var(--text-lg);color:var(--text2);line-height:1.8;margin-bottom:16px;">
+          I'm Sazid Hossain — a Creative Technologist and AI Automation Strategist based in Dhaka, Bangladesh.
+          Trained in philosophy, I bring critical thinking to every digital system I build.
+        </p>
+        <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted2);line-height:1.9;margin-bottom:32px;">
+          আমি সাজিদ হোসেন — ঢাকা থেকে ক্রিয়েটিভ টেকনোলজিস্ট। দর্শনের পথ বেয়ে প্রযুক্তির জগতে প্রবেশ করেছি।
+        </p>
+        <a href="/about" class="btn btn-outline">Read My Story →</a>
+      </div>
+      <div style="position:relative;">
+        <!-- Profile visual -->
+        <div style="
+          width:100%;aspect-ratio:1;max-width:400px;margin:0 auto;
+          background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+          border-radius:24px;border:1px solid var(--border);
+          display:flex;align-items:center;justify-content:center;
+          position:relative;overflow:hidden;
+        ">
+          <div style="
+            position:absolute;inset:0;
+            background:radial-gradient(circle at 70% 30%, rgba(180,255,87,0.12) 0%, transparent 60%);
+          "></div>
+          <div style="text-align:center;position:relative;z-index:1;padding:40px;">
+            <div style="font-size:clamp(60px,10vw,100px);margin-bottom:16px;animation:float 6s ease-in-out infinite;">
+              🧠
+            </div>
+            <p style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:var(--text);">Sazid Hossain</p>
+            <p style="font-size:var(--text-sm);color:var(--accent);font-family:var(--font-mono);">@sazid.dev</p>
+            <div style="display:flex;gap:8px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
+              {['React', 'Figma', 'AI/ML', 'Astro'].map(t => (
+                <span class="tag">{t}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Preview -->
+  <section style="padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);" class="reveal">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-label">What I Do</p>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:clamp(40px,6vw,64px);gap:20px;flex-wrap:wrap;">
+        <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-4xl);line-height:1.1;color:var(--text);">
+          Services That<br/><span class="gradient-text">Scale</span>
+        </h2>
+        <a href="/services" class="btn btn-outline" style="flex-shrink:0;">All Services →</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+        {services.map((s, i) => (
+          <div class="card reveal" style={`padding:32px;animation-delay:${i*0.1}s`}>
+            <div style="
+              width:48px;height:48px;border-radius:12px;
+              background:var(--accent-dim);border:1px solid rgba(180,255,87,0.15);
+              display:flex;align-items:center;justify-content:center;
+              font-size:22px;color:var(--accent);margin-bottom:20px;
+              font-family:var(--font-display);font-weight:700;
+            ">{s.icon}</div>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:6px;">{s.title}</h3>
+            <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted);margin-bottom:12px;">{s.titleBn}</p>
+            <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.7;">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Preview -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  " class="reveal">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-label">Selected Work</p>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:clamp(40px,6vw,64px);gap:20px;flex-wrap:wrap;">
+        <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-4xl);line-height:1.1;color:var(--text);">
+          Projects That<br/><span class="gradient-text">Ship</span>
+        </h2>
+        <a href="/portfolio" class="btn btn-outline" style="flex-shrink:0;">View All →</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+        {allProjects.map((project, i) => (
+          <ProjectCard project={project} index={i} client:visible />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy Band -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%);
+    text-align:center;
+  " class="reveal">
+    <div style="max-width:800px;margin:0 auto;">
+      <p class="section-label" style="justify-content:center;">The Why</p>
+      <blockquote style="
+        font-family:var(--font-serif);font-style:italic;
+        font-size:var(--text-3xl);color:var(--text);
+        line-height:1.5;margin-bottom:24px;
+      ">
+        "Technology without philosophy is just <span class="gradient-text">noise</span>."
+      </blockquote>
+      <p style="font-size:var(--text-base);color:var(--muted2);margin-bottom:8px;">
+        Every pixel I place, every system I architect, every brand I build—rooted in meaning.
+      </p>
+      <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted);margin-bottom:40px;">
+        প্রতিটি ডিজাইন, প্রতিটি সিস্টেম — অর্থবহ।
+      </p>
+      <a href="/philosophy" class="btn btn-outline">Explore My Philosophy →</a>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section style="padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);" class="reveal">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-label">Kind Words</p>
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-4xl);line-height:1.1;margin-bottom:clamp(40px,6vw,64px);color:var(--text);">
+        Client <span class="gradient-text">Testimonials</span>
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px;">
+        {testimonials.map((t, i) => (
+          <div class="card" style="padding:36px;">
+            <div style="font-size:32px;color:var(--accent);margin-bottom:16px;font-family:var(--font-serif);">"</div>
+            <p style="font-size:var(--text-lg);color:var(--text2);line-height:1.8;margin-bottom:28px;font-style:italic;font-family:var(--font-serif);">
+              {t.text}
+            </p>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="
+                width:44px;height:44px;border-radius:50%;
+                background:var(--accent-dim);border:2px solid rgba(180,255,87,0.3);
+                display:flex;align-items:center;justify-content:center;
+                font-family:var(--font-display);font-weight:700;color:var(--accent);
+              ">{t.avatar}</div>
+              <div>
+                <p style="font-family:var(--font-display);font-weight:700;font-size:var(--text-sm);color:var(--text);">{t.author}</p>
+                <p style="font-size:var(--text-xs);color:var(--muted2);font-family:var(--font-mono);">{t.role}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    text-align: center;
+  " class="reveal">
+    <div style="max-width:700px;margin:0 auto;">
+      <div style="
+        display:inline-block;
+        padding:6px 20px;border-radius:99px;
+        background:var(--accent-dim);border:1px solid rgba(180,255,87,0.2);
+        font-size:var(--text-xs);color:var(--accent);
+        font-family:var(--font-mono);letter-spacing:0.1em;
+        margin-bottom:24px;
+      ">
+        Open for collaboration
+      </div>
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-4xl);line-height:1.1;margin-bottom:20px;color:var(--text);">
+        Let's Build Something<br/><span class="gradient-text">Remarkable</span>
+      </h2>
+      <p style="font-size:var(--text-lg);color:var(--text2);line-height:1.8;margin-bottom:12px;">
+        Have a project in mind? I'd love to hear about it. Let's turn your vision into a digital reality.
+      </p>
+      <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted);margin-bottom:40px;">
+        আপনার প্রজেক্ট নিয়ে কথা বলুন — একসাথে কিছু অসাধারণ তৈরি করি।
+      </p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="/contact" class="btn btn-primary">Start a Project →</a>
+        <a href="/portfolio" class="btn btn-outline">See My Work</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr !important; }
+  }
+</style>

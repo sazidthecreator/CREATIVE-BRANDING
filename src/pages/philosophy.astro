@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pillars = [
+  {
+    icon: '∴',
+    title: 'Epistemology of Design',
+    titleBn: 'ডিজাইনের জ্ঞানতত্ত্ব',
+    text: 'How do we know a design is good? Not through aesthetic pleasure alone, but through its coherence with human need and intention. Every design decision is an epistemological claim about what users know, want, and need.',
+    textBn: 'আমরা কীভাবে জানি একটি ডিজাইন ভালো? শুধু নান্দনিক আনন্দের মাধ্যমে নয়, মানবিক প্রয়োজন ও উদ্দেশ্যের সাথে সামঞ্জস্যের মাধ্যমে।',
+  },
+  {
+    icon: '∞',
+    title: 'Systems Over Instances',
+    titleBn: 'উদাহরণের চেয়ে সিস্টেম',
+    text: 'A logo is not a brand. A page is not a product. A prompt is not an AI system. I think in systems: interconnected, scalable, and resilient. The best designs solve not just today\'s problem but tomorrow\'s edge case.',
+    textBn: 'একটি লোগো ব্র্যান্ড নয়। একটি পৃষ্ঠা পণ্য নয়। আমি সিস্টেমে চিন্তা করি: আন্তঃসংযুক্ত, স্কেলযোগ্য।',
+  },
+  {
+    icon: '◎',
+    title: 'The Ethics of Attention',
+    titleBn: 'মনোযোগের নৈতিকতা',
+    text: 'Every interface competes for human attention. With that power comes responsibility. I design to serve the user\'s genuine interests — not to maximize engagement metrics that hollow out meaningful experience.',
+    textBn: 'প্রতিটি ইন্টারফেস মানুষের মনোযোগের জন্য প্রতিযোগিতা করে। এই শক্তির সাথে দায়িত্ব আসে।',
+  },
+  {
+    icon: '⊕',
+    title: 'Technology as Dialogue',
+    titleBn: 'কথোপকথন হিসেবে প্রযুক্তি',
+    text: 'Technology is not neutral. Every system embodies values, assumptions, and worldviews. I build digital products as conversations between human intention and technical possibility — always asking: what kind of world does this build?',
+    textBn: 'প্রযুক্তি নিরপেক্ষ নয়। প্রতিটি সিস্টেমে মূল্যবোধ, অনুমান এবং বিশ্বদর্শন নিহিত থাকে।',
+  },
+];
+
+const quotes = [
+  { text: "The unexamined interface is not worth using.", author: "Sazid Hossain" },
+  { text: "Technology without philosophy is just noise.", author: "Sazid Hossain" },
+  { text: "Design is the argument a product makes about the world.", author: "Sazid Hossain" },
+];
+
+const influences = [
+  { name: 'Immanuel Kant', field: 'Ethics & Epistemology', note: 'The categorical imperative guides my approach to ethical design.' },
+  { name: 'Ludwig Wittgenstein', field: 'Language & Meaning', note: 'Language games taught me how interface language shapes user understanding.' },
+  { name: 'Dieter Rams', field: 'Industrial Design', note: '"Good design is honest" — a principle I apply to every pixel.' },
+  { name: 'Viktor Frankl', field: 'Meaning & Purpose', note: 'Logotherapy: technology must enable meaning, not just efficiency.' },
+];
+---
+
+<Layout title="Philosophy • Sazid Hossain — The Why Behind the Work" page="/philosophy">
+  <!-- Hero -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+    text-align: center;
+  ">
+    <div style="max-width:800px;margin:0 auto;">
+      <p class="section-label" style="justify-content:center;">Philosophy</p>
+      <h1 style="
+        font-family:var(--font-display);font-weight:800;
+        font-size:var(--text-4xl);line-height:1.05;
+        margin-bottom:24px;color:var(--text);
+      ">
+        The <span class="gradient-text">Why</span><br/>
+        Behind the Work
+      </h1>
+      <p style="font-size:var(--text-xl);color:var(--text2);line-height:1.8;margin-bottom:16px;">
+        I studied philosophy before I studied technology. That order matters more than I can explain.
+      </p>
+      <p style="font-family:var(--font-bn);font-size:var(--text-lg);color:var(--muted2);line-height:1.9;">
+        আমি প্রযুক্তির আগে দর্শন পড়েছি। এই ক্রমটি গুরুত্বপূর্ণ — ব্যাখ্যার চেয়ে বেশি।
+      </p>
+    </div>
+  </section>
+
+  <!-- Opening essay -->
+  <section style="
+    padding: clamp(60px,10vw,100px) clamp(20px,5vw,80px);
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  " class="reveal">
+    <div style="max-width:720px;margin:0 auto;">
+      <p style="font-size:var(--text-lg);color:var(--text2);line-height:1.9;margin-bottom:20px;">
+        When I sat in philosophy seminars, we would spend three hours dissecting a single sentence from Kant. That kind of
+        attention — the willingness to slow down and interrogate assumptions — is what I bring to every design project.
+      </p>
+      <p style="font-size:var(--text-base);color:var(--text2);line-height:1.9;margin-bottom:20px;">
+        Most designers ask: "What should this look like?" I first ask: "What is this for? Who does it serve? What does it
+        assume about the world? What does it make possible or impossible?"
+      </p>
+      <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted2);line-height:2;">
+        বেশিরভাগ ডিজাইনার জিজ্ঞেস করেন: "এটি কেমন দেখতে হবে?" আমি প্রথমে জিজ্ঞেস করি: "এটি কীসের জন্য?
+        এটি কার সেবা করে? এটি বিশ্ব সম্পর্কে কী অনুমান করে?"
+      </p>
+    </div>
+  </section>
+
+  <!-- Four Pillars -->
+  <section style="padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);" class="reveal">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-label">Core Pillars</p>
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:clamp(40px,6vw,64px);color:var(--text);">
+        Four Ideas That Guide<br/>
+        <span class="gradient-text">Everything I Build</span>
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px;">
+        {pillars.map((p, i) => (
+          <div class="card reveal" style={`padding:36px;animation-delay:${i*0.1}s`}>
+            <div style="
+              font-size:28px;color:var(--accent);
+              font-family:var(--font-display);font-weight:700;
+              margin-bottom:20px;
+            ">{p.icon}</div>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:6px;">{p.title}</h3>
+            <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted);margin-bottom:16px;">{p.titleBn}</p>
+            <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.8;margin-bottom:12px;">{p.text}</p>
+            <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted2);line-height:1.8;font-style:italic;">{p.textBn}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quotes -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  " class="reveal">
+    <div style="max-width:900px;margin:0 auto;">
+      <p class="section-label" style="justify-content:center;text-align:center;">My Maxims</p>
+      <div style="display:flex;flex-direction:column;gap:48px;margin-top:40px;">
+        {quotes.map((q, i) => (
+          <div style={`text-align:${i % 2 === 1 ? 'right' : 'left'};`} class="reveal">
+            <blockquote style="
+              font-family:var(--font-serif);font-style:italic;
+              font-size:var(--text-2xl);color:var(--text);
+              line-height:1.5;margin-bottom:12px;
+            ">
+              "{q.text}"
+            </blockquote>
+            <cite style="font-size:var(--text-sm);color:var(--accent);font-family:var(--font-mono);font-style:normal;">
+              — {q.author}
+            </cite>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Intellectual Influences -->
+  <section style="padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);" class="reveal">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-label">Intellectual DNA</p>
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:clamp(40px,6vw,64px);color:var(--text);">
+        Who Shaped<br/>
+        <span class="gradient-text">My Thinking</span>
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;">
+        {influences.map(inf => (
+          <div class="card" style="padding:28px;">
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:var(--text);margin-bottom:4px;">{inf.name}</h3>
+            <p style="font-size:var(--text-xs);color:var(--accent);font-family:var(--font-mono);margin-bottom:12px;">{inf.field}</p>
+            <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.7;">{inf.note}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    text-align:center;
+  " class="reveal">
+    <div style="max-width:700px;margin:0 auto;">
+      <h2 style="font-family:var(--font-serif);font-style:italic;font-size:var(--text-3xl);color:var(--text);margin-bottom:20px;line-height:1.4;">
+        "Build things that matter to <span class="gradient-text">someone</span>, not things that matter to no one."
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--muted2);margin-bottom:32px;">
+        If this resonates, let's work together.
+      </p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="/contact" class="btn btn-primary">Start a Conversation →</a>
+        <a href="/about" class="btn btn-outline">Read My Story</a>
+      </div>
+    </div>
+  </section>
+</Layout>

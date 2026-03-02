@@ -1,0 +1,112 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.tsx';
+
+const contactInfo = [
+  { icon: '✉', label: 'Email', value: 'hello@sazid.dev', href: 'mailto:hello@sazid.dev' },
+  { icon: '🔗', label: 'LinkedIn', value: 'linkedin.com/in/sazid', href: 'https://linkedin.com' },
+  { icon: '💻', label: 'GitHub', value: 'github.com/sazid', href: 'https://github.com' },
+  { icon: '📍', label: 'Location', value: 'Dhaka, Bangladesh (GMT+6)', href: null },
+];
+---
+
+<Layout title="Contact • Sazid Hossain — Let's Build Together" page="/contact">
+  <!-- Hero -->
+  <section style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+  ">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-label">Contact</p>
+      <h1 style="
+        font-family:var(--font-display);font-weight:800;
+        font-size:var(--text-4xl);line-height:1.05;
+        margin-bottom:20px;color:var(--text);
+      ">
+        Let's Build<br/>
+        <span class="gradient-text">Something Remarkable</span>
+      </h1>
+      <p style="font-size:var(--text-lg);color:var(--text2);max-width:520px;line-height:1.8;margin-bottom:8px;">
+        Have a project in mind? A question? Or just want to say hi?
+        I'm always happy to connect.
+      </p>
+      <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted);margin-bottom:0;">
+        যোগাযোগ করুন — একসাথে কিছু অসাধারণ তৈরি করি।
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Layout -->
+  <section style="
+    padding: clamp(60px,10vw,100px) clamp(20px,5vw,80px) clamp(80px,12vw,140px);
+  ">
+    <div style="
+      max-width:1200px;margin:0 auto;
+      display:grid;grid-template-columns:2fr 3fr;gap:clamp(40px,8vw,80px);
+      align-items:start;
+    " class="contact-grid">
+      <!-- Left: Info -->
+      <div>
+        <div class="card" style="padding:36px;margin-bottom:24px;">
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:8px;">
+            Get In Touch
+          </h2>
+          <p style="font-size:var(--text-sm);color:var(--muted2);margin-bottom:28px;line-height:1.7;">
+            I respond to all messages within 24 hours. For urgent projects, email directly.
+          </p>
+
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            {contactInfo.map(info => (
+              <div style="display:flex;gap:14px;align-items:flex-start;">
+                <div style="
+                  width:36px;height:36px;border-radius:8px;
+                  background:var(--accent-dim);border:1px solid rgba(180,255,87,0.15);
+                  display:flex;align-items:center;justify-content:center;
+                  font-size:14px;flex-shrink:0;
+                ">{info.icon}</div>
+                <div>
+                  <p style="font-size:var(--text-xs);color:var(--muted);font-family:var(--font-mono);letter-spacing:0.1em;margin-bottom:2px;">{info.label}</p>
+                  {info.href ? (
+                    <a href={info.href} target={info.href.startsWith('http') ? '_blank' : undefined} rel="noopener" style="font-size:var(--text-sm);color:var(--accent);text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">{info.value}</a>
+                  ) : (
+                    <p style="font-size:var(--text-sm);color:var(--text2);">{info.value}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Availability -->
+        <div class="card" style="padding:28px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;animation:dotPulse 2s infinite;"></div>
+            <span style="font-family:var(--font-display);font-weight:600;font-size:var(--text-sm);color:var(--text);">
+              Available for New Projects
+            </span>
+          </div>
+          <p style="font-size:var(--text-sm);color:var(--muted2);line-height:1.6;">
+            Currently accepting freelance projects and collaboration inquiries for Q2 2025.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="card" style="padding:40px;">
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-2xl);color:var(--text);margin-bottom:8px;">
+          Send a Message
+        </h2>
+        <p style="font-size:var(--text-sm);color:var(--muted2);margin-bottom:32px;">
+          Tell me about your project and I'll get back to you within 24 hours.
+        </p>
+        <ContactForm client:load />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
