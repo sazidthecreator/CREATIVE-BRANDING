@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Admin Dashboard • NEXUS v9.0 — SAZID.SYS</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="adm-header">
+    <div class="adm-logo">
+      <div class="adm-dot"></div>
+      SAZID.SYS
+      <span class="adm-badge">ADMIN v9</span>
+    </div>
+    <div class="adm-header-right">
+      <button class="btn-sm" onclick="toggleTheme()" id="themeBtn">🌙 Theme</button>
+      <button class="btn-sm" onclick="window.open('index.html','_blank')">↗ View Site</button>
+      <button class="btn-sm btn-primary" onclick="openAddModal()">+ Add Project</button>
+    </div>
+  </header>
+
+  <div class="adm-wrap">
+    <!-- SIDEBAR -->
+    <aside class="adm-sidebar">
+      <div class="sb-section">
+        <div class="sb-label">Navigation</div>
+        <button class="nav-item active" onclick="switchTab('projects')" id="nav-projects">
+          <span class="nav-icon">📁</span>Projects
+        </button>
+        <button class="nav-item" onclick="switchTab('sync')" id="nav-sync">
+          <span class="nav-icon">🔄</span>GitHub Sync
+        </button>
+        <button class="nav-item" onclick="switchTab('settings')" id="nav-settings">
+          <span class="nav-icon">⚙️</span>Settings
+        </button>
+        <button class="nav-item" onclick="switchTab('analytics')" id="nav-analytics">
+          <span class="nav-icon">📊</span>Analytics
+        </button>
+      </div>
+      <div class="sb-section">
+        <div class="sb-label">Quick Stats</div>
+        <div class="stat-mini"><span>Total Projects</span><span class="stat-mini-val" id="sidebarTotal">—</span></div>
+        <div class="stat-mini"><span>Featured</span><span class="stat-mini-val" id="sidebarFeatured">—</span></div>
+        <div class="stat-mini"><span>Categories</span><span class="stat-mini-val" id="sidebarCats">—</span></div>
+        <div class="stat-mini"><span>Tags Used</span><span class="stat-mini-val" id="sidebarTags">—</span></div>
+      </div>
+      <div class="sb-section">
+        <div class="sb-label">Quick Links</div>
+        <button class="nav-item" onclick="window.open('index.html','_blank')"><span class="nav-icon">🏠</span>Homepage</button>
+        <button class="nav-item" onclick="window.open('index.html#work','_blank')"><span class="nav-icon">🌐</span>Portfolio</button>
+        <button class="nav-item" onclick="window.open('contact.html','_blank')"><span class="nav-icon">✉️</span>Contact</button>
+      </div>
+      <div class="sb-spacer"></div>
+      <div class="sb-footer">
+        <div class="sb-footer-info">NEXUS v9.0<br>Last updated: <span id="lastUpdate">—</span></div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="adm-main">
+
+      <!-- ── PROJECTS TAB ──────────────────────────── -->
+      <div class="tab-panel active" id="tab-projects">
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchTab('projects')">Projects</button>
+          <button class="tab-btn" onclick="switchTab('sync')">Sync</button>
+          <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
+          <button class="tab-btn" onclick="switchTab('analytics')">Analytics</button>
+        </div>
+
+        <div class="page-title">Project Manager</div>
+        <div class="page-sub">Add, edit, reorder, feature, and publish portfolio projects.</div>
+
+        <div class="stats-row" id="statsRow"></div>
+
+        <!-- SEARCH + FILTER -->
+        <div class="search-bar">
+          <input class="search-input" id="searchInput" placeholder="Search projects..." oninput="filterProjects()"/>
+          <div class="filter-pills" id="filterPills">
+            <button class="filter-pill active" onclick="setFilter('all',this)">All</button>
+          </div>
+          <button class="btn-sm" onclick="openAddModal()">+ New</button>
+          <button class="btn-sm" onclick="resetToDefaults()">↺ Reset</button>
+        </div>
+
+        <div class="section-header">
+          <span class="section-title" id="projectCountLabel">All Projects</span>
+          <div style="display:flex;gap:6px">
+            <button class="btn-sm" onclick="exportJSON()">⬇ Export</button>
+            <label class="btn-sm" style="cursor:pointer">⬆ Import <input type="file" accept=".json" style="display:none" onchange="importJSON(this)"></label>
+          </div>
+        </div>
+
+        <div class="projects-table">
+          <div class="table-head">
+            <span></span>
+            <span>Project</span>
+            <span>Category</span>
+            <span>Year</span>
+            <span>Status</span>
+            <span>Impact</span>
+            <span>Actions</span>
+          </div>
+          <div id="projectsTableBody"></div>
+        </div>
+      </div>
+
+      <!-- ── SYNC TAB ──────────────────────────────── -->
+      <div class="tab-panel" id="tab-sync">
+        <div class="tab-bar">
+          <button class="tab-btn" onclick="switchTab('projects')">Projects</button>
+          <button class="tab-btn active" onclick="switchTab('sync')">Sync</button>
+          <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
+          <button class="tab-btn" onclick="switchTab('analytics')">Analytics</button>
+        </div>
+        <div class="page-title">GitHub Sync</div>
+        <div class="page-sub">Automate project data sync with GitHub Actions and Netlify/Vercel.</div>
+
+        <div class="sync-card">
+          <div class="sync-header">
+            <span class="sync-icon">📋</span>
+            <div><div class="sync-title">Import / Export Projects</div><div class="sync-sub">Download JSON, upload JSON, or copy to clipboard</div></div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-sm btn-primary" onclick="exportJSON()">⬇ Export projects.json</button>
+            <label class="btn-sm" style="cursor:pointer">⬆ Import JSON <input type="file" accept=".json" style="display:none" onchange="importJSON(this)"></label>
+            <button class="btn-sm" onclick="copyJSON()">📋 Copy JSON</button>
+            <button class="btn-sm" onclick="previewJSON()">👁 Preview JSON</button>
+          </div>
+          <div id="jsonPreview" style="display:none;margin-top:12px">
+            <div class="code-block" id="jsonPreviewCode" style="max-height:240px;overflow-y:auto;white-space:pre-wrap;word-break:break-all"></div>
+          </div>
+        </div>
+
+        <div class="sync-card">
+          <div class="sync-header">
+            <span class="sync-icon">⚙️</span>
+            <div><div class="sync-title">GitHub Actions Workflow</div><div class="sync-sub">Auto-sync on push to repository</div></div>
+          </div>
+          <div class="code-block"><span class="c"># .github/workflows/sync-projects.yml</span>
+<span class="k">name:</span> <span class="v">Sync Portfolio Projects</span>
+<span class="k">on:</span>
+  <span class="k">push:</span>
+    <span class="k">paths:</span> [<span class="v">'data/projects.json'</span>]
+<span class="k">jobs:</span>
+  <span class="k">deploy:</span>
+    <span class="k">runs-on:</span> <span class="v">ubuntu-latest</span>
+    <span class="k">steps:</span>
+      - <span class="k">uses:</span> <span class="v">actions/checkout@v3</span>
+      - <span class="k">name:</span> <span class="v">Deploy to Netlify</span>
+        <span class="k">run:</span> <span class="v">npx netlify-cli deploy --prod</span>
+        <span class="k">env:</span>
+          <span class="v">NETLIFY_AUTH_TOKEN:</span> <span class="k">${{ secrets.NETLIFY_AUTH_TOKEN }}</span></div>
+        </div>
+
+        <div class="sync-card">
+          <div class="sync-header">
+            <span class="sync-icon">🌐</span>
+            <div><div class="sync-title">Netlify / Vercel Setup</div><div class="sync-sub">Cache headers for project data</div></div>
+          </div>
+          <div class="code-block"><span class="c"># netlify.toml</span>
+<span class="k">[[headers]]</span>
+  <span class="k">for =</span> <span class="v">"/data/*.json"</span>
+  <span class="k">[headers.values]</span>
+    <span class="v">Cache-Control =</span> <span class="k">"no-cache, must-revalidate"</span>
+    <span class="v">Access-Control-Allow-Origin =</span> <span class="k">"*"</span></div>
+        </div>
+      </div>
+
+      <!-- ── ANALYTICS TAB ─────────────────────────── -->
+      <div class="tab-panel" id="tab-analytics">
+        <div class="tab-bar">
+          <button class="tab-btn" onclick="switchTab('projects')">Projects</button>
+          <button class="tab-btn" onclick="switchTab('sync')">Sync</button>
+          <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
+          <button class="tab-btn active" onclick="switchTab('analytics')">Analytics</button>
+        </div>
+        <div class="page-title">Analytics</div>
+        <div class="page-sub">Portfolio statistics and content breakdown.</div>
+        <div id="analyticsContent"></div>
+      </div>
+
+      <!-- ── SETTINGS TAB ──────────────────────────── -->
+      <div class="tab-panel" id="tab-settings">
+        <div class="tab-bar">
+          <button class="tab-btn" onclick="switchTab('projects')">Projects</button>
+          <button class="tab-btn" onclick="switchTab('sync')">Sync</button>
+          <button class="tab-btn active" onclick="switchTab('settings')">Settings</button>
+          <button class="tab-btn" onclick="switchTab('analytics')">Analytics</button>
+        </div>
+        <div class="page-title">Settings</div>
+        <div class="page-sub">Configure site-wide preferences and profile information.</div>
+        <div class="settings-grid">
+          <div class="setting-card">
+            <div class="setting-title">🎨 Display</div>
+            <div class="form-group">
+              <label class="form-label">Default Site Theme</label>
+              <select class="form-input" id="settingTheme" onchange="saveSetting('theme',this.value)">
+                <option value="dark">Dark Mode</option>
+                <option value="light">Light Mode</option>
+                <option value="auto">Auto (System)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Default Language</label>
+              <select class="form-input" id="settingLang" onchange="saveSetting('lang',this.value)">
+                <option value="en">English</option>
+                <option value="bn">বাংলা</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-card">
+            <div class="setting-title">👤 Profile</div>
+            <div class="form-group">
+              <label class="form-label">Display Name</label>
+              <input class="form-input" id="settingName" value="Sazid Hossain" onchange="saveSetting('name',this.value)"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status Message</label>
+              <input class="form-input" id="settingStatus" value="Available for Projects" onchange="saveSetting('status',this.value)"/>
+            </div>
+          </div>
+          <div class="setting-card">
+            <div class="setting-title">📧 Contact Info</div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input class="form-input" id="settingEmail" value="hello@sazid.dev" onchange="saveSetting('email',this.value)"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input class="form-input" id="settingLocation" value="Dhaka, Bangladesh" onchange="saveSetting('location',this.value)"/>
+            </div>
+          </div>
+          <div class="setting-card">
+            <div class="setting-title">⚠️ Data Management</div>
+            <p style="font-size:10px;color:var(--muted2);margin-bottom:14px;line-height:1.7">Manage stored portfolio data. Reset will restore default projects.</p>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <button class="btn-sm" onclick="exportJSON()">⬇ Backup Data</button>
+              <button class="btn-sm btn-danger" onclick="confirmReset()">🗑 Reset All Projects</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ── ADD/EDIT MODAL ────────────────────────────────── -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Add New Project</div>
+        <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editId"/>
+        <div class="form-row">
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Title (English)</label>
+            <input class="form-input" id="fTitle" placeholder="Project Name"/>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label class="form-label">শিরোনাম (বাংলা)</label>
+            <input class="form-input" id="fTitleBn" placeholder="প্রজেক্টের নাম"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Subtitle (EN)</label>
+            <input class="form-input" id="fSubtitle" placeholder="Platform type..."/>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label class="form-label">উপশিরোনাম (BN)</label>
+            <input class="form-input" id="fSubtitleBn" placeholder="প্ল্যাটফর্মের ধরন..."/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Category</label>
+            <select class="form-input" id="fCategory">
+              <option value="AI Automation">AI Automation</option>
+              <option value="Web Design">Web Design</option>
+              <option value="Branding">Branding</option>
+              <option value="WordPress">WordPress</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Portfolio">Portfolio</option>
+              <option value="AI Tool">AI Tool</option>
+              <option value="E-Commerce">E-Commerce</option>
+              <option value="React">React / Next.js</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Category (বাংলা)</label>
+            <input class="form-input" id="fCategoryBn" placeholder="বিভাগ"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Emoji Icon</label>
+            <input class="form-input" id="fEmoji" placeholder="🚀" maxlength="8" oninput="updateEmojiPreview()"/>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Year</label>
+            <input class="form-input" id="fYear" type="number" placeholder="2025" min="2018" max="2030"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Featured? (Hero on Portfolio)</label>
+            <select class="form-input" id="fFeatured">
+              <option value="false">No</option>
+              <option value="true">Yes — Show as featured hero</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Status</label>
+            <select class="form-input" id="fStatus">
+              <option value="live">🟢 Live / Deployed</option>
+              <option value="draft">🟡 Draft</option>
+              <option value="archived">⚫ Archived</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description (English)</label>
+          <textarea class="form-input" id="fDesc" placeholder="Brief project description..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">বিবরণ (বাংলা)</label>
+          <textarea class="form-input" id="fDescBn" placeholder="সংক্ষিপ্ত বিবরণ..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tech Stack Tags (comma-separated)</label>
+          <input class="form-input" id="fTags" placeholder="React, TailwindCSS, Vercel, Node.js"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Live Project URL</label>
+            <input class="form-input" id="fLink" placeholder="https://..."/>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label class="form-label">GitHub Repository URL</label>
+            <input class="form-input" id="fGithub" placeholder="https://github.com/..."/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Banner Image Filename</label>
+          <input class="form-input" id="fImage" placeholder="project-banner.png (leave empty for emoji fallback)"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Impact Metric</label>
+            <input class="form-input" id="fImpact" placeholder="e.g. 5,000+ patients"/>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label class="form-label">Duration</label>
+            <input class="form-input" id="fDuration" placeholder="e.g. 12 weeks"/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-sm" onclick="closeModal()">Cancel</button>
+        <button class="btn-sm btn-primary" onclick="saveProject()">✓ Save Project</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONFIRM DIALOG ─────────────────────────────────── -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-box">
+      <div class="confirm-title" id="confirmTitle">Are you sure?</div>
+      <p class="confirm-sub" id="confirmSub">This action cannot be undone.</p>
+      <div class="confirm-actions">
+        <button class="btn-sm" onclick="closeConfirm()">Cancel</button>
+        <button class="btn-sm btn-danger" id="confirmBtn" onclick="executeConfirm()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
