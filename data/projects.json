@@ -18,7 +18,11 @@
     "githubLink": "",
     "image": "Health_care_banner.png",
     "impact": "5,000+ patients",
-    "duration": "12 weeks"
+    "duration": "12 weeks",
+    "media": [
+      { "type": "image", "src": "Health_care_banner.png", "title": "Platform Overview" },
+      { "type": "figma", "src": "https://www.figma.com/design/placeholder", "title": "Design System" }
+    ]
   },
   {
     "id": "shikkha-somaponi",
@@ -39,7 +43,11 @@
     "githubLink": "",
     "image": "Ju45_Behance_banner_.png",
     "impact": "2,000+ students",
-    "duration": "6 weeks"
+    "duration": "6 weeks",
+    "media": [
+      { "type": "image", "src": "Ju45_Behance_banner_.png", "title": "Brand Identity" },
+      { "type": "figma", "src": "https://www.figma.com/design/placeholder", "title": "Portal Design" }
+    ]
   },
   {
     "id": "vabuuk-portal",
@@ -60,7 +68,11 @@
     "githubLink": "",
     "image": "VABUUK_Behance_banner_.png",
     "impact": "300+ essays",
-    "duration": "4 weeks"
+    "duration": "4 weeks",
+    "media": [
+      { "type": "image", "src": "VABUUK_Behance_banner_.png", "title": "Platform Interface" },
+      { "type": "figma", "src": "https://www.figma.com/design/placeholder", "title": "UI/UX Design" }
+    ]
   },
   {
     "id": "mr-rezaul",
@@ -81,7 +93,11 @@
     "githubLink": "",
     "image": "Behance_banner_mrkarim_portfolio.png",
     "impact": "High-trust UX",
-    "duration": "3 weeks"
+    "duration": "3 weeks",
+    "media": [
+      { "type": "image", "src": "Behance_banner_mrkarim_portfolio.png", "title": "Portfolio Design" },
+      { "type": "figma", "src": "https://www.figma.com/design/placeholder", "title": "UI Components" }
+    ]
   },
   {
     "id": "dokan-os",
@@ -102,7 +118,11 @@
     "githubLink": "",
     "image": "unnamed-18.png",
     "impact": "Revenue 3x",
-    "duration": "8 weeks"
+    "duration": "8 weeks",
+    "media": [
+      { "type": "image", "src": "unnamed-18.png", "title": "Platform Overview" },
+      { "type": "figma", "src": "https://www.figma.com/design/placeholder", "title": "System Architecture" }
+    ]
   },
   {
     "id": "fashion-model",
@@ -123,6 +143,9 @@
     "githubLink": "",
     "image": "",
     "impact": "50+ profiles",
-    "duration": "4 weeks"
+    "duration": "4 weeks",
+    "media": [
+      { "type": "figma", "src": "https://www.figma.com/design/placeholder", "title": "Design System" }
+    ]
   }
 ]
