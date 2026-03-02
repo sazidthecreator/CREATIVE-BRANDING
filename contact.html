@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Contact — Sazid Hossain</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Get in touch with Sazid Hossain — creative branding, AI automation, and digital product design."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── TOKENS ───────────────────────────────────────── */
+    :root{
+      --bg:#06060a;--surface:#0d0d14;--surface2:#111118;--surface3:#161620;
+      --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+      --accent:#a8ff78;--accent2:#78ffd6;--accent3:#ffb878;
+      --accent-dim:rgba(168,255,120,0.1);--accent-glow:rgba(168,255,120,0.2);
+      --red:#ff6b6b;--red-dim:rgba(255,107,107,0.1);
+      --text:#eeeef5;--muted:#64647a;--muted2:#9898b0;
+      --ease:cubic-bezier(0.16,1,0.3,1);
+    }
+    [data-theme="light"]{
+      --bg:#f4f4f0;--surface:#ffffff;--surface2:#f0f0ec;--surface3:#eaeae6;
+      --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);
+      --accent:#3a8a00;--accent2:#00705e;--accent3:#c05000;
+      --accent-dim:rgba(58,138,0,0.09);--accent-glow:rgba(58,138,0,0.2);
+      --red:#cc3333;--red-dim:rgba(204,51,51,0.08);
+      --text:#0a0a14;--muted:#7a7a8a;--muted2:#505060;
+    }
+
+    /* ── RESET ────────────────────────────────────────── */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
+    body::after{
+      content:'';position:fixed;inset:0;
+      background-image:linear-gradient(rgba(168,255,120,0.012) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(168,255,120,0.012) 1px,transparent 1px);
+      background-size:48px 48px;pointer-events:none;z-index:0
+    }
+    [data-theme="light"] body::after{
+      background-image:linear-gradient(rgba(58,138,0,0.02) 1px,transparent 1px),
+                       linear-gradient(90deg,rgba(58,138,0,0.02) 1px,transparent 1px)
+    }
+    a{color:inherit;text-decoration:none}
+
+    /* ── HEADER ───────────────────────────────────────── */
+    @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 10px var(--accent)}50%{opacity:0.5;box-shadow:0 0 3px var(--accent)}}
+    .site-header{
+      position:sticky;top:0;z-index:200;
+      background:rgba(6,6,10,0.88);backdrop-filter:blur(24px);
+      border-bottom:1px solid var(--border2);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 clamp(16px,4vw,48px);height:60px;
+    }
+    [data-theme="light"] .site-header{background:rgba(244,244,240,0.88)}
+    .logo{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.15em}
+    .logo-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;flex-shrink:0}
+    .logo-badge{font-size:8px;letter-spacing:0.2em;text-transform:uppercase;background:var(--accent-dim);border:1px solid rgba(168,255,120,0.25);color:var(--accent);padding:3px 9px;border-radius:100px}
+    .site-nav{display:flex;align-items:center;gap:4px}
+    .nav-link{font-family:'Syne',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:7px 14px;border-radius:6px;border:1px solid transparent;color:var(--muted2);cursor:pointer;transition:all 0.2s;background:transparent}
+    .nav-link:hover{border-color:var(--border2);color:var(--text)}
+    .nav-link.cta{background:var(--accent);color:#06060a;border-color:var(--accent);font-weight:700}
+    .nav-link.cta:hover{background:var(--accent2);border-color:var(--accent2)}
+    .header-controls{display:flex;align-items:center;gap:6px}
+    .ctrl-btn{font-family:'Space Mono',monospace;font-size:10px;padding:6px 10px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--muted2);cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:5px}
+    .ctrl-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+    /* ── MAIN ─────────────────────────────────────────── */
+    main{position:relative;z-index:1;flex:1;padding:80px clamp(16px,5vw,80px)}
+    .contact-wrap{max-width:900px;margin:0 auto}
+
+    /* ── HERO ─────────────────────────────────────────── */
+    @keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .contact-hero{margin-bottom:64px;animation:slideUp 0.6s var(--ease) both}
+    .page-eyebrow{font-size:8px;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .page-eyebrow::before{content:'';width:24px;height:1px;background:var(--accent)}
+    .page-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,7vw,72px);letter-spacing:-0.03em;line-height:0.95;margin-bottom:16px}
+    .page-title span{color:var(--accent)}
+    .page-sub{font-size:11px;color:var(--muted);line-height:2;max-width:460px}
+
+    /* ── LAYOUT ───────────────────────────────────────── */
+    .contact-grid{display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:start}
+
+    /* ── FORM ─────────────────────────────────────────── */
+    .contact-form-card{background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:36px;position:relative;overflow:hidden}
+    .contact-form-card::before{content:'';position:absolute;top:-1px;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+    .form-title{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;margin-bottom:24px}
+    .form-group{margin-bottom:18px}
+    .form-label{font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px}
+    .form-input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:11px 14px;font-family:'Space Mono',monospace;font-size:11px;color:var(--text);outline:none;transition:border-color 0.2s}
+    .form-input:focus{border-color:var(--accent)}
+    .form-input::placeholder{color:var(--muted)}
+    textarea.form-input{resize:vertical;min-height:120px}
+    select.form-input{cursor:pointer}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .btn-submit{
+      width:100%;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;
+      letter-spacing:0.1em;text-transform:uppercase;
+      padding:14px 28px;border-radius:8px;border:none;
+      background:var(--accent);color:#06060a;cursor:pointer;transition:all 0.25s;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+    }
+    .btn-submit:hover{background:var(--accent2)}
+    .btn-submit:disabled{opacity:0.5;cursor:not-allowed}
+
+    /* Success / Error states */
+    .form-msg{
+      margin-top:16px;padding:12px 16px;border-radius:8px;font-size:11px;
+      display:none;align-items:center;gap:8px;
+    }
+    .form-msg.success{display:flex;background:var(--accent-dim);border:1px solid rgba(168,255,120,0.3);color:var(--accent)}
+    .form-msg.error{display:flex;background:var(--red-dim);border:1px solid rgba(255,107,107,0.3);color:var(--red)}
+
+    /* ── SIDEBAR ──────────────────────────────────────── */
+    .contact-sidebar{display:flex;flex-direction:column;gap:16px}
+    .info-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px}
+    .info-card-title{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.08em;margin-bottom:16px;display:flex;align-items:center;gap:8px;color:var(--muted2)}
+    .info-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+    .info-item:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+    .info-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+    .info-label{font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+    .info-val{font-size:11px;color:var(--text)}
+    .info-val a{color:var(--accent);transition:opacity 0.2s}
+    .info-val a:hover{opacity:0.7}
+
+    /* Social links */
+    .social-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .social-btn{
+      display:flex;align-items:center;gap:8px;padding:10px 12px;
+      border:1px solid var(--border);border-radius:8px;font-size:10px;color:var(--muted2);
+      background:transparent;transition:all 0.2s;cursor:pointer;
+    }
+    .social-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+    .social-icon{font-size:16px}
+
+    /* Availability badge */
+    .avail-badge{
+      display:flex;align-items:center;gap:10px;padding:14px 18px;
+      background:var(--accent-dim);border:1px solid rgba(168,255,120,0.25);
+      border-radius:10px;font-size:10px;color:var(--accent);
+    }
+    .avail-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;flex-shrink:0}
+
+    /* ── FOOTER ───────────────────────────────────────── */
+    footer{
+      position:relative;z-index:1;
+      border-top:1px solid var(--border);background:var(--surface);
+      padding:28px clamp(16px,5vw,80px);
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+    }
+    .footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:0.15em;display:flex;align-items:center;gap:8px}
+    .footer-copy{font-size:9px;color:var(--muted);letter-spacing:0.1em}
+    .footer-links{display:flex;gap:16px}
+    .footer-link{font-size:9px;color:var(--muted2);letter-spacing:0.1em;transition:color 0.2s}
+    .footer-link:hover{color:var(--accent)}
+
+    /* ── TOAST ────────────────────────────────────────── */
+    .toast{
+      position:fixed;bottom:24px;right:24px;z-index:9999;
+      background:var(--surface);border:1px solid rgba(168,255,120,0.3);
+      border-radius:10px;padding:13px 18px;font-size:12px;color:var(--accent);
+      transform:translateY(80px);opacity:0;pointer-events:none;
+      transition:all 0.35s var(--ease);display:flex;align-items:center;gap:8px;
+    }
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast.error{color:var(--red);border-color:rgba(255,107,107,0.3)}
+
+    /* ── RESPONSIVE ───────────────────────────────────── */
+    @media(max-width:860px){
+      .contact-grid{grid-template-columns:1fr}
+      .contact-sidebar{order:-1}
+    }
+    @media(max-width:600px){
+      .site-nav{display:none}
+      .form-row{grid-template-columns:1fr}
+      .social-grid{grid-template-columns:1fr}
+      main{padding:48px clamp(16px,4vw,32px)}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────────── -->
+<header class="site-header">
+  <a href="index.html" class="logo">
+    <div class="logo-dot"></div>
+    SAZID.SYS
+    <span class="logo-badge">NEXUS v9</span>
+  </a>
+  <nav class="site-nav">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="index.html#work">Work</a>
+    <a class="nav-link" href="index.html#about">About</a>
+  </nav>
+  <div class="header-controls">
+    <button class="ctrl-btn" id="langBtn" onclick="toggleLang()">EN / বাং</button>
+    <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+  </div>
+</header>
+
+<!-- ── MAIN ───────────────────────────────────────────── -->
+<main>
+  <div class="contact-wrap">
+
+    <!-- HERO -->
+    <div class="contact-hero">
+      <div class="page-eyebrow">
+        <span data-en="Contact" data-bn="যোগাযোগ">Contact</span>
+      </div>
+      <h1 class="page-title">
+        <span data-en="Let's" data-bn="চলুন">Let's</span><br/>
+        <span data-en="Work " data-bn="কাজ ">Work </span><span data-en="Together." data-bn="একসাথে।">Together.</span>
+      </h1>
+      <p class="page-sub">
+        <span data-en="Have a project in mind? I'm open to branding, web design, AI automation, and digital product collaborations." data-bn="মাথায় কোনো প্রজেক্ট আছে? ব্র্যান্ডিং, ওয়েব ডিজাইন, এআই অটোমেশন এবং ডিজিটাল পণ্য সহযোগিতার জন্য আমি উন্মুক্ত।">Have a project in mind? I'm open to branding, web design, AI automation, and digital product collaborations.</span>
+      </p>
+    </div>
+
+    <div class="contact-grid">
+
+      <!-- FORM -->
+      <div class="contact-form-card">
+        <div class="form-title" data-en="Send a Message" data-bn="বার্তা পাঠান">Send a Message</div>
+        <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fname" data-en="Your Name" data-bn="আপনার নাম">Your Name</label>
+              <input class="form-input" id="fname" type="text" placeholder="John Doe" required autocomplete="name"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="femail" data-en="Email Address" data-bn="ইমেইল ঠিকানা">Email Address</label>
+              <input class="form-input" id="femail" type="email" placeholder="you@example.com" required autocomplete="email"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fsubject" data-en="Subject / Project Type" data-bn="বিষয় / প্রজেক্টের ধরন">Subject / Project Type</label>
+            <select class="form-input" id="fsubject">
+              <option value="" data-en="Select a topic..." data-bn="বিষয় নির্বাচন করুন...">Select a topic...</option>
+              <option value="Branding" data-en="Branding &amp; Identity" data-bn="ব্র্যান্ডিং ও পরিচয়">Branding &amp; Identity</option>
+              <option value="Web Design" data-en="Web Design &amp; Development" data-bn="ওয়েব ডিজাইন ও ডেভেলপমেন্ট">Web Design &amp; Development</option>
+              <option value="AI Automation" data-en="AI Automation" data-bn="এআই অটোমেশন">AI Automation</option>
+              <option value="Portfolio" data-en="Portfolio / Personal Site" data-bn="পোর্টফোলিও / ব্যক্তিগত সাইট">Portfolio / Personal Site</option>
+              <option value="E-Commerce" data-en="E-Commerce" data-bn="ই-কমার্স">E-Commerce</option>
+              <option value="Other" data-en="Other / General Inquiry" data-bn="অন্যান্য / সাধারণ জিজ্ঞাসা">Other / General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fbudget" data-en="Estimated Budget (Optional)" data-bn="আনুমানিক বাজেট (ঐচ্ছিক)">Estimated Budget (Optional)</label>
+            <select class="form-input" id="fbudget">
+              <option value="" data-en="Prefer not to say" data-bn="বলতে চাই না">Prefer not to say</option>
+              <option value="Under $500" data-en="Under $500" data-bn="$৫০০ এর নিচে">Under $500</option>
+              <option value="$500 – $1,500" data-en="$500 – $1,500" data-bn="$৫০০ – $১,৫০০">$500 – $1,500</option>
+              <option value="$1,500 – $5,000" data-en="$1,500 – $5,000" data-bn="$১,৫০০ – $৫,০০০">$1,500 – $5,000</option>
+              <option value="$5,000+" data-en="$5,000+" data-bn="$৫,০০০+">$5,000+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fmsg" data-en="Message" data-bn="বার্তা">Message</label>
+            <textarea class="form-input" id="fmsg" placeholder="Tell me about your project, goals, and timeline..." required></textarea>
+          </div>
+          <button class="btn-submit" type="submit" id="submitBtn">
+            <span id="submitLabel" data-en="Send Message →" data-bn="বার্তা পাঠান →">Send Message →</span>
+          </button>
+          <div class="form-msg" id="formMsg"></div>
+        </form>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="contact-sidebar">
+
+        <!-- Availability -->
+        <div class="avail-badge">
+          <div class="avail-dot"></div>
+          <span data-en="Currently available for new projects" data-bn="বর্তমানে নতুন প্রজেক্টের জন্য উপলব্ধ">Currently available for new projects</span>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="info-card">
+          <div class="info-card-title">📬 <span data-en="Direct Contact" data-bn="সরাসরি যোগাযোগ">Direct Contact</span></div>
+          <div class="info-item">
+            <div class="info-icon">✉️</div>
+            <div>
+              <div class="info-label" data-en="Email" data-bn="ইমেইল">Email</div>
+              <div class="info-val"><a id="contactEmail" href="mailto:hello@sazid.dev">hello@sazid.dev</a></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div>
+              <div class="info-label" data-en="Location" data-bn="অবস্থান">Location</div>
+              <div class="info-val" id="contactLocation">Dhaka, Bangladesh</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">⏰</div>
+            <div>
+              <div class="info-label" data-en="Response Time" data-bn="সাড়া দেওয়ার সময়">Response Time</div>
+              <div class="info-val"><span data-en="Usually within 24 hours" data-bn="সাধারণত ২৪ ঘণ্টার মধ্যে">Usually within 24 hours</span></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">🌐</div>
+            <div>
+              <div class="info-label" data-en="Working Hours" data-bn="কাজের সময়">Working Hours</div>
+              <div class="info-val"><span data-en="Sun – Thu, 10am – 8pm (BST)" data-bn="রবি – বৃহস্পতি, সকাল ১০টা – রাত ৮টা (BST)">Sun – Thu, 10am – 8pm (BST)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="info-card">
+          <div class="info-card-title">🔗 <span data-en="Find Me Online" data-bn="অনলাইনে খুঁজুন">Find Me Online</span></div>
+          <div class="social-grid">
+            <a class="social-btn" href="https://behance.net" target="_blank" rel="noopener">
+              <span class="social-icon">🎨</span>Behance
+            </a>
+            <a class="social-btn" href="https://linkedin.com" target="_blank" rel="noopener">
+              <span class="social-icon">💼</span>LinkedIn
+            </a>
+            <a class="social-btn" href="https://github.com/sazidthecreator" target="_blank" rel="noopener">
+              <span class="social-icon">💻</span>GitHub
+            </a>
+            <a class="social-btn" href="https://dribbble.com" target="_blank" rel="noopener">
+              <span class="social-icon">🏀</span>Dribbble
+            </a>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="info-card">
+          <div class="info-card-title">💬 <span data-en="Quick FAQ" data-bn="সংক্ষিপ্ত FAQ">Quick FAQ</span></div>
+          <div class="info-item">
+            <div>
+              <div class="info-label" data-en="Do you work remotely?" data-bn="আপনি কি রিমোটলি কাজ করেন?">Do you work remotely?</div>
+              <div class="info-val"><span data-en="Yes — globally, all time zones." data-bn="হ্যাঁ — বিশ্বব্যাপী, সব টাইমজোনে।">Yes — globally, all time zones.</span></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div>
+              <div class="info-label" data-en="What's your typical timeline?" data-bn="আপনার সাধারণ সময়কাল কত?">What's your typical timeline?</div>
+              <div class="info-val"><span data-en="2–12 weeks depending on scope." data-bn="স্কোপ অনুযায়ী ২–১২ সপ্তাহ।">2–12 weeks depending on scope.</span></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div>
+              <div class="info-label" data-en="Do you do revisions?" data-bn="আপনি কি রিভিশন করেন?">Do you do revisions?</div>
+              <div class="info-val"><span data-en="Yes — 2–3 rounds included." data-bn="হ্যাঁ — ২–৩ রাউন্ড অন্তর্ভুক্ত।">Yes — 2–3 rounds included.</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
+<footer>
+  <div class="footer-logo">
+    <div class="logo-dot"></div>
+    SAZID.SYS
+  </div>
+  <div class="footer-copy">
+    <span data-en="© 2025 Sazid Hossain. All rights reserved." data-bn="© ২০২৫ সাজিদ হোসেন। সর্বস্বত্ব সংরক্ষিত।">© 2025 Sazid Hossain. All rights reserved.</span>
+  </div>
+  <div class="footer-links">
+    <a class="footer-link" href="index.html"><span data-en="Home" data-bn="হোম">Home</span></a>
+    <a class="footer-link" href="index.html#work"><span data-en="Work" data-bn="কাজ">Work</span></a>
+    <a class="footer-link" href="index.html#about"><span data-en="About" data-bn="পরিচয়">About</span></a>
+    <a class="footer-link" href="admin (1).html"><span data-en="Admin" data-bn="অ্যাডমিন">Admin</span></a>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ──────────────────────────────────────────────────────
+// THEME
+// ──────────────────────────────────────────────────────
+function initTheme() {
+  const saved = localStorage.getItem('nexus_admin_theme') ||
+                localStorage.getItem('nexus_setting_theme') || 'dark';
+  const theme = saved === 'auto'
+    ? (window.matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark')
+    : saved;
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('themeBtn').textContent = theme === 'dark' ? '🌙' : '☀️';
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('nexus_admin_theme', next);
+  document.getElementById('themeBtn').textContent = next === 'dark' ? '🌙' : '☀️';
+}
+
+// ──────────────────────────────────────────────────────
+// LANGUAGE
+// ──────────────────────────────────────────────────────
+let currentLang = 'en';
+function initLang() {
+  currentLang = localStorage.getItem('nexus_setting_lang') || 'en';
+  document.documentElement.setAttribute('data-lang', currentLang);
+  document.getElementById('langBtn').textContent = currentLang === 'en' ? 'বাং' : 'EN';
+  applyLang();
+}
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'bn' : 'en';
+  localStorage.setItem('nexus_setting_lang', currentLang);
+  document.documentElement.setAttribute('data-lang', currentLang);
+  document.getElementById('langBtn').textContent = currentLang === 'en' ? 'বাং' : 'EN';
+  applyLang();
+}
+function applyLang() {
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const val = el.getAttribute(currentLang === 'en' ? 'data-en' : 'data-bn') || el.getAttribute('data-en');
+    // For inputs and form elements, set placeholder or value; for others set textContent
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      el.placeholder = val;
+    } else if (el.tagName === 'OPTION') {
+      el.textContent = val;
+    } else {
+      el.textContent = val;
+    }
+  });
+  // Update submit button
+  const submitLabel = document.getElementById('submitLabel');
+  if (submitLabel) {
+    submitLabel.textContent = currentLang === 'en' ? 'Send Message →' : 'বার্তা পাঠান →';
+  }
+  // Update form title
+  const formTitle = document.querySelector('.form-title');
+  if (formTitle) {
+    formTitle.textContent = currentLang === 'en' ? 'Send a Message' : 'বার্তা পাঠান';
+  }
+}
+
+// ──────────────────────────────────────────────────────
+// SETTINGS
+// ──────────────────────────────────────────────────────
+function applySettings() {
+  const email = localStorage.getItem('nexus_setting_email');
+  if (email) {
+    const el = document.getElementById('contactEmail');
+    if (el) { el.href = 'mailto:' + email; el.textContent = email; }
+  }
+  const loc = localStorage.getItem('nexus_setting_location');
+  if (loc) {
+    const el = document.getElementById('contactLocation');
+    if (el) el.textContent = loc;
+  }
+  const status = localStorage.getItem('nexus_setting_status');
+  if (status) {
+    const avail = document.querySelector('.avail-badge span');
+    if (avail && currentLang === 'en') avail.textContent = status;
+  }
+}
+
+// ──────────────────────────────────────────────────────
+// CONTACT FORM
+// ──────────────────────────────────────────────────────
+function handleSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('fname').value.trim();
+  const email = document.getElementById('femail').value.trim();
+  const subject = document.getElementById('fsubject').value;
+  const msg = document.getElementById('fmsg').value.trim();
+  const msgEl = document.getElementById('formMsg');
+  const btn = document.getElementById('submitBtn');
+  const isBn = currentLang === 'bn';
+
+  // Validation
+  if (!name) {
+    showMsg('error', isBn ? '⚠️ আপনার নাম দিন' : '⚠️ Please enter your name');
+    document.getElementById('fname').focus();
+    return;
+  }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showMsg('error', isBn ? '⚠️ বৈধ ইমেইল ঠিকানা দিন' : '⚠️ Please enter a valid email address');
+    document.getElementById('femail').focus();
+    return;
+  }
+  if (!msg) {
+    showMsg('error', isBn ? '⚠️ একটি বার্তা লিখুন' : '⚠️ Please write a message');
+    document.getElementById('fmsg').focus();
+    return;
+  }
+
+  // Simulate send (no backend — mailto fallback)
+  btn.disabled = true;
+  document.getElementById('submitLabel').textContent = isBn ? 'পাঠানো হচ্ছে...' : 'Sending...';
+
+  setTimeout(() => {
+    // Build mailto link as fallback
+    const contactEmail = document.getElementById('contactEmail').href.replace('mailto:', '');
+    const body = `Name: ${name}\nEmail: ${email}\nSubject: ${subject || 'General Inquiry'}\nBudget: ${document.getElementById('fbudget').value || 'Not specified'}\n\nMessage:\n${msg}`;
+    const mailtoUrl = `mailto:${contactEmail}?subject=${encodeURIComponent((subject || 'Portfolio Inquiry') + ' — from ' + name)}&body=${encodeURIComponent(body)}`;
+
+    // Store in localStorage for admin visibility
+    const inquiries = JSON.parse(localStorage.getItem('nexus_inquiries') || '[]');
+    inquiries.unshift({
+      name, email, subject: subject || 'General', message: msg,
+      budget: document.getElementById('fbudget').value || '',
+      date: new Date().toISOString(), read: false,
+    });
+    localStorage.setItem('nexus_inquiries', JSON.stringify(inquiries.slice(0, 50)));
+
+    // Open mailto
+    window.location.href = mailtoUrl;
+
+    showMsg('success', isBn ? '✅ ধন্যবাদ! আপনার মেইল অ্যাপ খুলছে...' : '✅ Thank you! Opening your mail app to send...');
+    document.getElementById('contactForm').reset();
+    btn.disabled = false;
+    document.getElementById('submitLabel').textContent = isBn ? 'বার্তা পাঠান →' : 'Send Message →';
+  }, 800);
+}
+
+function showMsg(type, text) {
+  const el = document.getElementById('formMsg');
+  el.className = 'form-msg ' + type;
+  el.textContent = text;
+  setTimeout(() => el.className = 'form-msg', 5000);
+}
+
+// ──────────────────────────────────────────────────────
+// TOAST
+// ──────────────────────────────────────────────────────
+let toastTimer = null;
+function showToast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (type === 'error' ? ' error' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+// ──────────────────────────────────────────────────────
+// CROSS-TAB SYNC
+// ──────────────────────────────────────────────────────
+window.addEventListener('storage', e => {
+  if (e.key === 'nexus_admin_theme' || e.key === 'nexus_setting_theme') initTheme();
+  if (e.key === 'nexus_setting_lang') initLang();
+});
+
+// ──────────────────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────────────────
+initTheme();
+initLang();
+applySettings();
+</script>
+</body>
+</html>
