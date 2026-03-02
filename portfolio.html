@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Portfolio • SAZID HOSSAIN — Creative Technologist</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--font-display:'Space Grotesk',sans-serif;--font-body:'Manrope',sans-serif;--font-serif:'Fraunces',serif;--font-mono:'JetBrains Mono',monospace;--bg:#05050e;--bg2:#080814;--surface:#0c0c18;--surface2:#10101e;--border:rgba(255,255,255,0.065);--border2:rgba(255,255,255,0.12);--accent:#a8ff78;--accent2:#78ffd6;--accent-dim:rgba(168,255,120,0.1);--accent-glow:rgba(168,255,120,0.22);--text:#eeeef5;--text2:#c4c4d4;--muted:#5c5c72;--muted2:#8888a0;--nav-bg:rgba(5,5,14,0.88);--font-bn:'Noto Serif Bengali',serif;--transition-theme:background 0.4s ease, color 0.4s ease}
+    [data-theme="light"]{--bg:#f6f6f0;--bg2:#efefea;--surface:#ffffff;--surface2:#f0f0ea;--border:rgba(0,0,0,0.07);--border2:rgba(0,0,0,0.13);--accent:#3a8a00;--accent2:#00705e;--accent-dim:rgba(58,138,0,0.08);--accent-glow:rgba(58,138,0,0.2);--text:#0a0a14;--text2:#2a2a3a;--muted:#8888a0;--muted2:#606070;--nav-bg:rgba(246,246,240,0.9)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;cursor:none;transition:var(--transition-theme)}
+    #scrollBar{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:9999;width:0%;box-shadow:0 0 8px var(--accent)}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:999}
+    body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(168,255,120,0.014) 1px,transparent 1px),linear-gradient(90deg,rgba(168,255,120,0.014) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+    [data-theme="light"] body::after{background-image:linear-gradient(rgba(58,138,0,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(58,138,0,0.025) 1px,transparent 1px)}
+    .cursor{position:fixed;width:9px;height:9px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s;mix-blend-mode:exclusion}
+    .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(168,255,120,0.3);border-radius:50%;pointer-events:none;z-index:9998}
+    [data-theme="light"] .cursor{mix-blend-mode:normal}
+    @keyframes dotPulse{0%,100%{opacity:1;box-shadow:0 0 12px var(--accent)}50%{opacity:0.55;box-shadow:0 0 4px var(--accent)}}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:900;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid var(--border);background:var(--nav-bg);backdrop-filter:blur(28px);transition:var(--transition-theme)}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .nav-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:dotPulse 2.5s infinite}
+    .nav-brand{font-family:var(--font-display);font-weight:800;font-size:12px;letter-spacing:0.2em;color:var(--text)}
+    .nav-links{display:flex;gap:6px;list-style:none;align-items:center}
+    .nav-links a{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted2);text-decoration:none;transition:all 0.2s;padding:6px 10px;border-radius:6px}
+    .nav-links a:hover,.nav-links a.active{color:var(--text);background:var(--accent-dim)}
+    .nav-cta{font-family:var(--font-display)!important;font-weight:700!important;background:var(--accent)!important;color:#05050e!important;padding:7px 18px!important;border-radius:6px!important;transition:all 0.2s!important}
+    .nav-cta:hover{transform:translateY(-1px)!important;box-shadow:0 6px 20px var(--accent-glow)!important}
+    .nav-controls{display:flex;align-items:center;gap:8px}
+    .ctrl-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--muted2);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+    .ctrl-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .lang-toggle{font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:0.1em;padding:0 12px;width:auto}
+
+    .page{position:relative;z-index:1;padding-top:62px}
+
+    /* PAGE HEADER */
+    .page-header{padding:80px 80px 60px;border-bottom:1px solid var(--border)}
+    .label{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+    .label::before{content:'';width:22px;height:1px;background:var(--accent)}
+    .ptitle{font-family:var(--font-display);font-weight:800;font-size:clamp(40px,6.5vw,88px);line-height:0.92;letter-spacing:-0.028em}
+    .psub{font-family:var(--font-serif);font-style:italic;font-size:clamp(16px,2vw,23px);color:var(--muted2);margin-top:16px}
+
+    /* SIGNAL STRIP */
+    .source-strip{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .source-link{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border2);color:var(--muted2);text-decoration:none;padding:10px 16px;border-radius:100px;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;transition:all 0.2s}
+    .source-link:hover{border-color:var(--accent);color:var(--text);transform:translateY(-1px)}
+    .source-link strong{color:var(--accent);font-weight:700}
+
+    /* SECTION HEAD */
+    .section-head{display:flex;flex-direction:column;gap:10px;margin-bottom:26px}
+    .section-title{font-family:var(--font-display);font-weight:800;font-size:clamp(28px,4vw,54px);letter-spacing:-0.02em}
+    .section-sub{font-size:12px;line-height:1.9;color:var(--muted2);max-width:640px}
+
+    /* SYSTEM OVERVIEW */
+    .system-overview{padding:40px 80px;border-bottom:1px solid var(--border)}
+    .metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+    .metric-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;position:relative;overflow:hidden}
+    .metric-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(168,255,120,0.15),transparent 60%);opacity:0.6;pointer-events:none}
+    [data-theme="light"] .metric-card::after{background:radial-gradient(circle at top right,rgba(58,138,0,0.1),transparent 60%)}
+    .metric-label{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+    .metric-value{font-family:var(--font-display);font-weight:800;font-size:24px;color:var(--accent)}
+    .metric-note{font-size:11px;line-height:1.8;color:var(--muted2);margin-top:8px}
+    .module-grid{display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
+    .module-card{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px}
+    .module-name{font-family:var(--font-display);font-weight:700;font-size:15px}
+    .module-role{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent)}
+    .module-desc{font-size:11px;line-height:1.8;color:var(--muted2)}
+    .module-tags{display:flex;flex-wrap:wrap;gap:6px}
+
+    /* CASE STUDIES */
+    .case-studies{padding:56px 80px;border-bottom:1px solid var(--border)}
+    .study-grid{display:grid;gap:20px}
+    .study-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px;display:grid;gap:18px}
+    .study-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .study-title{font-family:var(--font-display);font-weight:700;font-size:20px}
+    .study-meta{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)}
+    .study-desc{font-size:12px;line-height:1.9;color:var(--text2)}
+    .study-pills{display:flex;flex-wrap:wrap;gap:8px}
+    .study-pill{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(168,255,120,0.2);padding:6px 10px;border-radius:999px;background:var(--accent-dim)}
+    [data-theme="light"] .study-pill{border-color:rgba(58,138,0,0.25)}
+    .study-actions{display:flex;flex-wrap:wrap;gap:10px}
+    .study-actions a{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;color:var(--muted2);border:1px solid var(--border2);padding:8px 14px;border-radius:999px;transition:all 0.2s}
+    .study-actions a:hover{border-color:var(--accent);color:var(--text)}
+
+    /* FILTER BAR */
+    .filter-wrap{padding:28px 80px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .filter-label{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+    .filter-btn{font-family:var(--font-display);font-weight:600;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:7px 16px;border-radius:100px;border:1px solid var(--border);color:var(--muted2);background:transparent;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+    .filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+
+    /* PROJECTS */
+    .projects-section{padding:56px 80px 80px}
+    .count-bar{font-size:10px;color:var(--muted);letter-spacing:0.1em;margin-bottom:28px}
+    .count-bar span{color:var(--accent);font-weight:700}
+    .projects-grid{display:grid;gap:20px;grid-template-columns:1fr 1fr}
+    .pcard{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;display:block;position:relative;transition:border-color 0.3s,transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s}
+    .pcard:hover{border-color:rgba(168,255,120,0.3);transform:translateY(-5px);box-shadow:0 24px 80px rgba(0,0,0,0.5)}
+    [data-theme="light"] .pcard:hover{border-color:rgba(58,138,0,0.3);box-shadow:0 24px 60px rgba(0,0,0,0.1)}
+    .pcard.featured{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr}
+    .pcard-img{background:linear-gradient(135deg,#060d06,#06080f);aspect-ratio:16/9;position:relative;overflow:hidden}
+    [data-theme="light"] .pcard-img{background:linear-gradient(135deg,#e8f0e8,#e0e8f0)}
+    .pcard.featured .pcard-img{aspect-ratio:auto;min-height:300px}
+    .pcard-pattern{position:absolute;inset:0;background-image:radial-gradient(rgba(168,255,120,0.22) 1px,transparent 1px);background-size:20px 20px;opacity:0.28;transition:opacity 0.3s}
+    [data-theme="light"] .pcard-pattern{background-image:radial-gradient(rgba(58,138,0,0.15) 1px,transparent 1px);opacity:0.5}
+    .pcard:hover .pcard-pattern{opacity:0.55}
+    .pcard-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+    .pcard-em{font-size:52px;display:block;margin-bottom:8px}
+    .pcard.featured .pcard-em{font-size:68px}
+    .pcard-yr{font-size:9px;letter-spacing:0.2em;color:rgba(168,255,120,0.4)}
+    .pcard-body{padding:26px;display:flex;flex-direction:column;justify-content:space-between;min-height:200px}
+    .pcard-cat{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+    .pcard-name{font-family:var(--font-display);font-weight:700;font-size:17px;line-height:1.25;margin-bottom:10px;transition:color 0.2s}
+    .pcard:hover .pcard-name{color:var(--accent)}
+    .pcard-desc{font-size:12px;line-height:1.9;color:var(--muted2);flex:1;margin-bottom:16px}
+    .pcard-stack{display:flex;flex-wrap:wrap;gap:6px}
+    .stk{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:var(--accent-dim);border:1px solid rgba(168,255,120,0.18);color:var(--accent);padding:4px 9px;border-radius:100px}
+    [data-theme="light"] .stk{border-color:rgba(58,138,0,0.25)}
+    .pcard-arr{position:absolute;top:16px;right:16px;width:32px;height:32px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);transition:all 0.3s}
+    .pcard:hover .pcard-arr{background:var(--accent);border-color:var(--accent);color:#05050e;transform:rotate(45deg)}
+
+    /* EMPTY STATE */
+    .empty-state{text-align:center;padding:80px 20px;color:var(--muted2)}
+    .empty-icon{font-size:48px;margin-bottom:16px}
+    .empty-title{font-family:var(--font-display);font-weight:700;font-size:18px;margin-bottom:8px}
+    .empty-sub{font-size:11px;line-height:1.8}
+
+    footer{position:relative;z-index:1;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:20px 48px;transition:var(--transition-theme)}
+    .footer-copy{font-size:10px;color:var(--muted);letter-spacing:0.1em}
+    .footer-status{display:flex;align-items:center;gap:7px;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent)}
+    .s-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:dotPulse 2.5s infinite}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.75s cubic-bezier(0.16,1,0.3,1),transform 0.75s cubic-bezier(0.16,1,0.3,1)}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    [data-lang="bn"] .inline-bn{display:inline}[data-lang="bn"] .inline-en{display:none}
+    [data-lang="en"] .inline-en{display:inline}[data-lang="en"] .inline-bn{display:none}
+
+    @media(max-width:900px){
+      nav{padding:0 20px}
+      .nav-links{display:none}
+      .page-header{padding:80px 24px 40px}
+      .system-overview{padding:32px 24px}
+      .case-studies{padding:40px 24px}
+      .filter-wrap{padding:20px 24px}
+      .projects-section{padding:40px 24px 60px}
+      .projects-grid{grid-template-columns:1fr}
+      .pcard.featured{grid-column:span 1;grid-template-columns:1fr}
+      .metrics-grid{grid-template-columns:1fr}
+      .module-grid{grid-template-columns:1fr}
+      footer{padding:20px 24px;flex-direction:column;gap:10px;text-align:center}
+    }
+  </style>
+</head>
+<body>
+  <div id="scrollBar"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <nav>
+    <a href="index.html" class="nav-logo"><div class="nav-dot"></div><span class="nav-brand">SAZID.SYS</span></a>
+        <ul class="nav-links">
+      <li><a href="index.html"><span class="inline-en">Home</span><span class="inline-bn">হোম</span></a></li>
+      <li><a href="about.html"><span class="inline-en">About</span><span class="inline-bn">পরিচয়</span></a></li>
+      <li><a href="services.html"><span class="inline-en">Services</span><span class="inline-bn">সেবা</span></a></li>
+      <li><a href="portfolio.html" class="active"><span class="inline-en">Work</span><span class="inline-bn">কাজ</span></a></li>
+      <li><a href="philosophy.html"><span class="inline-en">Philosophy</span><span class="inline-bn">দর্শন</span></a></li>
+      <li><a href="blog.html"><span class="inline-en">Blog</span><span class="inline-bn">ব্লগ</span></a></li>
+      <li><a href="resume.html"><span class="inline-en">Resume</span><span class="inline-bn">রেজুমে</span></a></li>
+      <li><a href="contact.html" class="nav-cta"><span class="inline-en">Hire Me</span><span class="inline-bn">যোগাযোগ</span></a></li>
+    </ul>
+    <div class="nav-controls">
+      <button class="ctrl-btn lang-toggle" id="langBtn" onclick="toggleLang()">EN</button>
+      <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="page-header">
+      <div class="label reveal"><span class="inline-en">Selected Work</span><span class="inline-bn">নির্বাচিত কাজ</span></div>
+      <h1 class="ptitle reveal"><span class="inline-en">Deployed<br>Modules</span><span class="inline-bn" style="font-family:'Noto Serif Bengali',serif">ডিপ্লয়েড<br>মডিউলস</span></h1>
+      <p class="psub reveal"><span class="inline-en">Where philosophy, design, and AI meet execution.</span><span class="inline-bn" style="font-family:'Noto Serif Bengali',serif">যেখানে দর্শন, ডিজাইন এবং এআই বাস্তবে মিলিত হয়।</span></p>
+      <div class="source-strip reveal">
+        <a class="source-link" href="https://www.behance.net/gallery/245020121/Health-Care-Bd-Digital-Health-Infrastructure" target="_blank"><strong>Behance</strong> Health Care BD</a>
+        <a class="source-link" href="https://www.behance.net/gallery/245022143/Mr-Rezaul-Professional-Digital-Identity-Portfolio" target="_blank"><strong>Behance</strong> Mr. Rezaul</a>
+        <a class="source-link" href="https://www.behance.net/gallery/245017405/Shikkha-Somaponi-Utshob-45-Digital-Transformation" target="_blank"><strong>Behance</strong> Shikkha Utshob 45</a>
+        <a class="source-link" href="https://www.behance.net/gallery/245024023/Vabuuk-Portal-High-Performance-Web-Application" target="_blank"><strong>Behance</strong> Vabuuk Portal</a>
+        <a class="source-link" href="https://github.com/saazidhossain" target="_blank"><strong>GitHub</strong> saazidhossain</a>
+        <a class="source-link" href="https://nexus-portfolio-nine.vercel.app/" target="_blank"><strong>Live</strong> Nexus Portfolio</a>
+      </div>
+    </div>
+
+    <section class="system-overview">
+      <div class="section-head reveal">
+        <div class="label"><span class="inline-en">System Overview</span><span class="inline-bn">সিস্টেম ওভারভিউ</span></div>
+        <h2 class="section-title"><span class="inline-en">Nexus Core Signals</span><span class="inline-bn" style="font-family:'Noto Serif Bengali',serif">নেক্সাস কোর সিগন্যাল</span></h2>
+        <p class="section-sub"><span class="inline-en">Live operational metrics and module focus areas pulled from the latest portfolio system and case study documentation.</span><span class="inline-bn" style="font-family:'Noto Serif Bengali',serif">সর্বশেষ পোর্টফোলিও সিস্টেম এবং কেস স্টাডি ডকুমেন্টেশন থেকে নেওয়া লাইভ অপারেশনাল মেট্রিকস।</span></p>
+      </div>
+      <div class="metrics-grid" id="metricsGrid"></div>
+      <div class="module-grid" id="moduleGrid"></div>
+    </section>
+
+    <section class="case-studies">
+      <div class="section-head reveal">
+        <div class="label"><span class="inline-en">Case Studies</span><span class="inline-bn">কেস স্টাডি</span></div>
+        <h2 class="section-title"><span class="inline-en">Digital Transformation Dossiers</span><span class="inline-bn" style="font-family:'Noto Serif Bengali',serif">ডিজিটাল ট্রান্সফরমেশন ডসিয়ার</span></h2>
+        <p class="section-sub"><span class="inline-en">Condensed briefings derived from Behance project documentation with a focus on zero-cost infrastructure, high performance, and trust-first UI.</span><span class="inline-bn" style="font-family:'Noto Serif Bengali',serif">বিহ্যান্স প্রজেক্ট ডকুমেন্টেশন থেকে নেওয়া সংক্ষিপ্ত ব্রিফিং — জিরো-কস্ট ইনফ্রাস্ট্রাকচার, উচ্চ পারফরম্যান্স এবং ট্রাস্ট-ফার্স্ট UI ফোকাসে।</span></p>
+      </div>
+      <div class="study-grid" id="caseStudyGrid"></div>
+    </section>
+
+    <div class="filter-wrap">
+      <span class="filter-label"><span class="inline-en">Filter</span><span class="inline-bn">ফিল্টার</span></span>
+      <div id="filterButtons"></div>
+    </div>
+
+    <div class="projects-section">
+      <div class="count-bar" id="countBar"></div>
+      <div class="projects-grid" id="projectsGrid"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-copy">© 2026 SAZID HOSSAIN · ALL RIGHTS RESERVED</div>
+    <div class="footer-copy" style="opacity:0.25">NEXUS_v7.0 · DHAKA, BD</div>
+    <div class="footer-status"><div class="s-dot"></div><span class="inline-en">Available Now</span><span class="inline-bn">এখন উপলব্ধ</span></div>
+  </footer>
+
+  <script>
+    const DEFAULT_PROJECTS = [
+      {id:'health-care-bd',title:'Health Care BD',titleBn:'হেলথ কেয়ার বিডি',subtitle:'Digital Health Infrastructure',subtitleBn:'ডিজিটাল স্বাস্থ্য অবকাঠামো',category:'Healthcare',categoryBn:'স্বাস্থ্যসেবা',tags:['Serverless','GitHub Pages','React','TailwindCSS'],year:2025,featured:true,emoji:'🏥',description:'Zero-cost national health portal with rapid performance on 4G and low-end devices.',descriptionBn:'৪জি ও লো-এন্ড ডিভাইসে দ্রুত পারফরম্যান্স নিশ্চিত করা জিরো-কস্ট ন্যাশনাল হেলথ পোর্টাল।',link:'https://www.behance.net/gallery/245020121/Health-Care-Bd-Digital-Health-Infrastructure'},
+      {id:'shikkha-somaponi',title:'Shikkha Somaponi Utshob 45',titleBn:'শিক্ষা সমাপনী উৎসব ৪৫',subtitle:'University Digital Transformation',subtitleBn:'বিশ্ববিদ্যালয় ডিজিটাল ট্রান্সফরমেশন',category:'Event Ops',categoryBn:'ইভেন্ট অপস',tags:['React','TailwindCSS','System Design','Live Portal'],year:2025,featured:false,emoji:'🎓',description:'Rebuilt event ecosystem for 2,000+ students with low-cost, high-speed infrastructure.',descriptionBn:'২,০০০+ শিক্ষার্থীর জন্য লো-কস্ট, হাই-স্পিড ইভেন্ট ইকোসিস্টেম।',link:'https://www.behance.net/gallery/245017405/Shikkha-Somaponi-Utshob-45-Digital-Transformation'},
+      {id:'vabuuk-portal',title:'Vabuuk Portal',titleBn:'ভাবুক পোর্টাল',subtitle:'Philosophy AI Engine',subtitleBn:'ফিলোসফি এআই ইঞ্জিন',category:'AI Tools',categoryBn:'এআই টুলস',tags:['NotebookLM','Cyber-Noir UI','Content Engine'],year:2025,featured:false,emoji:'🧠',description:'A digital sage powered by NotebookLM, built for philosophy-driven research and storytelling.',descriptionBn:'দর্শন-চালিত রিসার্চ ও স্টোরিটেলিংয়ের জন্য নোটবুকএলএম চালিত ডিজিটাল সেজ।',link:'https://www.behance.net/gallery/245024023/Vabuuk-Portal-High-Performance-Web-Application'},
+      {id:'mr-rezaul',title:'Mr. Rezaul Digital Identity',titleBn:'মি. রেজাউল ডিজিটাল আইডেন্টিটি',subtitle:'Professional Portfolio',subtitleBn:'প্রফেশনাল পোর্টফোলিও',category:'Digital Identity',categoryBn:'ডিজিটাল আইডেন্টিটি',tags:['Minimal UI','Trust Design','Timeline UX'],year:2025,featured:false,emoji:'👤',description:'Minimalistic, trust-first identity system for a senior government official.',descriptionBn:'সিনিয়র সরকারি কর্মকর্তার জন্য মিনিমালিস্টিক, ট্রাস্ট-ফার্স্ট আইডেন্টিটি সিস্টেম।',link:'https://www.behance.net/gallery/245022143/Mr-Rezaul-Professional-Digital-Identity-Portfolio'},
+      {id:'nexus-portfolio',title:'Nexus Portfolio',titleBn:'নেক্সাস পোর্টফোলিও',subtitle:'Creative Technologist Hub',subtitleBn:'ক্রিয়েটিভ টেকনোলজিস্ট হাব',category:'Portfolio',categoryBn:'পোর্টফোলিও',tags:['Nexus Core','Live Metrics','Design System'],year:2026,featured:false,emoji:'🧭',description:'Operational portfolio system with real-time metrics, modules, and AI-native positioning.',descriptionBn:'রিয়েল-টাইম মেট্রিকস, মডিউলস এবং এআই-নেটিভ পজিশনিং সহ অপারেশনাল পোর্টফোলিও সিস্টেম।',link:'https://nexus-portfolio-nine.vercel.app/'},
+    ];
+
+    const METRICS = [
+      {label:'Cognitive Load',value:'98%',note:'Live Nexus core metric reported in the latest system status.'},
+      {label:'Storage Link',value:'1TB',note:'OneDrive sync for project assets and case study archives.'},
+      {label:'System Status',value:'Online',note:'Operating 24/7 with zero-cost infrastructure principles.'},
+    ];
+
+    const MODULES = [
+      {name:'Digital Identity Systems',role:'Trust & Authority',desc:'Professional portfolio architectures that balance credibility, restraint, and speed for public-facing profiles.',tags:['Identity','Typography','Compliance']},
+      {name:'Automated Business Funnels',role:'AI Automation',desc:'Low-friction funnels, intake forms, and onboarding flows optimized for conversion and clarity.',tags:['Automation','No-Code','CRM']},
+      {name:'Cognitive UX',role:'Research & Narrative',desc:'Story-led interfaces for complex ideas, including philosophy-driven knowledge systems.',tags:['NotebookLM','Narrative','Research']},
+      {name:'Event Infrastructure',role:'Digital Transformation',desc:'Rapid, low-cost platforms for large-scale university or civic events.',tags:['Performance','Realtime','Logistics']},
+    ];
+
+    const CASE_STUDIES = [
+      {
+        title:'Health Care BD — Digital Health Infrastructure',
+        meta:'Healthcare · 2025 · Zero-Cost Stack',
+        description:'A full national-scale health portal built on a serverless, zero-cost stack with GitHub Pages, JSON-based data, and ultra-fast mobile performance for low-bandwidth users.',
+        highlights:['Serverless infrastructure','4G-optimized UI','Nation-scale access'],
+        links:[
+          {label:'Behance Case Study',url:'https://www.behance.net/gallery/245020121/Health-Care-Bd-Digital-Health-Infrastructure'},
+          {label:'Live Preview',url:'https://saazidhossain.github.io'}
+        ]
+      },
+      {
+        title:'Shikkha Somaponi Utshob 45 — Event Transformation',
+        meta:'Event Ops · 2025 · Jahangirnagar University',
+        description:'A high-performance digital ecosystem for a 2,000+ student event, rebuilt from a heavy stack into a fast, reliable, low-cost React + Tailwind portal.',
+        highlights:['2,000+ attendees','Performance rebuild','Live portal'],
+        links:[
+          {label:'Behance Case Study',url:'https://www.behance.net/gallery/245017405/Shikkha-Somaponi-Utshob-45-Digital-Transformation'},
+          {label:'Live Preview',url:'https://ju45th.com'}
+        ]
+      },
+      {
+        title:'Mr. Rezaul — Professional Digital Identity',
+        meta:'Digital Identity · 2025 · Government Official',
+        description:'A minimalistic, trust-first digital identity for a senior official, focused on credibility, clean typography, and timeline-based storytelling.',
+        highlights:['Authority-first layout','Minimalist UI','Chronological narrative'],
+        links:[
+          {label:'Behance Case Study',url:'https://www.behance.net/gallery/245022143/Mr-Rezaul-Professional-Digital-Identity-Portfolio'}
+        ]
+      },
+      {
+        title:'Vabuuk Portal — Philosophy AI Engine',
+        meta:'AI Tools · 2025 · Cyber-Noir',
+        description:'A digital sage experience fused with Google NotebookLM, engineered for philosophy-driven research, reading, and content synthesis.',
+        highlights:['NotebookLM fusion','Cyber-noir UI','Research workflows'],
+        links:[
+          {label:'Behance Case Study',url:'https://www.behance.net/gallery/245024023/Vabuuk-Portal-High-Performance-Web-Application'}
+        ]
+      }
+    ];
+
+    function getProjects(){try{const s=localStorage.getItem('nexus_projects');return s?JSON.parse(s):DEFAULT_PROJECTS}catch{return DEFAULT_PROJECTS}}
+
+    let currentFilter = 'all';
+
+    function renderMetrics(){
+      const grid = document.getElementById('metricsGrid');
+      if (!grid) return;
+      grid.innerHTML = METRICS.map(m=>`
+        <div class="metric-card reveal">
+          <div class="metric-label">${m.label}</div>
+          <div class="metric-value">${m.value}</div>
+          <div class="metric-note">${m.note}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderModules(){
+      const grid = document.getElementById('moduleGrid');
+      if (!grid) return;
+      grid.innerHTML = MODULES.map(m=>`
+        <div class="module-card reveal">
+          <div class="module-role">${m.role}</div>
+          <div class="module-name">${m.name}</div>
+          <div class="module-desc">${m.desc}</div>
+          <div class="module-tags">${m.tags.map(t=>`<span class="stk">${t}</span>`).join('')}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderCaseStudies(){
+      const grid = document.getElementById('caseStudyGrid');
+      if (!grid) return;
+      grid.innerHTML = CASE_STUDIES.map(s=>`
+        <div class="study-card reveal">
+          <div class="study-head">
+            <div>
+              <div class="study-title">${s.title}</div>
+              <div class="study-meta">${s.meta}</div>
+            </div>
+          </div>
+          <div class="study-desc">${s.description}</div>
+          <div class="study-pills">${s.highlights.map(h=>`<span class="study-pill">${h}</span>`).join('')}</div>
+          <div class="study-actions">${s.links.map(l=>`<a href="${l.url}" target="_blank">${l.label}</a>`).join('')}</div>
+        </div>
+      `).join('');
+    }
+
+    // THEME
+    function initTheme(){const s=localStorage.getItem('nexus_theme')||'dark';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeBtn').textContent=s==='dark'?'🌙':'☀️'}
+    function toggleTheme(){const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('nexus_theme',n);document.getElementById('themeBtn').textContent=n==='dark'?'🌙':'☀️'}
+    
+    // LANG
+    function initLang(){const s=localStorage.getItem('nexus_lang')||'en';document.documentElement.setAttribute('data-lang',s);document.getElementById('langBtn').textContent=s==='en'?'বাং':'EN'}
+    function toggleLang(){const c=document.documentElement.getAttribute('data-lang');const n=c==='en'?'bn':'en';document.documentElement.setAttribute('data-lang',n);localStorage.setItem('nexus_lang',n);document.getElementById('langBtn').textContent=n==='en'?'বাং':'EN';renderAll()}
+    
+    // CURSOR
+    const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-4.5+'px';cur.style.top=my-4.5+'px'});
+    (function a(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx-16+'px';ring.style.top=ry-16+'px';requestAnimationFrame(a)})();
+    document.addEventListener('mouseover',e=>{if(e.target.closest('a,button')){cur.style.transform='scale(2.5)';ring.style.transform='scale(1.5)'}else{cur.style.transform='scale(1)';ring.style.transform='scale(1)'}});
+    
+    // RENDER FILTERS
+    function renderFilters(){
+      const projects = getProjects();
+      const cats = ['all', ...new Set(projects.map(p=>p.category))];
+      const lang = document.documentElement.getAttribute('data-lang');
+      document.getElementById('filterButtons').innerHTML = cats.map(cat=>`
+        <button class="filter-btn ${cat===currentFilter?'active':''}" onclick="setFilter('${cat}')">
+          ${cat==='all'?(lang==='bn'?'সব':'All'):cat}
+        </button>`).join('');
+    }
+    
+    function setFilter(cat){
+      currentFilter = cat;
+      renderAll();
+    }
+
+    // RENDER PROJECTS
+    function renderAll(){
+      const projects = getProjects();
+      const lang = document.documentElement.getAttribute('data-lang');
+      const filtered = currentFilter === 'all' ? projects : projects.filter(p=>p.category===currentFilter);
+      
+      renderMetrics();
+      renderModules();
+      renderCaseStudies();
+      renderFilters();
+      
+      // Count bar
+      const countEl = document.getElementById('countBar');
+      countEl.innerHTML = `<span>${filtered.length}</span> ${lang==='bn'?'টি প্রজেক্ট দেখানো হচ্ছে':'projects showing'} ${currentFilter!=='all'?`— <span style="color:var(--muted2)">${currentFilter}</span>`:''}`;
+      
+      const grid = document.getElementById('projectsGrid');
+      
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column:span 2"><div class="empty-icon">🔍</div><div class="empty-title">${lang==='bn'?'কোনো প্রজেক্ট পাওয়া যায়নি':'No projects found'}</div><div class="empty-sub">${lang==='bn'?'অন্য ফিল্টার চেষ্টা করুন বা অ্যাডমিন থেকে যোগ করুন':'Try a different filter or add projects from the admin panel.'}</div></div>`;
+        return;
+      }
+      
+      grid.innerHTML = filtered.map((p,i) => {
+        const isFeat = p.featured && i === 0 && currentFilter === 'all';
+        const title = lang==='bn'&&p.titleBn ? p.titleBn : p.title;
+        const cat = lang==='bn'&&p.categoryBn ? p.categoryBn : p.category;
+        const desc = lang==='bn'&&p.descriptionBn ? p.descriptionBn : p.description;
+        const sub = lang==='bn'&&p.subtitleBn ? p.subtitleBn : p.subtitle;
+        const tags = (p.tags||[]).map(t=>`<span class="stk">${t}</span>`).join('');
+        const fontBn = lang==='bn'?'font-family:"Noto Serif Bengali",serif':'';
+        return `
+          <a href="${p.link||'project-details.html'}" class="pcard reveal ${isFeat?'featured':''}" ${p.link&&p.link.startsWith('http')?'target="_blank"':''}>
+            <div class="pcard-img">
+              <div class="pcard-pattern"></div>
+              <div class="pcard-center">
+                <span class="pcard-em">${p.emoji||'🚀'}</span>
+                <div class="pcard-yr">${p.year}</div>
+              </div>
+            </div>
+            <div class="pcard-body">
+              <div>
+                <div class="pcard-cat" style="${fontBn}">${cat}</div>
+                <div class="pcard-name" style="${fontBn}">${title}</div>
+                <p class="pcard-desc" style="${fontBn}">${desc}</p>
+              </div>
+              <div class="pcard-stack">${tags}</div>
+            </div>
+            <div class="pcard-arr">↗</div>
+          </a>`;
+      }).join('');
+      
+      document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    }
+    
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80)});
+    },{threshold:0.06});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    
+    
+    // Scroll progress
+    window.addEventListener('scroll',()=>{
+      const bar=document.getElementById('scrollBar');
+      if(bar){const max=document.documentElement.scrollHeight-window.innerHeight;bar.style.width=(max>0?(window.scrollY/max)*100:0)+'%'}
+      const nav=document.querySelector('nav');if(nav)nav.classList.toggle('scrolled',window.scrollY>20);
+    },{passive:true});
+    initTheme();initLang();renderAll();
+    window.addEventListener('storage',e=>{if(e.key==='nexus_projects')renderAll()});
+  </script>
+</body>
+</html>

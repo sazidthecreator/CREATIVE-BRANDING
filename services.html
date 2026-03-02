@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Services • SAZID HOSSAIN — Creative Technologist</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description" content="Web strategy, AI automation, and digital systems by Sazid Hossain — Philosophy-driven tech for Bangladesh and beyond."/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--font-display:'Space Grotesk',sans-serif;--font-body:'Manrope',sans-serif;--font-serif:'Fraunces',serif;--font-mono:'JetBrains Mono',monospace;--bg:#05050e;--surface:#0c0c18;--surface2:#10101e;--border:rgba(255,255,255,0.065);--border2:rgba(255,255,255,0.12);--accent:#a8ff78;--accent2:#78ffd6;--accent-dim:rgba(168,255,120,0.1);--accent-glow:rgba(168,255,120,0.22);--text:#eeeef5;--text2:#c4c4d4;--muted:#5c5c72;--muted2:#8888a0;--nav-bg:rgba(5,5,14,0.88);--font-bn:'Noto Serif Bengali',serif;--tt:background 0.4s,color 0.4s,border-color 0.4s}
+    [data-theme="light"]{--bg:#f6f6f0;--surface:#ffffff;--surface2:#f0f0ea;--border:rgba(0,0,0,0.07);--border2:rgba(0,0,0,0.13);--accent:#3a8a00;--accent2:#00705e;--accent-dim:rgba(58,138,0,0.08);--accent-glow:rgba(58,138,0,0.2);--text:#0a0a14;--text2:#2a2a3a;--muted:#8888a0;--muted2:#606070;--nav-bg:rgba(246,246,240,0.9)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;cursor:none;transition:var(--tt)}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:999}
+    body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(168,255,120,0.013) 1px,transparent 1px),linear-gradient(90deg,rgba(168,255,120,0.013) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+    [data-theme="light"] body::after{background-image:linear-gradient(rgba(58,138,0,0.024) 1px,transparent 1px),linear-gradient(90deg,rgba(58,138,0,0.024) 1px,transparent 1px)}
+    .cursor{position:fixed;width:9px;height:9px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s;mix-blend-mode:exclusion}
+    .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(168,255,120,0.3);border-radius:50%;pointer-events:none;z-index:9998}
+    [data-theme="light"] .cursor{mix-blend-mode:normal}
+    #scrollBar{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:9999;width:0%;transition:width 0.1s linear;box-shadow:0 0 8px var(--accent)}
+    @keyframes dotPulse{0%,100%{opacity:1;box-shadow:0 0 12px var(--accent)}50%{opacity:0.55;box-shadow:0 0 4px var(--accent)}}
+    nav{position:fixed;top:0;left:0;right:0;z-index:900;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid var(--border);background:var(--nav-bg);backdrop-filter:blur(28px);transition:var(--tt)}
+    nav.scrolled{box-shadow:0 4px 40px rgba(0,0,0,0.3)}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .nav-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:dotPulse 2.5s infinite}
+    .nav-brand{font-family:var(--font-display);font-weight:800;font-size:12px;letter-spacing:0.2em;color:var(--text)}
+    .nav-links{display:flex;gap:6px;list-style:none;align-items:center}
+    .nav-links a{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted2);text-decoration:none;transition:all 0.2s;padding:6px 10px;border-radius:6px}
+    .nav-links a:hover,.nav-links a.active{color:var(--text);background:var(--accent-dim)}
+    .nav-cta{font-family:var(--font-display)!important;font-weight:700!important;background:var(--accent)!important;color:#05050e!important;padding:7px 18px!important;border-radius:6px!important}
+    .nav-cta:hover{transform:translateY(-1px)!important;box-shadow:0 6px 20px var(--accent-glow)!important}
+    .nav-controls{display:flex;align-items:center;gap:8px}
+    .ctrl-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--muted2);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+    .ctrl-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .lang-toggle{font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:0.1em;padding:0 12px;width:auto}
+    .page{position:relative;z-index:1;padding-top:62px}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.75s cubic-bezier(0.16,1,0.3,1),transform 0.75s cubic-bezier(0.16,1,0.3,1)}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    [data-lang="bn"] .inline-bn{display:inline}[data-lang="bn"] .inline-en{display:none}[data-lang="en"] .inline-en{display:inline}[data-lang="en"] .inline-bn{display:none}
+
+    /* PAGE HEADER */
+    .page-header{padding:90px 80px 70px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+    .page-header::before{content:'SERVICES';position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-family:var(--font-display);font-weight:800;font-size:180px;color:rgba(168,255,120,0.025);letter-spacing:-0.05em;pointer-events:none;white-space:nowrap}
+    [data-theme="light"] .page-header::before{color:rgba(58,138,0,0.04)}
+    .ph-label{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+    .ph-label::before{content:'';width:22px;height:1px;background:var(--accent)}
+    .ph-title{font-family:var(--font-display);font-weight:800;font-size:clamp(42px,7vw,96px);line-height:0.9;letter-spacing:-0.03em}
+    .ph-sub{font-family:var(--font-serif);font-style:italic;font-size:clamp(16px,2vw,24px);color:var(--muted2);margin-top:20px;max-width:560px}
+
+    /* PHILOSOPHY BANNER */
+    .philo-banner{padding:50px 80px;border-bottom:1px solid var(--border);background:var(--surface);display:flex;align-items:center;gap:60px}
+    .philo-quote{font-family:var(--font-serif);font-style:italic;font-size:22px;line-height:1.65;color:var(--text2);flex:1;border-left:2px solid var(--accent);padding-left:28px}
+    .philo-meta{text-align:right;flex-shrink:0}
+    .philo-num{font-family:var(--font-display);font-weight:800;font-size:56px;color:var(--accent);line-height:1}
+    .philo-label{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+    /* SERVICES GRID */
+    .services-section{padding:70px 80px 90px}
+    .services-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:48px}
+    .svc-card{background:var(--bg);padding:44px 40px;position:relative;overflow:hidden;transition:background 0.35s}
+    .svc-card:hover{background:var(--surface)}
+    .svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity 0.35s}
+    .svc-card:hover::before{opacity:1}
+    .svc-num{font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:0.3em;color:var(--muted);margin-bottom:24px}
+    .svc-icon{font-size:36px;margin-bottom:20px;display:block}
+    .svc-title{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-0.02em;margin-bottom:14px;transition:color 0.25s}
+    .svc-card:hover .svc-title{color:var(--accent)}
+    .svc-desc{font-size:11px;line-height:2.0;color:var(--muted2);margin-bottom:24px}
+    .svc-tags{display:flex;flex-wrap:wrap;gap:6px}
+    .stag{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;border:1px solid var(--border2);color:var(--muted2);padding:4px 10px;border-radius:100px;transition:all 0.2s}
+    .svc-card:hover .stag{border-color:rgba(168,255,120,0.25);color:var(--accent)}
+    [data-theme="light"] .svc-card:hover .stag{border-color:rgba(58,138,0,0.3)}
+    .svc-price{font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--accent);margin-top:20px;letter-spacing:0.05em}
+
+    /* PROCESS */
+    .process{padding:0 80px 90px}
+    .sec-title{font-family:var(--font-display);font-weight:800;font-size:clamp(28px,4vw,44px);letter-spacing:-0.025em;margin-bottom:10px}
+    .sec-sub{font-size:11px;color:var(--muted2);margin-bottom:48px}
+    .process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:16px;overflow:hidden}
+    .step{padding:36px 28px;border-right:1px solid var(--border);position:relative;transition:background 0.3s}
+    .step:last-child{border-right:none}
+    .step:hover{background:var(--surface)}
+    .step-n{font-family:var(--font-display);font-weight:800;font-size:48px;color:var(--accent);opacity:0.18;line-height:1;margin-bottom:16px}
+    .step-title{font-family:var(--font-display);font-weight:700;font-size:14px;margin-bottom:8px}
+    .step-desc{font-size:10px;line-height:1.9;color:var(--muted2)}
+    .step-conn{position:absolute;right:-12px;top:50%;transform:translateY(-50%);width:24px;height:1px;background:var(--accent);z-index:2;opacity:0.4}
+    .step:last-child .step-conn{display:none}
+
+    /* TESTIMONIALS */
+    .testi{padding:0 80px 90px}
+    .testi-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:48px}
+    .tcard{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px 28px;position:relative;transition:border-color 0.3s,transform 0.35s}
+    .tcard:hover{border-color:rgba(168,255,120,0.25);transform:translateY(-4px)}
+    [data-theme="light"] .tcard:hover{border-color:rgba(58,138,0,0.25)}
+    .tcard-quote{font-family:var(--font-serif);font-style:italic;font-size:15px;line-height:1.75;color:var(--text2);margin-bottom:20px}
+    .tcard-author{display:flex;align-items:center;gap:12px}
+    .tcard-avatar{width:36px;height:36px;border-radius:50%;background:var(--accent-dim);border:1px solid rgba(168,255,120,0.25);display:flex;align-items:center;justify-content:center;font-size:18px}
+    .tcard-name{font-family:var(--font-display);font-weight:700;font-size:12px}
+    .tcard-role{font-size:9px;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;margin-top:2px}
+    .tcard::before{content:'❝';position:absolute;top:20px;right:24px;font-size:40px;color:var(--accent);opacity:0.18;font-family:serif;line-height:1}
+
+    /* CTA SECTION */
+    .cta-section{padding:80px;margin:0 80px 90px;border:1px solid var(--border);border-radius:24px;text-align:center;position:relative;overflow:hidden;background:var(--surface)}
+    .cta-section::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+    .cta-section::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% -20%,rgba(168,255,120,0.06),transparent);pointer-events:none}
+    [data-theme="light"] .cta-section::after{background:radial-gradient(ellipse 60% 80% at 50% -20%,rgba(58,138,0,0.05),transparent)}
+    .cta-label{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:block}
+    .cta-title{font-family:var(--font-display);font-weight:800;font-size:clamp(32px,5vw,62px);letter-spacing:-0.03em;line-height:1.05;margin-bottom:16px}
+    .cta-sub{font-family:var(--font-serif);font-style:italic;font-size:18px;color:var(--muted2);margin-bottom:36px}
+    .btn-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#05050e;font-family:var(--font-display);font-weight:700;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;padding:14px 30px;border-radius:8px;text-decoration:none;transition:all 0.25s}
+    .btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 36px var(--accent-glow)}
+    .btn-g{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border2);color:var(--muted2);font-family:var(--font-display);font-weight:600;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;padding:14px 30px;border-radius:8px;text-decoration:none;transition:all 0.25s}
+    .btn-g:hover{border-color:rgba(255,255,255,0.25);color:var(--text);transform:translateY(-2px)}
+    [data-theme="light"] .btn-g:hover{border-color:rgba(0,0,0,0.3)}
+
+    footer{position:relative;z-index:1;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:20px 48px;transition:var(--tt)}
+    .footer-copy{font-size:10px;color:var(--muted);letter-spacing:0.1em}
+    .footer-status{display:flex;align-items:center;gap:7px;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent)}
+    .s-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:dotPulse 2.5s infinite}
+    @media(max-width:900px){nav{padding:0 20px}.nav-links{display:none}.page-header{padding:80px 24px 50px}.page-header::before{display:none}.philo-banner{flex-direction:column;gap:30px;padding:40px 24px}.services-section,.process,.testi{padding-left:24px;padding-right:24px}.services-grid{grid-template-columns:1fr}.process-steps{grid-template-columns:1fr 1fr}.testi-grid{grid-template-columns:1fr}.cta-section{margin:0 24px 60px;padding:48px 28px}footer{padding:20px 24px;flex-direction:column;gap:10px;text-align:center}}
+  </style>
+</head>
+<body>
+  <div id="scrollBar"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><div class="nav-dot"></div><span class="nav-brand">SAZID.SYS</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html"><span class="inline-en">Home</span><span class="inline-bn">হোম</span></a></li>
+      <li><a href="about.html"><span class="inline-en">About</span><span class="inline-bn">পরিচয়</span></a></li>
+      <li><a href="services.html" class="active"><span class="inline-en">Services</span><span class="inline-bn">সেবা</span></a></li>
+      <li><a href="portfolio.html"><span class="inline-en">Work</span><span class="inline-bn">কাজ</span></a></li>
+      <li><a href="philosophy.html"><span class="inline-en">Philosophy</span><span class="inline-bn">দর্শন</span></a></li>
+      <li><a href="blog.html"><span class="inline-en">Blog</span><span class="inline-bn">ব্লগ</span></a></li>
+      <li><a href="resume.html"><span class="inline-en">Resume</span><span class="inline-bn">রেজুমে</span></a></li>
+      <li><a href="contact.html" class="nav-cta"><span class="inline-en">Hire Me</span><span class="inline-bn">যোগাযোগ</span></a></li>
+    </ul>
+    <div class="nav-controls">
+      <button class="ctrl-btn lang-toggle" id="langBtn" onclick="toggleLang()">EN</button>
+      <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    </div>
+  </nav>
+
+  <div class="page">
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="ph-label reveal"><span class="inline-en">What I Do</span><span class="inline-bn" style="font-family:var(--font-bn)">আমি যা করি</span></div>
+      <h1 class="ph-title reveal">
+        <span class="inline-en">Services<br>& Craft</span>
+        <span class="inline-bn" style="font-family:var(--font-bn)">সেবা ও<br>দক্ষতা</span>
+      </h1>
+      <p class="ph-sub reveal">
+        <span class="inline-en">Every deliverable is a system, not just a product. Built with logic. Shaped by philosophy.</span>
+        <span class="inline-bn" style="font-family:var(--font-bn)">প্রতিটি ডেলিভারেবল একটি সিস্টেম, শুধু একটি পণ্য নয়। যুক্তি দিয়ে তৈরি। দর্শন দিয়ে গঠিত।</span>
+      </p>
+    </div>
+
+    <!-- PHILOSOPHY BANNER -->
+    <div class="philo-banner reveal">
+      <div class="philo-quote">
+        <span class="inline-en">"A website without strategy is like an argument without a premise — it may look convincing, but it leads nowhere."</span>
+        <span class="inline-bn" style="font-family:var(--font-bn)">"কৌশল ছাড়া একটি ওয়েবসাইট হলো ভিত্তি ছাড়া একটি যুক্তির মতো — এটি বিশ্বাসযোগ্য দেখাতে পারে, কিন্তু কোথাও নিয়ে যায় না।"</span>
+      </div>
+      <div class="philo-meta">
+        <div class="philo-num">3+</div>
+        <div class="philo-label"><span class="inline-en">Years of Practice</span><span class="inline-bn" style="font-family:var(--font-bn)">বছরের অভিজ্ঞতা</span></div>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section class="services-section">
+      <div class="ph-label reveal"><span class="inline-en">Core Offerings</span><span class="inline-bn" style="font-family:var(--font-bn)">মূল সেবাসমূহ</span></div>
+      <div class="sec-title reveal"><span class="inline-en">What I Build</span><span class="inline-bn" style="font-family:var(--font-bn)">আমি কী তৈরি করি</span></div>
+
+      <div class="services-grid">
+        <!-- 01 -->
+        <div class="svc-card reveal">
+          <div class="svc-num">01 / 06</div>
+          <span class="svc-icon">⚡</span>
+          <div class="svc-title"><span class="inline-en">Web Strategy & Design Systems</span><span class="inline-bn" style="font-family:var(--font-bn)">ওয়েব স্ট্র্যাটেজি ও ডিজাইন সিস্টেম</span></div>
+          <p class="svc-desc">
+            <span class="inline-en">Before a single pixel — the Why. I architect information hierarchies, conversion flows, and brand language that make your digital presence undeniable.</span>
+            <span class="inline-bn" style="font-family:var(--font-bn)">একটি পিক্সেলের আগে — কেন। তথ্য স্তরবিন্যাস, রূপান্তর প্রবাহ এবং ব্র্যান্ড ভাষা আর্কিটেক্ট করি।</span>
+          </p>
+          <div class="svc-tags"><span class="stag">UX Strategy</span><span class="stag">Information Architecture</span><span class="stag">Design Tokens</span></div>
+          <div class="svc-price"><span class="inline-en">Starting BDT 25,000</span><span class="inline-bn" style="font-family:var(--font-bn)">শুরু ২৫,০০০ টাকা থেকে</span></div>
+        </div>
+        <!-- 02 -->
+        <div class="svc-card reveal">
+          <div class="svc-num">02 / 06</div>
+          <span class="svc-icon">🤖</span>
+          <div class="svc-title"><span class="inline-en">AI Automation Systems</span><span class="inline-bn" style="font-family:var(--font-bn)">এআই অটোমেশন সিস্টেম</span></div>
+          <p class="svc-desc">
+            <span class="inline-en">Sales bots, WhatsApp funnels, automated CRMs, and Banglish AI agents that work while you sleep. F-commerce and retail transformation for Bangladesh.</span>
+            <span class="inline-bn" style="font-family:var(--font-bn)">সেলস বট, হোয়াটসঅ্যাপ ফানেল, অটোমেটেড সিআরএম এবং বাংলিশ এআই এজেন্ট যা আপনার ঘুমানোর সময়ও কাজ করে।</span>
+          </p>
+          <div class="svc-tags"><span class="stag">n8n / Make</span><span class="stag">WhatsApp API</span><span class="stag">Banglish AI</span></div>
+          <div class="svc-price"><span class="inline-en">Starting BDT 18,000</span><span class="inline-bn" style="font-family:var(--font-bn)">শুরু ১৮,০০০ টাকা থেকে</span></div>
+        </div>
+        <!-- 03 -->
+        <div class="svc-card reveal">
+          <div class="svc-num">03 / 06</div>
+          <span class="svc-icon">🌐</span>
+          <div class="svc-title"><span class="inline-en">React & Next.js Applications</span><span class="inline-bn" style="font-family:var(--font-bn)">রিয়্যাক্ট ও নেক্সট.জেএস অ্যাপ</span></div>
+          <p class="svc-desc">
+            <span class="inline-en">Production-grade web apps with performance-first architecture, bilingual support, and accessibility baked in. From MVPs to full platforms.</span>
+            <span class="inline-bn" style="font-family:var(--font-bn)">পারফরম্যান্স-ফার্স্ট আর্কিটেকচার, দ্বিভাষিক সমর্থন এবং অ্যাক্সেসিবিলিটি সহ প্রোডাকশন-গ্রেড ওয়েব অ্যাপ।</span>
+          </p>
+          <div class="svc-tags"><span class="stag">React</span><span class="stag">Next.js</span><span class="stag">TailwindCSS</span></div>
+          <div class="svc-price"><span class="inline-en">Starting BDT 35,000</span><span class="inline-bn" style="font-family:var(--font-bn)">শুরু ৩৫,০০০ টাকা থেকে</span></div>
+        </div>
+        <!-- 04 -->
+        <div class="svc-card reveal">
+          <div class="svc-num">04 / 06</div>
+          <span class="svc-icon">📰</span>
+          <div class="svc-title"><span class="inline-en">WordPress & CMS Solutions</span><span class="inline-bn" style="font-family:var(--font-bn)">ওয়ার্ডপ্রেস ও সিএমএস সমাধান</span></div>
+          <p class="svc-desc">
+            <span class="inline-en">Not just themes — bespoke WordPress architectures with custom ACF fields, performance tuning, and editorial workflows that editors actually enjoy using.</span>
+            <span class="inline-bn" style="font-family:var(--font-bn)">শুধু থিম নয় — কাস্টম ACF ফিল্ড, পারফরম্যান্স টিউনিং সহ বিশেষ ওয়ার্ডপ্রেস আর্কিটেকচার।</span>
+          </p>
+          <div class="svc-tags"><span class="stag">WordPress</span><span class="stag">Elementor Pro</span><span class="stag">Webflow</span></div>
+          <div class="svc-price"><span class="inline-en">Starting BDT 15,000</span><span class="inline-bn" style="font-family:var(--font-bn)">শুরু ১৫,০০০ টাকা থেকে</span></div>
+        </div>
+        <!-- 05 -->
+        <div class="svc-card reveal">
+          <div class="svc-num">05 / 06</div>
+          <span class="svc-icon">🎨</span>
+          <div class="svc-title"><span class="inline-en">Brand Identity & Visual Systems</span><span class="inline-bn" style="font-family:var(--font-bn)">ব্র্যান্ড পরিচয় ও ভিজ্যুয়াল সিস্টেম</span></div>
+          <p class="svc-desc">
+            <span class="inline-en">Logos, color systems, typography — designed with philosophical intent, not aesthetic impulse. Every brand tells a story that predates the visuals.</span>
+            <span class="inline-bn" style="font-family:var(--font-bn)">লোগো, কালার সিস্টেম, টাইপোগ্রাফি — দার্শনিক উদ্দেশ্য নিয়ে ডিজাইন করা, নান্দনিক আবেগ নয়।</span>
+          </p>
+          <div class="svc-tags"><span class="stag">Brand Strategy</span><span class="stag">Figma</span><span class="stag">Style Guide</span></div>
+          <div class="svc-price"><span class="inline-en">Starting BDT 12,000</span><span class="inline-bn" style="font-family:var(--font-bn)">শুরু ১২,০০০ টাকা থেকে</span></div>
+        </div>
+        <!-- 06 -->
+        <div class="svc-card reveal">
+          <div class="svc-num">06 / 06</div>
+          <span class="svc-icon">🧠</span>
+          <div class="svc-title"><span class="inline-en">AI-Powered Content & Knowledge Systems</span><span class="inline-bn" style="font-family:var(--font-bn)">এআই কন্টেন্ট ও জ্ঞান সিস্টেম</span></div>
+          <p class="svc-desc">
+            <span class="inline-en">NotebookLM pipelines, AI writing assistants, and knowledge portals. Bridging the gap between deep thinking and content at scale.</span>
+            <span class="inline-bn" style="font-family:var(--font-bn)">নোটবুকএলএম পাইপলাইন, এআই রাইটিং অ্যাসিস্ট্যান্ট এবং নলেজ পোর্টাল।</span>
+          </p>
+          <div class="svc-tags"><span class="stag">NotebookLM</span><span class="stag">AI Agents</span><span class="stag">RAG Pipelines</span></div>
+          <div class="svc-price"><span class="inline-en">Starting BDT 20,000</span><span class="inline-bn" style="font-family:var(--font-bn)">শুরু ২০,০০০ টাকা থেকে</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process">
+      <div class="ph-label reveal"><span class="inline-en">How I Work</span><span class="inline-bn" style="font-family:var(--font-bn)">আমি কীভাবে কাজ করি</span></div>
+      <div class="sec-title reveal"><span class="inline-en">The Process</span><span class="inline-bn" style="font-family:var(--font-bn)">প্রক্রিয়া</span></div>
+      <p class="sec-sub reveal"><span class="inline-en">Adapted from Socratic method — question first, build second.</span><span class="inline-bn" style="font-family:var(--font-bn)">সক্রেটিক পদ্ধতি থেকে অভিযোজিত — আগে প্রশ্ন, তারপর নির্মাণ।</span></p>
+      <div class="process-steps reveal">
+        <div class="step">
+          <div class="step-n">01</div>
+          <div class="step-title"><span class="inline-en">Discover</span><span class="inline-bn" style="font-family:var(--font-bn)">আবিষ্কার</span></div>
+          <p class="step-desc"><span class="inline-en">Deep discovery session. We find the Why before touching the What or How.</span><span class="inline-bn" style="font-family:var(--font-bn)">গভীর আবিষ্কার সেশন। What বা How স্পর্শ করার আগে আমরা Why খুঁজে পাই।</span></p>
+          <div class="step-conn"></div>
+        </div>
+        <div class="step">
+          <div class="step-n">02</div>
+          <div class="step-title"><span class="inline-en">Architect</span><span class="inline-bn" style="font-family:var(--font-bn)">আর্কিটেক্ট</span></div>
+          <p class="step-desc"><span class="inline-en">System blueprint. Structure before style. Logic before aesthetics.</span><span class="inline-bn" style="font-family:var(--font-bn)">সিস্টেম ব্লুপ্রিন্ট। স্টাইলের আগে স্ট্রাকচার। নান্দনিকতার আগে যুক্তি।</span></p>
+          <div class="step-conn"></div>
+        </div>
+        <div class="step">
+          <div class="step-n">03</div>
+          <div class="step-title"><span class="inline-en">Build</span><span class="inline-bn" style="font-family:var(--font-bn)">নির্মাণ</span></div>
+          <p class="step-desc"><span class="inline-en">Iterative development with weekly check-ins and transparent updates.</span><span class="inline-bn" style="font-family:var(--font-bn)">সাপ্তাহিক চেক-ইন এবং স্বচ্ছ আপডেট সহ পুনরাবৃত্তিমূলক উন্নয়ন।</span></p>
+          <div class="step-conn"></div>
+        </div>
+        <div class="step">
+          <div class="step-n">04</div>
+          <div class="step-title"><span class="inline-en">Launch & Grow</span><span class="inline-bn" style="font-family:var(--font-bn)">লঞ্চ ও প্রবৃদ্ধি</span></div>
+          <p class="step-desc"><span class="inline-en">Deployment, handover, and optional retainer for ongoing growth strategy.</span><span class="inline-bn" style="font-family:var(--font-bn)">ডেপ্লয়মেন্ট, হ্যান্ডওভার এবং চলমান বৃদ্ধির কৌশলের জন্য ঐচ্ছিক রিটেইনার।</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testi">
+      <div class="ph-label reveal"><span class="inline-en">What Clients Say</span><span class="inline-bn" style="font-family:var(--font-bn)">ক্লায়েন্টরা কী বলেন</span></div>
+      <div class="sec-title reveal"><span class="inline-en">Voices</span><span class="inline-bn" style="font-family:var(--font-bn)">কণ্ঠস্বর</span></div>
+      <div class="testi-grid">
+        <div class="tcard reveal">
+          <p class="tcard-quote"><span class="inline-en">"Sazid doesn't just build websites — he asks questions no one else thinks to ask. The system he built thinks for itself."</span><span class="inline-bn" style="font-family:var(--font-bn)">"সাজিদ শুধু ওয়েবসাইট তৈরি করেন না — তিনি এমন প্রশ্ন করেন যা অন্য কেউ করে না।"</span></p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">🏥</div>
+            <div>
+              <div class="tcard-name">Dr. Rahman</div>
+              <div class="tcard-role"><span class="inline-en">HealthCare BD Client</span><span class="inline-bn" style="font-family:var(--font-bn)">হেলথকেয়ার বিডি ক্লায়েন্ট</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard reveal">
+          <p class="tcard-quote"><span class="inline-en">"The AI sales bot runs our entire WhatsApp catalog. Revenue from automated orders tripled in 2 months."</span><span class="inline-bn" style="font-family:var(--font-bn)">"এআই সেলস বট আমাদের পুরো হোয়াটসঅ্যাপ ক্যাটালগ চালায়। অটোমেটেড অর্ডার থেকে রাজস্ব ২ মাসে তিনগুণ হয়েছে।"</span></p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">🛍️</div>
+            <div>
+              <div class="tcard-name">Farhan · Dokan OS</div>
+              <div class="tcard-role"><span class="inline-en">Retail Client · Dhaka</span><span class="inline-bn" style="font-family:var(--font-bn)">রিটেইল ক্লায়েন্ট · ঢাকা</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard reveal">
+          <p class="tcard-quote"><span class="inline-en">"His philosophy background shows in everything — he brings coherence and meaning to projects that other developers just execute."</span><span class="inline-bn" style="font-family:var(--font-bn)">"তার দর্শনের পটভূমি সবকিছুতে দেখা যায় — তিনি প্রকল্পে সংযোগ এবং অর্থ নিয়ে আসেন।"</span></p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">🎓</div>
+            <div>
+              <div class="tcard-name">JU Event Committee</div>
+              <div class="tcard-role"><span class="inline-en">Branding Client · JU</span><span class="inline-bn" style="font-family:var(--font-bn)">ব্র্যান্ডিং ক্লায়েন্ট · জাবি</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section reveal">
+      <span class="cta-label"><span class="inline-en">Ready to Start?</span><span class="inline-bn" style="font-family:var(--font-bn)">শুরু করতে প্রস্তুত?</span></span>
+      <h2 class="cta-title"><span class="inline-en">Let's Build<br>Something Lasting</span><span class="inline-bn" style="font-family:var(--font-bn)">চলুন কিছু<br>স্থায়ী তৈরি করি</span></h2>
+      <p class="cta-sub"><span class="inline-en">Strategy call is always free. No pitch decks.</span><span class="inline-bn" style="font-family:var(--font-bn)">স্ট্র্যাটেজি কল সর্বদা বিনামূল্যে। কোনো পিচ ডেক নেই।</span></p>
+      <div class="btn-row">
+        <a href="contact.html" class="btn-p"><span class="inline-en">Start a Project →</span><span class="inline-bn" style="font-family:var(--font-bn)">প্রজেক্ট শুরু করুন →</span></a>
+        <a href="portfolio.html" class="btn-g"><span class="inline-en">View My Work</span><span class="inline-bn" style="font-family:var(--font-bn)">আমার কাজ দেখুন</span></a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-copy">© 2026 Sazid Hossain · NEXUS v8.0</div>
+    <div class="footer-status"><div class="s-dot"></div><span class="inline-en">Available for Projects</span><span class="inline-bn" style="font-family:var(--font-bn)">প্রজেক্টের জন্য উপলব্ধ</span></div>
+  </footer>
+
+  <script>
+    function initTheme(){const s=localStorage.getItem('nexus_theme')||'dark';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeBtn').textContent=s==='dark'?'🌙':'☀️'}
+    function toggleTheme(){const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('nexus_theme',n);document.getElementById('themeBtn').textContent=n==='dark'?'🌙':'☀️'}
+    function initLang(){const s=localStorage.getItem('nexus_lang')||'en';document.documentElement.setAttribute('data-lang',s);document.getElementById('langBtn').textContent=s==='en'?'বাং':'EN'}
+    function toggleLang(){const c=document.documentElement.getAttribute('data-lang');const n=c==='en'?'bn':'en';document.documentElement.setAttribute('data-lang',n);localStorage.setItem('nexus_lang',n);document.getElementById('langBtn').textContent=n==='en'?'বাং':'EN'}
+    const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-4.5+'px';cur.style.top=my-4.5+'px'});
+    (function a(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx-16+'px';ring.style.top=ry-16+'px';requestAnimationFrame(a)})();
+    document.addEventListener('mouseover',e=>{if(e.target.closest('a,button')){cur.style.transform='scale(2.5)';ring.style.transform='scale(1.5)'}else{cur.style.transform='scale(1)';ring.style.transform='scale(1)'}});
+    const scrollBar=document.getElementById('scrollBar');
+    window.addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-window.innerHeight;scrollBar.style.width=(max>0?(window.scrollY/max)*100:0)+'%'},{passive:true});
+    window.addEventListener('scroll',()=>{const nav=document.querySelector('nav');if(window.scrollY>20)nav.classList.add('scrolled');else nav.classList.remove('scrolled')},{passive:true});
+    const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*90)});},{threshold:0.07});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    initTheme();initLang();
+  </script>
+</body>
+</html>
