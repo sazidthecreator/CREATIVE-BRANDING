@@ -33,6 +33,7 @@ jobs:
 
       - name: Ensure Tailwind native binding (Linux)
         run: npm i --no-save @tailwindcss/oxide-linux-x64-gnu
+        continue-on-error: true
 
       - name: Build Astro project
         run: npm run build

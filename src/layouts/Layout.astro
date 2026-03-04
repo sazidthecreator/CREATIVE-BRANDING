@@ -104,8 +104,16 @@ const {
 
   <script>
     // Theme persistence
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('nexus_theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // Language persistence
+    const savedLang = localStorage.getItem('nexus_lang');
+    if (savedLang === 'en' || savedLang === 'bn') {
+      document.documentElement.setAttribute('data-lang', savedLang);
+    } else {
+      document.documentElement.setAttribute('data-lang', 'en');
+    }
 
     // Cursor (desktop pointers only)
     const cursor = document.getElementById('cursor');
