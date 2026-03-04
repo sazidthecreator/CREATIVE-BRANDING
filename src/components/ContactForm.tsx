@@ -8,7 +8,20 @@ interface FormState {
   budget: string;
 }
 
-const BUDGETS = ['< $500', '$500–$2k', '$2k–$5k', '$5k–$10k', '$10k+', 'Let\'s discuss'];
+const BUDGETS = ['< $500', '$500–$2k', '$2k–$5k', '$5k–$10k', '$10k+', "Let's discuss"];
+
+const inputBase: React.CSSProperties = {
+  background: 'var(--surface2)',
+  borderRadius: 'var(--clay-radius-sm)',
+  padding: '14px 18px',
+  color: 'var(--text)',
+  fontSize: 'var(--text-sm)',
+  fontFamily: 'var(--font-body)',
+  outline: 'none',
+  transition: 'all 0.25s var(--ease)',
+  width: '100%',
+  boxSizing: 'border-box',
+};
 
 export default function ContactForm() {
   const [form, setForm] = useState<FormState>({ name: '', email: '', subject: '', message: '', budget: '' });
@@ -29,13 +42,18 @@ export default function ContactForm() {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setStatus('sending');
-    // Simulate form submission
     await new Promise(r => setTimeout(r, 1500));
     setStatus('sent');
   };
 
+  const getInputStyle = (key: keyof FormState): React.CSSProperties => ({
+    ...inputBase,
+    border: `1px solid ${errors[key] ? 'var(--accent3)' : 'var(--border2)'}`,
+    boxShadow: `inset 0 2px 6px rgba(0,0,0,0.15), 0 1px 0 rgba(255,255,255,0.04)`,
+  });
+
   const field = (key: keyof FormState, label: string, type = 'text', placeholder = '') => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
       <label style={{
         fontSize: 'var(--text-xs)', letterSpacing: '0.12em',
         textTransform: 'uppercase', color: 'var(--muted2)',
@@ -50,13 +68,18 @@ export default function ContactForm() {
           placeholder={placeholder}
           rows={5}
           style={{
-            background: 'var(--surface2)', border: `1px solid ${errors[key] ? 'var(--accent3)' : 'var(--border2)'}`,
-            borderRadius: '8px', padding: '12px 16px', color: 'var(--text)',
-            fontSize: 'var(--text-sm)', fontFamily: 'var(--font-body)',
-            resize: 'vertical', outline: 'none', transition: 'border-color 0.2s',
+            ...getInputStyle(key),
+            resize: 'vertical',
+            lineHeight: 1.7,
           }}
-          onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
-          onBlur={e => (e.target.style.borderColor = errors[key] ? 'var(--accent3)' : 'var(--border2)')}
+          onFocus={e => {
+            e.target.style.borderColor = 'var(--accent)';
+            e.target.style.boxShadow = 'inset 0 2px 6px rgba(0,0,0,0.1), 0 0 0 3px var(--accent-dim), 0 1px 0 rgba(255,255,255,0.04)';
+          }}
+          onBlur={e => {
+            e.target.style.borderColor = errors[key] ? 'var(--accent3)' : 'var(--border2)';
+            e.target.style.boxShadow = 'inset 0 2px 6px rgba(0,0,0,0.15), 0 1px 0 rgba(255,255,255,0.04)';
+          }}
         />
       ) : (
         <input
@@ -64,17 +87,25 @@ export default function ContactForm() {
           value={form[key]}
           onChange={e => { setForm(f => ({ ...f, [key]: e.target.value })); setErrors(err => ({ ...err, [key]: '' })); }}
           placeholder={placeholder}
-          style={{
-            background: 'var(--surface2)', border: `1px solid ${errors[key] ? 'var(--accent3)' : 'var(--border2)'}`,
-            borderRadius: '8px', padding: '12px 16px', color: 'var(--text)',
-            fontSize: 'var(--text-sm)', fontFamily: 'var(--font-body)',
-            outline: 'none', transition: 'border-color 0.2s',
+          style={getInputStyle(key)}
+          onFocus={e => {
+            e.target.style.borderColor = 'var(--accent)';
+            e.target.style.boxShadow = 'inset 0 2px 6px rgba(0,0,0,0.1), 0 0 0 3px var(--accent-dim), 0 1px 0 rgba(255,255,255,0.04)';
           }}
-          onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
-          onBlur={e => (e.target.style.borderColor = errors[key] ? 'var(--accent3)' : 'var(--border2)')}
+          onBlur={e => {
+            e.target.style.borderColor = errors[key] ? 'var(--accent3)' : 'var(--border2)';
+            e.target.style.boxShadow = 'inset 0 2px 6px rgba(0,0,0,0.15), 0 1px 0 rgba(255,255,255,0.04)';
+          }}
         />
       )}
-      {errors[key] && <span style={{ fontSize: 'var(--text-xs)', color: 'var(--accent3)' }}>{errors[key]}</span>}
+      {errors[key] && (
+        <span style={{
+          fontSize: 'var(--text-xs)', color: 'var(--accent3)',
+          display: 'flex', alignItems: 'center', gap: '4px',
+        }}>
+          ⚠ {errors[key]}
+        </span>
+      )}
     </div>
   );
 
@@ -82,11 +113,24 @@ export default function ContactForm() {
     return (
       <div style={{
         padding: '60px 40px', textAlign: 'center',
-        background: 'var(--surface)', borderRadius: '16px',
-        border: '1px solid var(--border)',
+        background: 'linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%)',
+        borderRadius: 'var(--clay-radius)',
+        border: '1px solid rgba(180,255,87,0.2)',
+        boxShadow: 'var(--clay-shadow-accent)',
+        animation: 'scaleIn 0.4s var(--ease-spring)',
       }}>
-        <div style={{ fontSize: '48px', marginBottom: '16px' }}>✓</div>
-        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-2xl)', color: 'var(--accent)', marginBottom: '12px' }}>
+        <div style={{
+          fontSize: '52px', marginBottom: '16px',
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          width: '80px', height: '80px',
+          background: 'rgba(180,255,87,0.12)', borderRadius: '50%',
+          border: '2px solid rgba(180,255,87,0.3)',
+          animation: 'pulseRing 2s infinite',
+        }}>✓</div>
+        <h3 style={{
+          fontFamily: 'var(--font-display)', fontSize: 'var(--text-2xl)',
+          color: 'var(--accent)', marginBottom: '12px',
+        }}>
           Message Sent!
         </h3>
         <p style={{ color: 'var(--text2)', fontSize: 'var(--text-sm)' }}>
@@ -98,14 +142,14 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
         {field('name', 'Your Name', 'text', 'Sazid Hossain')}
         {field('email', 'Email Address', 'email', 'hello@example.com')}
       </div>
-      {field('subject', 'Subject', 'text', 'Let\'s collaborate on...')}
+      {field('subject', 'Subject', 'text', "Let's collaborate on...")}
 
       {/* Budget selector */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <label style={{
           fontSize: 'var(--text-xs)', letterSpacing: '0.12em',
           textTransform: 'uppercase', color: 'var(--muted2)',
@@ -120,12 +164,30 @@ export default function ContactForm() {
               type="button"
               onClick={() => setForm(f => ({ ...f, budget: b }))}
               style={{
-                padding: '6px 14px', borderRadius: '99px',
+                padding: '7px 16px', borderRadius: '99px',
                 border: `1px solid ${form.budget === b ? 'var(--accent)' : 'var(--border2)'}`,
-                background: form.budget === b ? 'var(--accent-dim)' : 'transparent',
+                background: form.budget === b ? 'var(--accent-dim)' : 'var(--surface)',
                 color: form.budget === b ? 'var(--accent)' : 'var(--muted2)',
                 fontSize: 'var(--text-xs)', fontFamily: 'var(--font-mono)',
-                cursor: 'pointer', transition: 'all 0.2s',
+                cursor: 'pointer',
+                transition: 'all 0.25s var(--ease-spring)',
+                boxShadow: form.budget === b ? 'var(--clay-shadow-accent)' : 'var(--clay-shadow)',
+                transform: form.budget === b ? 'translateY(-1px)' : 'translateY(0)',
+                fontWeight: form.budget === b ? 600 : 400,
+              }}
+              onMouseEnter={e => {
+                if (form.budget !== b) {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--accent)';
+                  (e.currentTarget as HTMLButtonElement).style.color = 'var(--accent)';
+                  (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-1px)';
+                }
+              }}
+              onMouseLeave={e => {
+                if (form.budget !== b) {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border2)';
+                  (e.currentTarget as HTMLButtonElement).style.color = 'var(--muted2)';
+                  (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)';
+                }
               }}
             >
               {b}
@@ -140,9 +202,20 @@ export default function ContactForm() {
         type="submit"
         disabled={status === 'sending'}
         className="btn btn-primary"
-        style={{ alignSelf: 'flex-start', opacity: status === 'sending' ? 0.7 : 1 }}
+        style={{
+          alignSelf: 'flex-start',
+          opacity: status === 'sending' ? 0.75 : 1,
+          cursor: status === 'sending' ? 'not-allowed' : 'pointer',
+        }}
       >
-        {status === 'sending' ? 'Sending...' : 'Send Message →'}
+        {status === 'sending' ? (
+          <>
+            <span style={{ animation: 'blink 1s step-end infinite' }}>⏳</span>
+            Sending...
+          </>
+        ) : (
+          <>Send Message →</>
+        )}
       </button>
     </form>
   );

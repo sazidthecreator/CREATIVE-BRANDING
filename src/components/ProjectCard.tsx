@@ -27,6 +27,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const statusColor = project.status === 'live' ? '#22c55e' : project.status === 'wip' ? '#f59e0b' : '#64748b';
+  const statusLabel = project.status === 'live' ? 'live' : project.status === 'wip' ? 'in progress' : project.status;
 
   return (
     <a
@@ -37,28 +38,48 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         display: 'block',
         textDecoration: 'none',
         color: 'inherit',
-        animation: `slideIn 0.6s cubic-bezier(0.16,1,0.3,1) ${index * 0.1}s both`,
+        animation: `slideIn 0.6s var(--ease) ${index * 0.08}s both`,
       }}
     >
-      <div className="card" style={{ padding: '28px', cursor: 'pointer' }}>
+      <div
+        className="card"
+        style={{
+          padding: '28px 28px 24px',
+          cursor: 'pointer',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          background: 'linear-gradient(145deg, var(--surface) 0%, var(--surface2) 100%)',
+        }}
+      >
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
           <div style={{
-            width: '52px', height: '52px', borderRadius: '12px',
-            background: 'var(--accent-dim)', border: '1px solid rgba(180,255,87,0.15)',
+            width: '54px', height: '54px', borderRadius: '14px',
+            background: 'linear-gradient(135deg, var(--accent-dim) 0%, rgba(87,255,218,0.08) 100%)',
+            border: '1px solid rgba(180,255,87,0.18)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '24px', flexShrink: 0,
+            fontSize: '26px', flexShrink: 0,
+            boxShadow: '0 4px 12px rgba(180,255,87,0.1), inset 0 1px 0 rgba(255,255,255,0.06)',
+            transition: 'transform 0.3s var(--ease-spring)',
           }}>
             {project.emoji}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
             <div style={{
-              display: 'flex', alignItems: 'center', gap: '6px',
+              display: 'inline-flex', alignItems: 'center', gap: '5px',
               fontSize: 'var(--text-xs)', color: 'var(--muted2)',
               fontFamily: 'var(--font-mono)',
+              padding: '3px 10px', borderRadius: '99px',
+              background: `${statusColor}18`,
+              border: `1px solid ${statusColor}30`,
             }}>
-              <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: statusColor }} />
-              {project.status}
+              <div style={{
+                width: '5px', height: '5px', borderRadius: '50%',
+                background: statusColor,
+                animation: project.status === 'live' ? 'dotPulse 2s infinite' : 'none',
+              }} />
+              {statusLabel}
             </div>
             <span style={{ fontSize: 'var(--text-xs)', color: 'var(--muted)', fontFamily: 'var(--font-mono)' }}>
               {project.year}
@@ -82,14 +103,17 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             {project.titleBn}
           </p>
         )}
-        <p style={{ fontSize: 'var(--text-sm)', color: 'var(--accent)', marginBottom: '12px', fontFamily: 'var(--font-mono)' }}>
+        <p style={{
+          fontSize: 'var(--text-xs)', color: 'var(--accent)', marginBottom: '14px',
+          fontFamily: 'var(--font-mono)', letterSpacing: '0.06em',
+        }}>
           {project.subtitle}
         </p>
 
         {/* Description */}
         <p style={{
           fontSize: 'var(--text-sm)', color: 'var(--text2)',
-          lineHeight: 1.7, marginBottom: '20px',
+          lineHeight: 1.75, marginBottom: '20px', flexGrow: 1,
         }}>
           {project.description}
         </p>
@@ -105,15 +129,26 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         <div style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           borderTop: '1px solid var(--border)', paddingTop: '16px',
+          marginTop: 'auto',
         }}>
-          <div style={{ display: 'flex', gap: '16px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             {project.impact && (
-              <span style={{ fontSize: 'var(--text-xs)', color: 'var(--muted2)', fontFamily: 'var(--font-mono)' }}>
+              <span style={{
+                fontSize: 'var(--text-xs)', color: 'var(--muted2)',
+                fontFamily: 'var(--font-mono)',
+                padding: '2px 8px', borderRadius: '6px',
+                background: 'var(--surface2)',
+              }}>
                 📈 {project.impact}
               </span>
             )}
             {project.duration && (
-              <span style={{ fontSize: 'var(--text-xs)', color: 'var(--muted2)', fontFamily: 'var(--font-mono)' }}>
+              <span style={{
+                fontSize: 'var(--text-xs)', color: 'var(--muted2)',
+                fontFamily: 'var(--font-mono)',
+                padding: '2px 8px', borderRadius: '6px',
+                background: 'var(--surface2)',
+              }}>
                 ⏱ {project.duration}
               </span>
             )}
@@ -121,6 +156,8 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           <span style={{
             fontSize: 'var(--text-xs)', color: 'var(--accent)',
             fontFamily: 'var(--font-mono)', letterSpacing: '0.1em',
+            display: 'inline-flex', alignItems: 'center', gap: '4px',
+            transition: 'gap 0.2s var(--ease-spring)',
           }}>
             View →
           </span>

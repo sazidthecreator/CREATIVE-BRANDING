@@ -97,48 +97,91 @@ const {
       </div>
       <div style="border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
         <p style="font-size:var(--text-xs);color:var(--muted);">© 2025 Sazid Hossain. Built with Astro + React + Tailwind.</p>
-        <p style="font-size:var(--text-xs);color:var(--muted);font-family:var(--font-mono);">v2.0 — Enhanced Edition</p>
+        <p style="font-size:var(--text-xs);color:var(--muted);font-family:var(--font-mono);">v3.0 — Claymotion Edition</p>
       </div>
     </div>
   </footer>
 
   <script>
-    // Theme persistence
+    // Theme persistence (run before render to avoid flash)
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // Page entrance animation
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.4s ease';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.body.style.opacity = '1';
+        });
+      });
+    });
 
     // Cursor
     const cursor = document.getElementById('cursor');
     const cursorRing = document.getElementById('cursorRing');
     let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+    let cursorVisible = false;
+
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX; mouseY = e.clientY;
+      if (!cursorVisible) {
+        cursorVisible = true;
+        if (cursor) cursor.style.opacity = '1';
+        if (cursorRing) cursorRing.style.opacity = '1';
+      }
       if (cursor) { cursor.style.left = mouseX - 4.5 + 'px'; cursor.style.top = mouseY - 4.5 + 'px'; }
     });
+
+    if (cursor) cursor.style.opacity = '0';
+    if (cursorRing) cursorRing.style.opacity = '0';
+
     function animateRing() {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
+      ringX += (mouseX - ringX) * 0.1;
+      ringY += (mouseY - ringY) * 0.1;
       if (cursorRing) { cursorRing.style.left = ringX - 16 + 'px'; cursorRing.style.top = ringY - 16 + 'px'; }
       requestAnimationFrame(animateRing);
     }
     animateRing();
-    document.querySelectorAll('a,button,[role="button"]').forEach(el => {
-      el.addEventListener('mouseenter', () => { if(cursor) cursor.style.transform='scale(2.5)'; if(cursorRing) { cursorRing.style.width='48px'; cursorRing.style.height='48px'; }});
-      el.addEventListener('mouseleave', () => { if(cursor) cursor.style.transform='scale(1)'; if(cursorRing) { cursorRing.style.width='32px'; cursorRing.style.height='32px'; }});
+
+    const interactives = document.querySelectorAll('a, button, [role="button"], input, textarea, select');
+    interactives.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        if (cursor) { cursor.style.transform = 'scale(2.2)'; cursor.style.mixBlendMode = 'exclusion'; }
+        if (cursorRing) { cursorRing.style.width = '52px'; cursorRing.style.height = '52px'; cursorRing.style.borderColor = 'rgba(180,255,87,0.6)'; }
+      });
+      el.addEventListener('mouseleave', () => {
+        if (cursor) { cursor.style.transform = 'scale(1)'; cursor.style.mixBlendMode = 'exclusion'; }
+        if (cursorRing) { cursorRing.style.width = '32px'; cursorRing.style.height = '32px'; cursorRing.style.borderColor = 'rgba(180,255,87,0.4)'; }
+      });
     });
 
-    // Scroll progress
+    // Scroll progress bar
     const scrollBar = document.getElementById('scrollBar');
     window.addEventListener('scroll', () => {
       const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
       if (scrollBar) scrollBar.style.width = pct + '%';
-    });
+    }, { passive: true });
 
-    // Reveal on scroll
+    // Reveal on scroll (stagger siblings)
     const reveals = document.querySelectorAll('.reveal');
     const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
-    }, { threshold: 0.1 });
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          // Add slight stagger for siblings
+          const el = e.target as HTMLElement;
+          const parent = el.parentElement;
+          if (parent) {
+            const siblings = Array.from(parent.querySelectorAll('.reveal:not(.visible)'));
+            const idx = siblings.indexOf(el);
+            el.style.transitionDelay = `${idx * 0.05}s`;
+          }
+          el.classList.add('visible');
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.08 });
     reveals.forEach(el => obs.observe(el));
   </script>
 
