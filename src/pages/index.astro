@@ -192,6 +192,48 @@ const testimonials = [
     </div>
   </section>
 
+  <!-- Numbers / Stats Bar -->
+  <section class="home-stats" style="
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: clamp(28px,5vw,48px) clamp(20px,5vw,80px);
+    background: var(--surface);
+  ">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="stats-bar" style="
+        display:flex;align-items:center;justify-content:center;
+        gap:clamp(16px,4vw,48px);flex-wrap:wrap;
+      ">
+        {[
+          { value: '6+', label: 'Years', labelBn: 'বছর' },
+          { value: '40+', label: 'Projects', labelBn: 'প্রজেক্ট' },
+          { value: '3×', label: 'ROI avg', labelBn: 'গড় আরওআই' },
+          { value: '🇧🇩', label: 'Dhaka, BD', labelBn: 'ঢাকা, বাংলাদেশ' },
+        ].map((stat, i) => (
+          <div style="display:flex;align-items:center;gap:clamp(16px,4vw,48px);">
+            <div style="text-align:center;">
+              <span style="
+                font-family:var(--font-mono);font-weight:700;
+                font-size:var(--text-2xl);color:var(--accent);
+                display:block;line-height:1.1;
+              ">{stat.value}</span>
+              <span style="
+                font-family:var(--font-mono);font-size:var(--text-xs);
+                color:var(--muted2);letter-spacing:0.1em;text-transform:uppercase;
+              ">
+                <span class="inline-en">{stat.label}</span>
+                <span class="inline-bn">{stat.labelBn}</span>
+              </span>
+            </div>
+            {i < 3 && (
+              <span style="color:var(--accent);font-family:var(--font-mono);font-size:var(--text-xl);opacity:0.4;">—</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Section -->
   <section class="home-cta reveal" style="
     padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
@@ -233,6 +275,7 @@ const testimonials = [
   .home-work,
   .home-philosophy,
   .home-testimonials,
+  .home-stats,
   .home-cta {
     position: relative;
     overflow: clip;

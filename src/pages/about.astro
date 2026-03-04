@@ -254,6 +254,55 @@ const values = [
     </div>
   </section>
 
+  <!-- Counters -->
+  <section class="about-counters reveal" style="
+    padding: clamp(60px,10vw,100px) clamp(20px,5vw,80px);
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  ">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center;" class="counters-grid">
+        <div class="counter-item">
+          <div style="
+            font-family:var(--font-mono);font-weight:700;
+            font-size:clamp(2.5rem,6vw,4rem);
+            color:var(--accent);line-height:1;margin-bottom:8px;
+          ">
+            <span class="counter-number" data-target="6" data-suffix="+">0</span>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--muted2);text-transform:uppercase;letter-spacing:0.1em;">
+            <span class="inline-en">Years</span><span class="inline-bn">বছর</span>
+          </p>
+        </div>
+        <div class="counter-item">
+          <div style="
+            font-family:var(--font-mono);font-weight:700;
+            font-size:clamp(2.5rem,6vw,4rem);
+            color:var(--accent2);line-height:1;margin-bottom:8px;
+          ">
+            <span class="counter-number" data-target="40" data-suffix="+">0</span>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--muted2);text-transform:uppercase;letter-spacing:0.1em;">
+            <span class="inline-en">Projects</span><span class="inline-bn">প্রজেক্ট</span>
+          </p>
+        </div>
+        <div class="counter-item">
+          <div style="
+            font-family:var(--font-mono);font-weight:700;
+            font-size:clamp(2.5rem,6vw,4rem);
+            color:var(--accent3);line-height:1;margin-bottom:8px;
+          ">
+            <span class="counter-number" data-target="100" data-suffix="%">0</span>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--muted2);text-transform:uppercase;letter-spacing:0.1em;">
+            <span class="inline-en">Client Satisfaction</span><span class="inline-bn">ক্লায়েন্ট সন্তুষ্টি</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section style="
     padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
@@ -281,14 +330,51 @@ const values = [
   </section>
 </Layout>
 
+<script>
+  // Counter animations using Intersection Observer
+  function animateCounter(el: HTMLElement) {
+    const target = parseInt(el.dataset.target || '0', 10);
+    const suffix = el.dataset.suffix || '';
+    const COUNTER_ANIMATION_DURATION_MS = 1600;
+    const start = performance.now();
+
+    function step(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / COUNTER_ANIMATION_DURATION_MS, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target as HTMLElement;
+        animateCounter(el);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll<HTMLElement>('.counter-number').forEach(el => {
+    counterObserver.observe(el);
+  });
+</script>
+
 <style>
   @media (max-width: 768px) {
     .about-bio-grid { grid-template-columns: 1fr !important; }
     .values-grid { grid-template-columns: 1fr !important; }
     .stack-grid { grid-template-columns: 1fr 1fr !important; }
+    .counters-grid { grid-template-columns: 1fr 1fr !important; }
   }
   @media (max-width: 480px) {
     .stack-grid { grid-template-columns: 1fr !important; }
+    .counters-grid { grid-template-columns: 1fr !important; }
   }
 </style>
 
