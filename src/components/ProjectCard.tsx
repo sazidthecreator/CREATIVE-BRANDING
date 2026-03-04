@@ -29,18 +29,29 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const statusColor = project.status === 'live' ? '#22c55e' : project.status === 'wip' ? '#f59e0b' : '#64748b';
 
   return (
-    <a
-      href={project.link || '#'}
-      target={project.link && project.link !== '#' ? '_blank' : undefined}
-      rel="noopener noreferrer"
-      style={{
-        display: 'block',
-        textDecoration: 'none',
-        color: 'inherit',
-        animation: `slideIn 0.6s cubic-bezier(0.16,1,0.3,1) ${index * 0.1}s both`,
-      }}
-    >
-      <div className="card" style={{ padding: '28px', cursor: 'pointer' }}>
+    <article>
+      <a
+        href={project.link || '#'}
+        target={project.link && project.link !== '#' ? '_blank' : undefined}
+        rel="noopener noreferrer"
+        title={project.title}
+        style={{
+          display: 'block',
+          textDecoration: 'none',
+          color: 'inherit',
+          animation: index > 0 ? `slideIn 0.6s cubic-bezier(0.16,1,0.3,1) ${index * 0.1}s both` : undefined,
+        }}
+      >
+        <div className="card" style={{
+          padding: '28px', cursor: 'pointer',
+        }}
+          onMouseEnter={e => {
+            (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px rgba(180,255,87,0.1), 0 20px 60px rgba(180,255,87,0.12), inset 0 1px 0 rgba(255,255,255,0.08)';
+          }}
+          onMouseLeave={e => {
+            (e.currentTarget as HTMLElement).style.boxShadow = '';
+          }}
+        >
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
           <div style={{
@@ -118,14 +129,35 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               </span>
             )}
           </div>
-          <span style={{
-            fontSize: 'var(--text-xs)', color: 'var(--accent)',
-            fontFamily: 'var(--font-mono)', letterSpacing: '0.1em',
-          }}>
-            View →
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {project.githubLink && (
+              <a
+                href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`GitHub repository for ${project.title}`}
+                onClick={e => e.stopPropagation()}
+                style={{
+                  fontSize: 'var(--text-xs)', color: 'var(--muted2)',
+                  fontFamily: 'var(--font-mono)', letterSpacing: '0.1em',
+                  transition: 'color 0.2s',
+                }}
+                onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--accent)')}
+                onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.color = 'var(--muted2)')}
+              >
+                GitHub ↗
+              </a>
+            )}
+            <span style={{
+              fontSize: 'var(--text-xs)', color: 'var(--accent)',
+              fontFamily: 'var(--font-mono)', letterSpacing: '0.1em',
+            }}>
+              View →
+            </span>
+          </div>
         </div>
       </div>
-    </a>
+      </a>
+    </article>
   );
 }
