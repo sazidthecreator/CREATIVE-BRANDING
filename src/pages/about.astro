@@ -1,148 +1,179 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const skills = [
-  { category: 'Design', items: ['Figma', 'Adobe XD', 'Illustrator', 'Photoshop', 'Framer', 'Spline'] },
-  { category: 'Development', items: ['React', 'Next.js', 'Astro', 'TypeScript', 'TailwindCSS', 'Node.js'] },
-  { category: 'AI & Tools', items: ['OpenAI API', 'LangChain', 'n8n', 'Make.com', 'Zapier', 'Notion AI'] },
-  { category: 'Strategy', items: ['Brand Architecture', 'UX Research', 'Growth Funnels', 'Analytics', 'SEO'] },
+const stackCards = [
+  {
+    icon: '⚛',
+    title: 'Frontend',
+    items: ['React', 'Next.js', 'TailwindCSS', 'HTML/CSS'],
+  },
+  {
+    icon: '🧩',
+    title: 'CMS & No-Code',
+    items: ['WordPress', 'Elementor Pro', 'Webflow'],
+  },
+  {
+    icon: '🤖',
+    title: 'AI & Automation',
+    items: ['AI Agents', 'n8n/Make', 'WhatsApp API', 'NotebookLM'],
+  },
+  {
+    icon: '🎯',
+    title: 'Strategy',
+    items: ['System Design', 'UX Strategy', 'Sales Funnels', 'SEO Architecture'],
+  },
 ];
 
 const timeline = [
-  { year: '2025', title: 'Creative Technologist', org: 'Freelance', desc: 'Building AI-native products and automated systems for startups across Bangladesh and beyond.' },
-  { year: '2024', title: 'Brand Designer & Developer', org: 'Vabuuk Studio', desc: 'Led brand identity and digital product design for philosophy-tech startup Vabuuk.' },
-  { year: '2023', title: 'UI/UX Designer', org: 'Various Clients', desc: 'Designed interfaces for healthcare, education, and e-commerce platforms.' },
-  { year: '2022', title: 'Philosophy Student → Tech', org: 'Jahangirnagar University', desc: 'Began merging philosophical inquiry with digital design practice.' },
+  {
+    period: '2023–Present',
+    title: 'Founder & AI Automation Strategist',
+    titleBn: 'প্রতিষ্ঠাতা ও এআই অটোমেশন স্ট্র্যাটেজিস্ট',
+    org: 'Independent / Freelance',
+    desc: 'Building AI-native products, automated business systems, and digital identities for startups across Bangladesh and beyond.',
+    descBn: 'বাংলাদেশ ও আন্তর্জাতিক স্টার্টআপের জন্য এআই-নেটিভ পণ্য ও অটোমেটেড সিস্টেম তৈরি করছি।',
+  },
+  {
+    period: '2022–Present',
+    title: 'Web Design Mentor',
+    titleBn: 'ওয়েব ডিজাইন মেন্টর',
+    org: 'CodemanBD',
+    desc: 'Mentoring emerging developers and designers in modern web development, UI/UX principles, and freelance strategy.',
+    descBn: 'নতুন ডেভেলপার ও ডিজাইনারদের আধুনিক ওয়েব ডেভেলপমেন্ট ও ফ্রিল্যান্সিং কৌশলে মেন্টরিং করছি।',
+  },
+  {
+    period: '2019–Present',
+    title: 'Freelance Front-End Developer',
+    titleBn: 'ফ্রিল্যান্স ফ্রন্ট-এন্ড ডেভেলপার',
+    org: 'Upwork',
+    desc: 'Delivering responsive, performant web experiences for clients worldwide — from healthcare platforms to editorial sites.',
+    descBn: 'বিশ্বজুড়ে ক্লায়েন্টদের জন্য রেসপনসিভ ও পারফরম্যান্ট ওয়েব এক্সপেরিয়েন্স ডেলিভার করছি।',
+  },
+  {
+    period: '2017–2022',
+    title: 'BA Philosophy',
+    titleBn: 'বিএ দর্শন',
+    org: 'Jahangirnagar University',
+    desc: 'Graduated with a focus on philosophy of mind, ethics, and logic — disciplines that now shape every system I architect.',
+    descBn: 'মন, নীতিশাস্ত্র ও যুক্তিবিদ্যায় বিশেষায়িত হয়ে স্নাতক — এই শাখাগুলো এখন আমার প্রতিটি সিস্টেম আর্কিটেকচারকে রূপ দেয়।',
+  },
 ];
 
 const values = [
-  { icon: '∴', title: 'Clarity', titleBn: 'স্পষ্টতা', desc: 'Every design decision must be explainable.' },
-  { icon: '∞', title: 'Systems', titleBn: 'সিস্টেম', desc: 'Think in patterns, not one-offs.' },
-  { icon: '◎', title: 'Meaning', titleBn: 'অর্থ', desc: 'Build things that matter to people.' },
-  { icon: '⊕', title: 'Growth', titleBn: 'বৃদ্ধি', desc: 'Every project is a lesson in disguise.' },
+  { icon: '🎯', title: 'Intention First', titleBn: 'উদ্দেশ্য আগে', desc: 'Every design decision begins with a clear "why" before any "how".' },
+  { icon: '⚙️', title: 'Systems Thinking', titleBn: 'সিস্টেমস থিংকিং', desc: 'I see patterns, loops, and leverage points where others see isolated tasks.' },
+  { icon: '🤝', title: 'Long-Term Partnership', titleBn: 'দীর্ঘমেয়াদী অংশীদারিত্ব', desc: "I don't just ship projects — I build relationships that compound over time." },
 ];
 ---
 
 <Layout title="About • Sazid Hossain — Creative Technologist" page="/about">
-  <!-- Hero -->
-  <section style="
-    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+  <!-- Page Header -->
+  <section class="about-header reveal" style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px) clamp(48px,6vw,80px);
     background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
   ">
     <div style="max-width:1200px;margin:0 auto;">
-      <p class="section-label">About Me</p>
+      <p class="section-label">
+        <span class="inline-en">About</span>
+        <span class="inline-bn">আমার সম্পর্কে</span>
+      </p>
       <h1 style="
         font-family:var(--font-display);font-weight:800;
         font-size:var(--text-4xl);line-height:1.05;
-        margin-bottom:32px;color:var(--text);
+        margin-bottom:16px;color:var(--text);
       ">
-        Philosophy-Trained<br/>
-        <span class="gradient-text">Creative Technologist</span>
+        <span class="inline-en">The Mind Behind <span class="gradient-text">Nexus</span></span>
+        <span class="inline-bn">নেক্সাসের পিছনের মন</span>
       </h1>
-
-      <div style="display:grid;grid-template-columns:3fr 2fr;gap:clamp(40px,8vw,100px);align-items:start;" class="about-hero-grid">
-        <div>
-          <p style="font-size:var(--text-xl);color:var(--text2);line-height:1.8;margin-bottom:20px;">
-            I'm <strong style="color:var(--text);font-family:var(--font-display);">Sazid Hossain</strong> — a Creative Technologist and AI Automation Strategist
-            based in Dhaka, Bangladesh. My journey started in the philosophy department of Jahangirnagar University,
-            where I learned to question <em style="color:var(--accent);font-family:var(--font-serif);">why</em> before asking <em style="color:var(--accent2);font-family:var(--font-serif);">how</em>.
-          </p>
-          <p style="font-size:var(--text-base);color:var(--text2);line-height:1.8;margin-bottom:20px;">
-            That philosophical foundation shapes everything I build. When I design a brand, I ask what values it represents.
-            When I architect an AI system, I consider what problems it truly solves. When I write code, I think about
-            who will maintain it and why.
-          </p>
-          <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted2);line-height:1.9;margin-bottom:32px;">
-            জাহাঙ্গীরনগর বিশ্ববিদ্যালয়ের দর্শন বিভাগ থেকে প্রযুক্তির পথে আসা আমার যাত্রা।
-            প্রতিটি ডিজাইনে, প্রতিটি সিস্টেমে আমি অর্থ খুঁজি।
-          </p>
-
-          <div style="display:flex;gap:16px;flex-wrap:wrap;">
-            <a href="/portfolio" class="btn btn-primary">View My Work →</a>
-            <a href="/resume" class="btn btn-outline">Download Resume</a>
-          </div>
-        </div>
-
-        <div style="position:sticky;top:80px;">
-          <!-- Profile Card -->
-          <div class="card" style="padding:32px;text-align:center;">
-            <div style="
-              width:80px;height:80px;border-radius:50%;
-              background:linear-gradient(135deg,var(--accent),var(--accent2));
-              margin:0 auto 16px;
-              display:flex;align-items:center;justify-content:center;
-              font-size:36px;
-            ">🧠</div>
-            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:4px;">Sazid Hossain</h3>
-            <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted2);margin-bottom:4px;">সাজিদ হোসেন</p>
-            <p style="font-size:var(--text-sm);color:var(--accent);font-family:var(--font-mono);margin-bottom:20px;">Creative Technologist</p>
-            <div style="border-top:1px solid var(--border);padding-top:16px;display:flex;flex-direction:column;gap:10px;">
-              {[
-                { icon: '📍', text: 'Dhaka, Bangladesh', sub: 'GMT+6' },
-                { icon: '🎓', text: 'Jahangirnagar University', sub: 'Philosophy' },
-                { icon: '💼', text: 'Available for hire', sub: 'Open to projects' },
-              ].map(item => (
-                <div style="display:flex;align-items:center;gap:10px;text-align:left;">
-                  <span style="font-size:14px;">{item.icon}</span>
-                  <div>
-                    <p style="font-size:var(--text-xs);color:var(--text2);">{item.text}</p>
-                    <p style="font-size:var(--text-xs);color:var(--muted);">{item.sub}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      <p style="
+        font-family:var(--font-serif);font-style:italic;
+        font-size:var(--text-xl);color:var(--text2);
+      ">
+        <span class="inline-en">Philosophy grad. Systems thinker. Web strategist.</span>
+        <span class="inline-bn">দর্শনের ছাত্র। সিস্টেম চিন্তাবিদ। ওয়েব কৌশলবিদ।</span>
+      </p>
     </div>
   </section>
 
-  <!-- Values -->
+  <!-- Bio + Stack Grid -->
   <section style="
-    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
-    background: var(--bg2);
+    padding: clamp(60px,10vw,120px) clamp(20px,5vw,80px);
     border-top: 1px solid var(--border);
-  " class="reveal">
-    <div style="max-width:1200px;margin:0 auto;">
-      <p class="section-label">Core Values</p>
-      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:clamp(40px,6vw,60px);color:var(--text);">
-        What Drives Me
-      </h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;">
-        {values.map(v => (
-          <div class="card" style="padding:32px;text-align:center;">
-            <div style="
-              font-size:32px;color:var(--accent);
-              font-family:var(--font-display);font-weight:700;
-              margin-bottom:16px;
-            ">{v.icon}</div>
-            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:4px;">{v.title}</h3>
-            <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted);margin-bottom:12px;">{v.titleBn}</p>
-            <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.6;">{v.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  ">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:3fr 2fr;gap:clamp(40px,8vw,100px);align-items:start;" class="about-bio-grid">
 
-  <!-- Skills -->
-  <section style="padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);" class="reveal">
-    <div style="max-width:1200px;margin:0 auto;">
-      <p class="section-label">Skills & Tools</p>
-      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:clamp(40px,6vw,60px);color:var(--text);">
-        My <span class="gradient-text">Toolkit</span>
-      </h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px;">
-        {skills.map(s => (
-          <div>
-            <h3 style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">
-              {s.category}
-            </h3>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;">
-              {s.items.map(item => (
-                <span class="tag">{item}</span>
+      <!-- Left: Bio -->
+      <div class="reveal">
+        <p style="font-size:var(--text-lg);color:var(--text2);line-height:1.8;margin-bottom:20px;">
+          <span class="inline-en">
+            I'm <strong style="color:var(--text);font-family:var(--font-display);">Sazid Hossain</strong> — a Creative Technologist
+            and AI Automation Strategist based in Dhaka, Bangladesh. My journey started in the philosophy
+            department of Jahangirnagar University, where I learned to question
+            <em style="color:var(--accent);font-family:var(--font-serif);">why</em> before asking
+            <em style="color:var(--accent2);font-family:var(--font-serif);">how</em>.
+          </span>
+          <span class="inline-bn">
+            আমি <strong style="color:var(--text);font-family:var(--font-display);">সাজিদ হোসেন</strong> — ঢাকা থেকে ক্রিয়েটিভ টেকনোলজিস্ট
+            ও এআই অটোমেশন স্ট্র্যাটেজিস্ট। জাহাঙ্গীরনগর বিশ্ববিদ্যালয়ের দর্শন বিভাগে
+            আমার যাত্রা শুরু হয়েছিল।
+          </span>
+        </p>
+        <p style="font-size:var(--text-base);color:var(--text2);line-height:1.8;margin-bottom:20px;">
+          <span class="inline-en">
+            That philosophical foundation shapes everything I build. When I design a brand, I ask what values
+            it represents. When I architect an AI system, I consider what problems it truly solves. When I
+            write code, I think about who will maintain it and why.
+          </span>
+          <span class="inline-bn">
+            সেই দার্শনিক ভিত্তি আমার তৈরি প্রতিটি জিনিসকে রূপ দেয়। যখন একটি ব্র্যান্ড ডিজাইন করি,
+            জিজ্ঞেস করি এটি কী মূল্যবোধের প্রতিনিধিত্ব করে। যখন একটি এআই সিস্টেম আর্কিটেক্ট করি,
+            ভাবি এটি আসলে কোন সমস্যার সমাধান করে।
+          </span>
+        </p>
+        <p style="font-size:var(--text-base);color:var(--text2);line-height:1.8;margin-bottom:28px;">
+          <span class="inline-en">
+            Today I run a multi-disciplinary practice that blends AI automation, brand strategy, and
+            full-stack development — helping founders and businesses build smarter, faster, and more meaningfully.
+          </span>
+          <span class="inline-bn">
+            আজ আমি একটি বহু-বিষয়ক অনুশীলন পরিচালনা করি যা এআই অটোমেশন, ব্র্যান্ড স্ট্র্যাটেজি এবং
+            ফুল-স্ট্যাক ডেভেলপমেন্টকে একত্রিত করে।
+          </span>
+        </p>
+
+        <blockquote style="
+          font-family:var(--font-serif);font-style:italic;
+          font-size:var(--text-xl);color:var(--text);
+          border-left:3px solid var(--accent);padding-left:20px;
+          margin-bottom:32px;line-height:1.6;
+        ">
+          <span class="inline-en">"Philosophy taught me the <span class="gradient-text">Why</span>; Tech taught me the <span style="color:var(--accent2);">How</span>."</span>
+          <span class="inline-bn">"দর্শন আমাকে <span class="gradient-text">কেন</span> শিখিয়েছে; প্রযুক্তি শিখিয়েছে <span style="color:var(--accent2);">কীভাবে</span>।"</span>
+        </blockquote>
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="/contact" class="btn btn-primary">
+            <span class="inline-en">Work With Me →</span>
+            <span class="inline-bn">আমার সাথে কাজ করুন →</span>
+          </a>
+          <a href="/resume" class="btn btn-outline">
+            <span class="inline-en">View Resume</span>
+            <span class="inline-bn">রেজুমে দেখুন</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Stack Grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;" class="reveal stack-grid">
+        {stackCards.map(card => (
+          <div class="card" style="padding:20px;">
+            <div style="font-size:22px;margin-bottom:10px;">{card.icon}</div>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-sm);color:var(--accent);margin-bottom:10px;letter-spacing:0.05em;">{card.title}</h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:4px;">
+              {card.items.map(item => (
+                <li style="font-size:var(--text-xs);color:var(--text2);font-family:var(--font-mono);">{item}</li>
               ))}
-            </div>
+            </ul>
           </div>
         ))}
       </div>
@@ -154,18 +185,19 @@ const values = [
     padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
     background: var(--bg2);
     border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   " class="reveal">
     <div style="max-width:800px;margin:0 auto;">
-      <p class="section-label">Experience</p>
+      <p class="section-label">
+        <span class="inline-en">Journey</span>
+        <span class="inline-bn">যাত্রা</span>
+      </p>
       <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:clamp(40px,6vw,60px);color:var(--text);">
-        My Journey
+        <span class="inline-en">Experience &amp; <span class="gradient-text">Education</span></span>
+        <span class="inline-bn">অভিজ্ঞতা ও <span class="gradient-text">শিক্ষা</span></span>
       </h2>
       <div style="position:relative;">
-        <div style="
-          position:absolute;left:0;top:0;bottom:0;
-          width:1px;background:linear-gradient(180deg,var(--accent),transparent);
-          margin-left:8px;
-        "></div>
+        <div style="position:absolute;left:8px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--accent),transparent);"></div>
         {timeline.map((item, i) => (
           <div style="display:flex;gap:24px;margin-bottom:40px;padding-left:8px;" class="reveal">
             <div style="
@@ -176,11 +208,17 @@ const values = [
             "></div>
             <div>
               <div style="display:flex;gap:12px;align-items:baseline;margin-bottom:6px;flex-wrap:wrap;">
-                <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent);">{item.year}</span>
-                <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:var(--text);">{item.title}</h3>
+                <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent);">{item.period}</span>
+                <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:var(--text);">
+                  <span class="inline-en">{item.title}</span>
+                  <span class="inline-bn">{item.titleBn}</span>
+                </h3>
                 <span style="font-size:var(--text-xs);color:var(--muted2);font-family:var(--font-mono);">@ {item.org}</span>
               </div>
-              <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.7;">{item.desc}</p>
+              <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.7;">
+                <span class="inline-en">{item.desc}</span>
+                <span class="inline-bn">{item.descBn}</span>
+              </p>
             </div>
           </div>
         ))}
@@ -188,25 +226,155 @@ const values = [
     </div>
   </section>
 
+  <!-- Values -->
+  <section style="padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);" class="reveal">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-label">
+        <span class="inline-en">What I Stand For</span>
+        <span class="inline-bn">আমি যা বিশ্বাস করি</span>
+      </p>
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:clamp(40px,6vw,60px);color:var(--text);">
+        <span class="inline-en">Core <span class="gradient-text">Values</span></span>
+        <span class="inline-bn">মূল <span class="gradient-text">মূল্যবোধ</span></span>
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="values-grid">
+        {values.map(v => (
+          <div class="card" style="padding:36px;text-align:center;">
+            <div style="font-size:36px;margin-bottom:16px;">{v.icon}</div>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:4px;">
+              <span class="inline-en">{v.title}</span>
+              <span class="inline-bn">{v.titleBn}</span>
+            </h3>
+            <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.6;margin-top:12px;">
+              <span class="inline-en">{v.desc}</span>
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Counters -->
+  <section class="about-counters reveal" style="
+    padding: clamp(60px,10vw,100px) clamp(20px,5vw,80px);
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  ">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center;" class="counters-grid">
+        <div class="counter-item">
+          <div style="
+            font-family:var(--font-mono);font-weight:700;
+            font-size:clamp(2.5rem,6vw,4rem);
+            color:var(--accent);line-height:1;margin-bottom:8px;
+          ">
+            <span class="counter-number" data-target="6" data-suffix="+">0</span>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--muted2);text-transform:uppercase;letter-spacing:0.1em;">
+            <span class="inline-en">Years</span><span class="inline-bn">বছর</span>
+          </p>
+        </div>
+        <div class="counter-item">
+          <div style="
+            font-family:var(--font-mono);font-weight:700;
+            font-size:clamp(2.5rem,6vw,4rem);
+            color:var(--accent2);line-height:1;margin-bottom:8px;
+          ">
+            <span class="counter-number" data-target="40" data-suffix="+">0</span>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--muted2);text-transform:uppercase;letter-spacing:0.1em;">
+            <span class="inline-en">Projects</span><span class="inline-bn">প্রজেক্ট</span>
+          </p>
+        </div>
+        <div class="counter-item">
+          <div style="
+            font-family:var(--font-mono);font-weight:700;
+            font-size:clamp(2.5rem,6vw,4rem);
+            color:var(--accent3);line-height:1;margin-bottom:8px;
+          ">
+            <span class="counter-number" data-target="100" data-suffix="%">0</span>
+          </div>
+          <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--muted2);text-transform:uppercase;letter-spacing:0.1em;">
+            <span class="inline-en">Client Satisfaction</span><span class="inline-bn">ক্লায়েন্ট সন্তুষ্টি</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section style="
     padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
-    text-align:center;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    text-align: center;
   " class="reveal">
     <div style="max-width:600px;margin:0 auto;">
       <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:20px;color:var(--text);">
-        Let's Create <span class="gradient-text">Together</span>
+        <span class="inline-en">Let's Create <span class="gradient-text">Together</span></span>
+        <span class="inline-bn">একসাথে তৈরি করি</span>
       </h2>
-      <p style="font-size:var(--text-base);color:var(--text2);margin-bottom:32px;">
-        Ready to collaborate? Let's build something meaningful.
+      <p style="font-size:var(--text-base);color:var(--text2);margin-bottom:12px;">
+        <span class="inline-en">Ready to collaborate? Let's build something meaningful.</span>
+        <span class="inline-bn">সহযোগিতার জন্য প্রস্তুত? চলুন কিছু অর্থবহ তৈরি করি।</span>
       </p>
-      <a href="/contact" class="btn btn-primary">Get In Touch →</a>
+      <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted);margin-bottom:32px;">
+        <span class="inline-bn">আপনার স্বপ্নের প্রজেক্ট নিয়ে কথা বলতে দ্বিধা করবেন না।</span>
+      </p>
+      <a href="/contact" class="btn btn-primary">
+        <span class="inline-en">Get In Touch →</span>
+        <span class="inline-bn">যোগাযোগ করুন →</span>
+      </a>
     </div>
   </section>
 </Layout>
 
+<script>
+  // Counter animations using Intersection Observer
+  function animateCounter(el: HTMLElement) {
+    const target = parseInt(el.dataset.target || '0', 10);
+    const suffix = el.dataset.suffix || '';
+    const COUNTER_ANIMATION_DURATION_MS = 1600;
+    const start = performance.now();
+
+    function step(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / COUNTER_ANIMATION_DURATION_MS, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target as HTMLElement;
+        animateCounter(el);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll<HTMLElement>('.counter-number').forEach(el => {
+    counterObserver.observe(el);
+  });
+</script>
+
 <style>
   @media (max-width: 768px) {
-    .about-hero-grid { grid-template-columns: 1fr !important; }
+    .about-bio-grid { grid-template-columns: 1fr !important; }
+    .values-grid { grid-template-columns: 1fr !important; }
+    .stack-grid { grid-template-columns: 1fr 1fr !important; }
+    .counters-grid { grid-template-columns: 1fr 1fr !important; }
+  }
+  @media (max-width: 480px) {
+    .stack-grid { grid-template-columns: 1fr !important; }
+    .counters-grid { grid-template-columns: 1fr !important; }
   }
 </style>
+

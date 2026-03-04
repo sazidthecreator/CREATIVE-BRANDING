@@ -29,9 +29,21 @@ export default function ContactForm() {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setStatus('sending');
-    // Simulate form submission
-    await new Promise(r => setTimeout(r, 1500));
-    setStatus('sent');
+    try {
+      // TODO: Replace with your real Formspree endpoint (e.g. https://formspree.io/f/YOUR_FORM_ID)
+      const res = await fetch('https://formspree.io/f/placeholder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setStatus('sent');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   };
 
   const field = (key: keyof FormState, label: string, type = 'text', placeholder = '') => (
@@ -92,6 +104,25 @@ export default function ContactForm() {
         <p style={{ color: 'var(--text2)', fontSize: 'var(--text-sm)' }}>
           I'll get back to you within 24 hours.
         </p>
+      </div>
+    );
+  }
+
+  if (status === 'error') {
+    return (
+      <div style={{
+        padding: '60px 40px', textAlign: 'center',
+        background: 'var(--surface)', borderRadius: '16px',
+        border: '1px solid var(--border)',
+      }}>
+        <div style={{ fontSize: '48px', marginBottom: '16px' }}>✗</div>
+        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-2xl)', color: 'var(--accent3)', marginBottom: '12px' }}>
+          Something Went Wrong
+        </h3>
+        <p style={{ color: 'var(--text2)', fontSize: 'var(--text-sm)', marginBottom: '24px' }}>
+          Please try again or email me directly at contact@sazid.dev
+        </p>
+        <button className="btn btn-outline" onClick={() => setStatus('idle')}>Try Again</button>
       </div>
     );
   }

@@ -1,0 +1,950 @@
+---
+// Admin dashboard — no robots indexing, no layout wrapper
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin Dashboard • NEXUS v9 — SAZID.SYS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #06060a;
+      --surface: #0d0d14;
+      --surface2: #13131e;
+      --surface3: #1a1a26;
+      --accent: #a8ff78;
+      --accent2: #57ffda;
+      --accent3: #ff5788;
+      --text: #e8e8f0;
+      --text2: #b0b0c8;
+      --muted: #606080;
+      --muted2: #8080a8;
+      --border: rgba(168,255,120,0.08);
+      --border2: rgba(168,255,120,0.16);
+      --accent-dim: rgba(168,255,120,0.1);
+    }
+    [data-theme="light"] {
+      --bg: #f4f4f8;
+      --surface: #ffffff;
+      --surface2: #f0f0f8;
+      --surface3: #e8e8f4;
+      --accent: #3a8c00;
+      --accent2: #006b5c;
+      --accent3: #cc003a;
+      --text: #0a0a14;
+      --text2: #2a2a3a;
+      --muted: #8888a0;
+      --muted2: #606070;
+      --border: rgba(58,140,0,0.1);
+      --border2: rgba(58,140,0,0.2);
+      --accent-dim: rgba(58,140,0,0.08);
+    }
+    html, body { height: 100%; font-family: 'Space Mono', monospace; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    body {
+      background-image:
+        linear-gradient(rgba(168,255,120,0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168,255,120,0.012) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; }
+    input, select, textarea { font-family: inherit; }
+    ::selection { background: var(--accent); color: #06060a; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+
+    /* Layout */
+    .admin-shell { display: flex; height: 100vh; }
+    .sidebar {
+      width: 220px; flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 0;
+      overflow-y: auto;
+    }
+    .sidebar-brand {
+      padding: 20px 18px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-brand .dot {
+      display: inline-block; width: 7px; height: 7px;
+      border-radius: 50%; background: var(--accent);
+      animation: dotPulse 2.5s infinite; margin-right: 8px;
+      vertical-align: middle;
+    }
+    .sidebar-brand span {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text);
+    }
+    .sidebar-nav { padding: 16px 8px; flex: 1; }
+    .sidebar-nav button {
+      width: 100%; display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 8px;
+      background: transparent; border: none; color: var(--muted2);
+      font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: all 0.2s; margin-bottom: 4px; text-align: left;
+    }
+    .sidebar-nav button:hover { background: var(--accent-dim); color: var(--text); }
+    .sidebar-nav button.active { background: var(--accent-dim); color: var(--accent); }
+    .sidebar-nav .nav-icon { font-size: 14px; }
+    .sidebar-footer {
+      padding: 12px 14px; border-top: 1px solid var(--border);
+      font-size: 10px; color: var(--muted);
+    }
+
+    .main-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar {
+      height: 52px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; background: var(--surface); flex-shrink: 0;
+    }
+    .topbar-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--text); }
+    .topbar-actions { display: flex; gap: 8px; align-items: center; }
+    .topbar-actions button {
+      padding: 6px 14px; border-radius: 6px; font-size: 10px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      transition: all 0.2s; border: none;
+    }
+    .btn-accent { background: var(--accent); color: #06060a; font-weight: 700; }
+    .btn-accent:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(168,255,120,0.25); }
+    .btn-ghost { background: transparent; color: var(--muted2); border: 1px solid var(--border2) !important; }
+    .btn-ghost:hover { color: var(--text); border-color: var(--border2); }
+
+    .content-area { flex: 1; overflow-y: auto; padding: 20px; }
+
+    /* Stats Row */
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 18px;
+    }
+    .stat-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .stat-value { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px; color: var(--accent); }
+    .stat-sub { font-size: 9px; color: var(--muted2); margin-top: 4px; }
+
+    /* Toolbar */
+    .toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+    .search-input {
+      flex: 1; min-width: 180px; max-width: 260px;
+      padding: 8px 12px; background: var(--surface2);
+      border: 1px solid var(--border); border-radius: 6px;
+      color: var(--text); font-size: 11px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--accent); }
+    .cat-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+    .cat-pill {
+      padding: 5px 12px; border-radius: 99px;
+      font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid var(--border2); background: transparent; color: var(--muted2);
+      transition: all 0.18s;
+    }
+    .cat-pill:hover { border-color: var(--accent); color: var(--accent); }
+    .cat-pill.active { background: var(--accent-dim); color: var(--accent); border-color: rgba(168,255,120,0.35); }
+
+    /* Table */
+    .projects-table { width: 100%; border-collapse: collapse; }
+    .projects-table th {
+      font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); font-weight: 400; padding: 8px 12px;
+      border-bottom: 1px solid var(--border); text-align: left;
+      white-space: nowrap;
+    }
+    .projects-table td {
+      padding: 10px 12px; border-bottom: 1px solid var(--border);
+      font-size: 11px; color: var(--text2); vertical-align: middle;
+    }
+    .projects-table tr:hover td { background: var(--accent-dim); }
+    .projects-table tr[draggable="true"] { cursor: grab; }
+    .projects-table tr[draggable="true"]:active { cursor: grabbing; }
+    .drag-over td { border-top: 2px solid var(--accent) !important; }
+    .proj-title { font-weight: 700; color: var(--text); font-family: 'Syne', sans-serif; font-size: 12px; }
+    .proj-sub { font-size: 9px; color: var(--muted2); margin-top: 2px; }
+    .status-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 99px;
+      font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .status-live { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .status-wip { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .status-archived { background: rgba(107,114,128,0.15); color: #9ca3af; }
+    .actions-cell { display: flex; gap: 4px; }
+    .action-btn {
+      width: 26px; height: 26px; border-radius: 5px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 12px; background: transparent;
+      border: 1px solid var(--border); color: var(--muted2);
+      transition: all 0.15s;
+    }
+    .action-btn:hover { background: var(--accent-dim); border-color: var(--accent); }
+    .action-btn.delete:hover { background: rgba(255,87,136,0.1); border-color: var(--accent3); color: var(--accent3); }
+    .featured-star { color: var(--accent); }
+    .empty-row td { text-align: center; padding: 40px; color: var(--muted); font-size: 11px; }
+
+    /* Tabs content */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Section card */
+    .section-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px; margin-bottom: 16px;
+    }
+    .section-card h3 {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px;
+    }
+
+    /* JSON area */
+    .json-area {
+      width: 100%; min-height: 200px; padding: 12px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text2); font-size: 11px;
+      resize: vertical; outline: none; transition: border-color 0.2s;
+    }
+    .json-area:focus { border-color: var(--accent); }
+
+    /* Analytics */
+    .cat-bar-row { margin-bottom: 12px; }
+    .cat-bar-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--text2); margin-bottom: 4px; }
+    .cat-bar-track { height: 6px; background: var(--surface3); border-radius: 3px; overflow: hidden; }
+    .cat-bar-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.4s; }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag-cloud-item {
+      padding: 3px 10px; border-radius: 99px; font-size: 9px;
+      background: var(--accent-dim); color: var(--accent);
+      border: 1px solid rgba(168,255,120,0.15);
+    }
+
+    /* Settings */
+    .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field-group { display: flex; flex-direction: column; gap: 5px; }
+    .field-label {
+      font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted2);
+    }
+    .field-input {
+      padding: 8px 12px; background: var(--surface2);
+      border: 1px solid var(--border); border-radius: 6px;
+      color: var(--text); font-size: 11px; outline: none; transition: border-color 0.2s;
+    }
+    .field-input:focus { border-color: var(--accent); }
+    .field-select { appearance: none; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(6,6,10,0.85); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .modal-box {
+      background: var(--surface); border: 1px solid var(--border2);
+      border-radius: 14px; width: 100%; max-width: 700px;
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .modal-header {
+      padding: 18px 22px 14px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; background: var(--surface); z-index: 1;
+    }
+    .modal-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: var(--text); }
+    .modal-close {
+      width: 28px; height: 28px; border-radius: 6px;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--muted2); font-size: 14px; display: flex;
+      align-items: center; justify-content: center; transition: all 0.15s;
+    }
+    .modal-close:hover { background: rgba(255,87,136,0.1); color: var(--accent3); border-color: var(--accent3); }
+    .modal-body { padding: 18px 22px; }
+    .modal-footer {
+      padding: 14px 22px 18px; border-top: 1px solid var(--border);
+      display: flex; justify-content: flex-end; gap: 8px;
+    }
+    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .modal-field { display: flex; flex-direction: column; gap: 5px; }
+    .modal-field label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); }
+    .modal-field input, .modal-field select, .modal-field textarea {
+      padding: 8px 12px; background: var(--surface2);
+      border: 1px solid var(--border); border-radius: 6px;
+      color: var(--text); font-size: 11px; outline: none; transition: border-color 0.2s;
+      width: 100%;
+    }
+    .modal-field input:focus, .modal-field select:focus, .modal-field textarea:focus { border-color: var(--accent); }
+    .modal-field textarea { min-height: 72px; resize: vertical; }
+    .modal-full { grid-column: 1 / -1; }
+    .checkbox-row { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text2); }
+    .checkbox-row input[type="checkbox"] { width: 14px; height: 14px; accent-color: var(--accent); }
+
+    /* Confirm dialog */
+    .confirm-box {
+      background: var(--surface); border: 1px solid var(--border2);
+      border-radius: 12px; width: 100%; max-width: 380px;
+      padding: 28px 24px; text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .confirm-icon { font-size: 36px; margin-bottom: 12px; }
+    .confirm-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: var(--text); margin-bottom: 8px; }
+    .confirm-msg { font-size: 11px; color: var(--text2); margin-bottom: 20px; line-height: 1.6; }
+    .confirm-btns { display: flex; gap: 8px; justify-content: center; }
+    .btn-danger { background: var(--accent3); color: #fff; font-weight: 700; }
+    .btn-danger:hover { filter: brightness(1.1); }
+
+    /* Toast */
+    .toast-container {
+      position: fixed; bottom: 20px; right: 20px; z-index: 2000;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .toast {
+      padding: 12px 18px; border-radius: 8px; font-size: 11px;
+      display: flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border2);
+      animation: slideInToast 0.3s ease;
+      min-width: 220px;
+    }
+    .toast-success { background: rgba(34,197,94,0.15); color: #22c55e; border-color: rgba(34,197,94,0.3); }
+    .toast-error { background: rgba(255,87,136,0.12); color: var(--accent3); border-color: rgba(255,87,136,0.3); }
+
+    /* Animations */
+    @keyframes dotPulse {
+      0%,100% { opacity:1; box-shadow: 0 0 8px var(--accent); }
+      50% { opacity:0.5; box-shadow: none; }
+    }
+    @keyframes slideInToast {
+      from { transform: translateX(40px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* GitHub sync */
+    .sync-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { width: 56px; }
+      .sidebar-brand span, .sidebar-nav button span { display: none; }
+      .sidebar-nav .nav-icon { font-size: 16px; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .modal-grid { grid-template-columns: 1fr; }
+      .settings-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="admin-shell">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="dot"></span>
+      <span>NEXUS v9</span>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <button class="active" data-tab="projects" onclick="switchTab('projects')">
+        <span class="nav-icon">📁</span><span>Projects</span>
+      </button>
+      <button data-tab="github" onclick="switchTab('github')">
+        <span class="nav-icon">🔄</span><span>GitHub Sync</span>
+      </button>
+      <button data-tab="analytics" onclick="switchTab('analytics')">
+        <span class="nav-icon">📊</span><span>Analytics</span>
+      </button>
+      <button data-tab="settings" onclick="switchTab('settings')">
+        <span class="nav-icon">⚙️</span><span>Settings</span>
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <div>SAZID.SYS</div>
+      <div style="color: var(--accent); margin-top: 2px;">● ONLINE</div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main-area">
+    <div class="topbar">
+      <span class="topbar-title" id="topbarTitle">Projects — NEXUS Dashboard</span>
+      <div class="topbar-actions">
+        <button class="btn-ghost" style="border:1px solid var(--border2);padding:6px 12px;border-radius:6px;font-size:10px;color:var(--muted2);" onclick="toggleTheme()">🌓 Theme</button>
+        <button class="btn-accent" onclick="openAddModal()">+ New Project</button>
+      </div>
+    </div>
+
+    <div class="content-area">
+
+      <!-- ── PROJECTS TAB ─────────────────────────────── -->
+      <div class="tab-panel active" id="tab-projects">
+        <!-- Stats -->
+        <div class="stats-row" id="statsRow">
+          <div class="stat-card"><div class="stat-label">Total Projects</div><div class="stat-value" id="statTotal">0</div></div>
+          <div class="stat-card"><div class="stat-label">Featured</div><div class="stat-value" id="statFeatured">0</div></div>
+          <div class="stat-card"><div class="stat-label">Categories</div><div class="stat-value" id="statCats">0</div></div>
+          <div class="stat-card"><div class="stat-label">Unique Tags</div><div class="stat-value" id="statTags">0</div></div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <input type="text" class="search-input" id="searchInput" placeholder="Search projects…" oninput="renderTable()" />
+          <div class="cat-pills" id="catPills"></div>
+        </div>
+
+        <!-- Table -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+          <table class="projects-table" id="projectsTable">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Project</th>
+                <th>Category</th>
+                <th>Year</th>
+                <th>Status</th>
+                <th>Impact</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── GITHUB SYNC TAB ─────────────────────────── -->
+      <div class="tab-panel" id="tab-github">
+        <div class="section-card">
+          <h3>Export / Import JSON</h3>
+          <div class="sync-actions">
+            <button class="btn-accent" style="padding:8px 16px;border-radius:6px;font-size:10px;border:none;" onclick="exportJSON()">📤 Export JSON</button>
+            <button class="btn-ghost" style="padding:8px 16px;border-radius:6px;font-size:10px;border:1px solid var(--border2);color:var(--muted2);" onclick="copyJSON()">📋 Copy JSON</button>
+            <button class="btn-ghost" style="padding:8px 16px;border-radius:6px;font-size:10px;border:1px solid var(--border2);color:var(--muted2);" onclick="importJSON()">📥 Import JSON</button>
+            <button class="btn-ghost" style="padding:8px 16px;border-radius:6px;font-size:10px;border:1px solid var(--border2);color:var(--muted2);" onclick="previewJSON()">👁 Preview</button>
+          </div>
+          <textarea class="json-area" id="jsonPreview" readonly placeholder="Click 'Preview' to see current JSON…"></textarea>
+        </div>
+        <div class="section-card">
+          <h3>Import from JSON</h3>
+          <textarea class="json-area" id="jsonImportArea" placeholder="Paste your projects JSON array here…" style="min-height:140px;"></textarea>
+          <div style="margin-top:10px;">
+            <button class="btn-accent" style="padding:8px 16px;border-radius:6px;font-size:10px;border:none;" onclick="doImport()">✅ Apply Import</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ANALYTICS TAB ───────────────────────────── -->
+      <div class="tab-panel" id="tab-analytics">
+        <div class="section-card">
+          <h3>Category Breakdown</h3>
+          <div id="catBreakdown"></div>
+        </div>
+        <div class="section-card">
+          <h3>Tag Cloud</h3>
+          <div class="tag-cloud" id="tagCloud"></div>
+        </div>
+      </div>
+
+      <!-- ── SETTINGS TAB ────────────────────────────── -->
+      <div class="tab-panel" id="tab-settings">
+        <div class="section-card">
+          <h3>Profile</h3>
+          <div class="settings-grid">
+            <div class="field-group"><label class="field-label">Name</label><input class="field-input" id="settName" value="Sazid Hossain" /></div>
+            <div class="field-group"><label class="field-label">Email</label><input class="field-input" id="settEmail" value="contact@sazid.dev" /></div>
+            <div class="field-group"><label class="field-label">Status</label><input class="field-input" id="settStatus" value="Available for work" /></div>
+            <div class="field-group"><label class="field-label">Location</label><input class="field-input" id="settLocation" value="Dhaka, Bangladesh" /></div>
+          </div>
+          <button class="btn-accent" style="padding:8px 18px;border-radius:6px;font-size:10px;border:none;margin-top:10px;" onclick="saveSettings()">Save Settings</button>
+        </div>
+        <div class="section-card">
+          <h3>Appearance</h3>
+          <div class="settings-grid">
+            <div class="field-group">
+              <label class="field-label">Theme</label>
+              <select class="field-input field-select" id="settTheme" onchange="applyThemeSetting()">
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Language</label>
+              <select class="field-input field-select" id="settLang">
+                <option value="en">English</option>
+                <option value="bn">বাংলা</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="section-card">
+          <h3>Data Management</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn-ghost" style="padding:8px 16px;border-radius:6px;font-size:10px;border:1px solid var(--border2);color:var(--muted2);" onclick="resetToDefaults()">🔄 Reset to Defaults</button>
+            <button style="padding:8px 16px;border-radius:6px;font-size:10px;border:1px solid rgba(255,87,136,0.3);background:rgba(255,87,136,0.08);color:var(--accent3);" onclick="clearAllData()">🗑 Clear All Data</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content-area -->
+  </div><!-- /main-area -->
+</div><!-- /admin-shell -->
+
+<!-- Add/Edit Modal -->
+<div class="modal-backdrop" id="projectModal" style="display:none;">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">Add Project</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div class="modal-field"><label>Title (EN)</label><input id="fTitle" placeholder="Project Name" /></div>
+        <div class="modal-field"><label>Title (BN)</label><input id="fTitleBn" placeholder="প্রকল্পের নাম" /></div>
+        <div class="modal-field"><label>Subtitle (EN)</label><input id="fSubtitle" placeholder="Short subtitle" /></div>
+        <div class="modal-field"><label>Subtitle (BN)</label><input id="fSubtitleBn" placeholder="সংক্ষিপ্ত বিবরণ" /></div>
+        <div class="modal-field"><label>Emoji</label><input id="fEmoji" placeholder="🚀" style="max-width:80px;" /></div>
+        <div class="modal-field"><label>Year</label><input id="fYear" type="number" placeholder="2025" /></div>
+        <div class="modal-field"><label>Category (EN)</label><input id="fCategory" placeholder="AI Tool" /></div>
+        <div class="modal-field"><label>Category (BN)</label><input id="fCategoryBn" placeholder="এআই টুল" /></div>
+        <div class="modal-field"><label>Status</label>
+          <select id="fStatus">
+            <option value="live">Live</option>
+            <option value="wip">WIP</option>
+            <option value="archived">Archived</option>
+          </select>
+        </div>
+        <div class="modal-field"><label>Impact</label><input id="fImpact" placeholder="e.g. 5,000+ users" /></div>
+        <div class="modal-field"><label>Duration</label><input id="fDuration" placeholder="e.g. 8 weeks" /></div>
+        <div class="modal-field"><label>Banner Image</label><input id="fImage" placeholder="filename.png" /></div>
+        <div class="modal-field"><label>Live URL</label><input id="fLink" placeholder="https://" /></div>
+        <div class="modal-field"><label>GitHub URL</label><input id="fGithubLink" placeholder="https://github.com/…" /></div>
+        <div class="modal-field modal-full"><label>Tags (comma-separated)</label><input id="fTags" placeholder="React, TailwindCSS, AI" /></div>
+        <div class="modal-field modal-full"><label>Description (EN)</label><textarea id="fDesc"></textarea></div>
+        <div class="modal-field modal-full"><label>Description (BN)</label><textarea id="fDescBn"></textarea></div>
+        <div class="modal-field modal-full">
+          <label class="checkbox-row">
+            <input type="checkbox" id="fFeatured" /> Featured project
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" style="padding:8px 18px;border-radius:6px;font-size:10px;border:1px solid var(--border2);color:var(--muted2);" onclick="closeModal()">Cancel</button>
+      <button class="btn-accent" style="padding:8px 18px;border-radius:6px;font-size:10px;border:none;" onclick="saveProject()">Save Project</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Dialog -->
+<div class="modal-backdrop" id="confirmDialog" style="display:none;">
+  <div class="confirm-box">
+    <div class="confirm-icon">⚠️</div>
+    <div class="confirm-title" id="confirmTitle">Confirm Action</div>
+    <div class="confirm-msg" id="confirmMsg">Are you sure?</div>
+    <div class="confirm-btns">
+      <button class="btn-ghost" style="padding:8px 18px;border-radius:6px;font-size:10px;border:1px solid var(--border2);color:var(--muted2);" onclick="closeConfirm()">Cancel</button>
+      <button class="btn-danger" style="padding:8px 18px;border-radius:6px;font-size:10px;border:none;" id="confirmOkBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+  const STORAGE_KEY = 'nexus_projects';
+  const THEME_KEY = 'nexus_admin_theme';
+
+  const DEFAULT_PROJECTS = [
+    { id: 'health-care-bd', title: 'Health Care BD', titleBn: 'হেলথ কেয়ার বিডি', subtitle: 'Digital Health Platform', subtitleBn: 'ডিজিটাল স্বাস্থ্য প্ল্যাটফর্ম', emoji: '🏥', year: 2025, category: 'Healthcare', categoryBn: 'স্বাস্থ্যসেবা', featured: true, status: 'live', description: 'A full-scale digital health infrastructure for Bangladesh, uniting patients, doctors, and hospitals in one ecosystem.', descriptionBn: 'বাংলাদেশের জন্য পূর্ণাঙ্গ ডিজিটাল স্বাস্থ্য অবকাঠামো।', tags: ['React', 'TailwindCSS', 'UI/UX', 'System Design'], link: '#', githubLink: '', image: 'Health_care_banner.png', impact: '5,000+ patients', duration: '12 weeks' },
+    { id: 'shikkha-somaponi', title: 'Shikkha Somaponi Utshob 45', titleBn: 'শিক্ষা সমাপনী উৎসব ৪৫', subtitle: 'University Event Digital System', subtitleBn: 'বিশ্ববিদ্যালয় ইভেন্ট', emoji: '🎓', year: 2025, category: 'Branding', categoryBn: 'ব্র্যান্ডিং', featured: false, status: 'live', description: 'Orchestrated branding and digital portal for 2,000+ graduating students.', descriptionBn: 'জাহাঙ্গীরনগর বিশ্ববিদ্যালয়ে ২০০০+ স্নাতকী শিক্ষার্থীদের জন্য ব্র্যান্ডিং।', tags: ['Branding', 'Logistics', 'Digital Portal'], link: '#', githubLink: '', image: 'Ju45_Behance_banner_.png', impact: '2,000+ students', duration: '6 weeks' },
+    { id: 'vabuuk-portal', title: 'Vabuuk Portal', titleBn: 'ভাবুক পোর্টাল', subtitle: 'Philosophy AI Engine', subtitleBn: 'ফিলোসফি এআই', emoji: '🧠', year: 2025, category: 'AI Tool', categoryBn: 'এআই টুল', featured: false, status: 'live', description: 'A digital sage fused with Google NotebookLM for philosophy-driven content engineering.', descriptionBn: 'গুগল নোটবুকএলএম দিয়ে দর্শন-চালিত কন্টেন্ট ইঞ্জিনিয়ারিং।', tags: ['NotebookLM', 'Philosophy', 'Cyber-Noir UI'], link: '#', githubLink: '', image: 'VABUUK_Behance_banner_.png', impact: '300+ essays', duration: '4 weeks' },
+    { id: 'mr-rezaul', title: 'M.R. Karim Digital Identity', titleBn: 'এম.আর. করিম ডিজিটাল আইডেন্টিটি', subtitle: 'Professional Digital Portfolio', subtitleBn: 'প্রফেশনাল পোর্টফোলিও', emoji: '👤', year: 2025, category: 'Portfolio', categoryBn: 'পোর্টফোলিও', featured: false, status: 'live', description: 'High-trust responsive digital portfolio for a Dhaka WASA Official with glassmorphism UI.', descriptionBn: 'ঢাকা ওয়াসা কর্মকর্তার জন্য গ্লাসমরফিজম UI সহ বিশ্বস্ত রেসপনসিভ পোর্টফোলিও।', tags: ['React', 'TailwindCSS', 'Glassmorphism'], link: '#', githubLink: '', image: 'Behance_banner_mrkarim_portfolio.png', impact: 'High-trust UX', duration: '3 weeks' },
+    { id: 'dokan-os', title: 'Dokan OS', titleBn: 'দোকান ওএস', subtitle: 'Retail Automation Engine', subtitleBn: 'রিটেইল অটোমেশন', emoji: '🛍️', year: 2024, category: 'AI Automation', categoryBn: 'এআই অটোমেশন', featured: false, status: 'live', description: 'Retail automation engine with Banglish AI sales bot and WhatsApp inventory. Revenue tripled in 2 months.', descriptionBn: 'বাংলিশ এআই সেলস বট ও হোয়াটসঅ্যাপ ইনভেন্টরি সহ রিটেইল অটোমেশন ইঞ্জিন।', tags: ['F-Commerce', 'Banglish AI', 'WhatsApp API'], link: '#', githubLink: '', image: 'unnamed-18.png', impact: 'Revenue 3x', duration: '8 weeks' },
+    { id: 'fashion-model', title: 'Fashion Model Agency', titleBn: 'ফ্যাশন মডেল এজেন্সি', subtitle: 'WordPress Editorial Website', subtitleBn: 'ওয়ার্ডপ্রেস ওয়েবসাইট', emoji: '👗', year: 2022, category: 'WordPress', categoryBn: 'ওয়ার্ডপ্রেস', featured: false, status: 'live', description: 'Editorial-style website for a Dhaka fashion model agency with custom WordPress architecture.', descriptionBn: 'ঢাকা ফ্যাশন মডেল এজেন্সির জন্য কাস্টম ওয়ার্ডপ্রেস আর্কিটেকচার সহ এডিটোরিয়াল ওয়েবসাইট।', tags: ['WordPress', 'Elementor', 'UI Design'], link: '#', githubLink: '', image: '', impact: '50+ profiles', duration: '4 weeks' },
+  ];
+
+  let projects = [];
+  let editingId = null;
+  let activeCategory = 'All';
+  let confirmCallback = null;
+  let dragSrcIdx = null;
+
+  // ── Storage ────────────────────────────────────
+  function loadProjects() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      projects = raw ? JSON.parse(raw) : [...DEFAULT_PROJECTS];
+    } catch { projects = [...DEFAULT_PROJECTS]; }
+  }
+  function saveProjects() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+    window.dispatchEvent(new StorageEvent('storage', { key: STORAGE_KEY }));
+  }
+
+  // ── Theme ────────────────────────────────────
+  function initTheme() {
+    const t = localStorage.getItem(THEME_KEY) || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    const sel = document.getElementById('settTheme');
+    if (sel) sel.value = t;
+  }
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem(THEME_KEY, next);
+    const sel = document.getElementById('settTheme');
+    if (sel) sel.value = next;
+  }
+  function applyThemeSetting() {
+    const val = document.getElementById('settTheme').value;
+    document.documentElement.setAttribute('data-theme', val);
+    localStorage.setItem(THEME_KEY, val);
+  }
+
+  // ── Tabs ────────────────────────────────────
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('[data-tab]').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
+    const titles = { projects: 'Projects — NEXUS Dashboard', github: 'GitHub Sync', analytics: 'Analytics', settings: 'Settings' };
+    document.getElementById('topbarTitle').textContent = titles[tab] || 'NEXUS Dashboard';
+    if (tab === 'analytics') renderAnalytics();
+  }
+
+  // ── Stats ────────────────────────────────────
+  function updateStats() {
+    document.getElementById('statTotal').textContent = projects.length;
+    document.getElementById('statFeatured').textContent = projects.filter(p => p.featured).length;
+    const cats = new Set(projects.map(p => p.category));
+    document.getElementById('statCats').textContent = cats.size;
+    const tags = new Set(projects.flatMap(p => p.tags || []));
+    document.getElementById('statTags').textContent = tags.size;
+  }
+
+  // ── Category pills ───────────────────────────
+  function renderCatPills() {
+    const cats = ['All', ...new Set(projects.map(p => p.category))];
+    const container = document.getElementById('catPills');
+    container.innerHTML = cats.map(c => `
+      <button class="cat-pill${c === activeCategory ? ' active' : ''}" onclick="filterCat('${c}')">${c}</button>
+    `).join('');
+  }
+  function filterCat(cat) {
+    activeCategory = cat;
+    renderCatPills();
+    renderTable();
+  }
+
+  // ── Table ────────────────────────────────────
+  function renderTable() {
+    const search = (document.getElementById('searchInput').value || '').toLowerCase();
+    const filtered = projects.filter((p, idx) => {
+      const matchCat = activeCategory === 'All' || p.category === activeCategory;
+      const matchSearch = !search || p.title.toLowerCase().includes(search) || (p.category || '').toLowerCase().includes(search) || (p.tags || []).some(t => t.toLowerCase().includes(search));
+      return matchCat && matchSearch;
+    });
+
+    const tbody = document.getElementById('tableBody');
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No projects found. Try adjusting your search or filter.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = filtered.map((p) => {
+      const idx = projects.indexOf(p);
+      const statusClass = p.status === 'live' ? 'status-live' : p.status === 'wip' ? 'status-wip' : 'status-archived';
+      return `<tr draggable="true" data-idx="${idx}"
+        ondragstart="onDragStart(event,${idx})"
+        ondragover="onDragOver(event)"
+        ondrop="onDrop(event,${idx})"
+        ondragleave="onDragLeave(event)">
+        <td>${p.emoji || '📁'}</td>
+        <td>
+          <div class="proj-title">${p.title}</div>
+          <div class="proj-sub">${p.subtitle || ''}</div>
+        </td>
+        <td>${p.category || '—'}</td>
+        <td>${p.year || '—'}</td>
+        <td><span class="status-badge ${statusClass}">${p.status}</span></td>
+        <td>${p.impact || '—'}</td>
+        <td>
+          <div class="actions-cell">
+            <button class="action-btn" title="Edit" onclick="openEditModal(${idx})">✏️</button>
+            <button class="action-btn" title="${p.featured ? 'Unfeature' : 'Feature'}" onclick="toggleFeatured(${idx})">${p.featured ? '⭐' : '☆'}</button>
+            <button class="action-btn" title="Duplicate" onclick="duplicateProject(${idx})">📋</button>
+            <button class="action-btn delete" title="Delete" onclick="confirmDelete(${idx})">🗑️</button>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ── Drag & Drop ──────────────────────────────
+  function onDragStart(e, idx) { dragSrcIdx = idx; e.dataTransfer.effectAllowed = 'move'; }
+  function onDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+  function onDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
+  function onDrop(e, targetIdx) {
+    e.preventDefault();
+    e.currentTarget.classList.remove('drag-over');
+    if (dragSrcIdx === null || dragSrcIdx === targetIdx) return;
+    const moved = projects.splice(dragSrcIdx, 1)[0];
+    projects.splice(targetIdx, 0, moved);
+    dragSrcIdx = null;
+    saveProjects();
+    refresh();
+    toast('Reordered projects', 'success');
+  }
+
+  // ── Modal ────────────────────────────────────
+  function openAddModal() {
+    editingId = null;
+    document.getElementById('modalTitle').textContent = 'Add New Project';
+    clearModalFields();
+    document.getElementById('projectModal').style.display = 'flex';
+  }
+  function openEditModal(idx) {
+    editingId = idx;
+    const p = projects[idx];
+    document.getElementById('modalTitle').textContent = 'Edit Project';
+    document.getElementById('fTitle').value = p.title || '';
+    document.getElementById('fTitleBn').value = p.titleBn || '';
+    document.getElementById('fSubtitle').value = p.subtitle || '';
+    document.getElementById('fSubtitleBn').value = p.subtitleBn || '';
+    document.getElementById('fEmoji').value = p.emoji || '';
+    document.getElementById('fYear').value = p.year || '';
+    document.getElementById('fCategory').value = p.category || '';
+    document.getElementById('fCategoryBn').value = p.categoryBn || '';
+    document.getElementById('fStatus').value = p.status || 'live';
+    document.getElementById('fImpact').value = p.impact || '';
+    document.getElementById('fDuration').value = p.duration || '';
+    document.getElementById('fImage').value = p.image || '';
+    document.getElementById('fLink').value = p.link || '';
+    document.getElementById('fGithubLink').value = p.githubLink || '';
+    document.getElementById('fTags').value = (p.tags || []).join(', ');
+    document.getElementById('fDesc').value = p.description || '';
+    document.getElementById('fDescBn').value = p.descriptionBn || '';
+    document.getElementById('fFeatured').checked = !!p.featured;
+    document.getElementById('projectModal').style.display = 'flex';
+  }
+  function clearModalFields() {
+    ['fTitle','fTitleBn','fSubtitle','fSubtitleBn','fEmoji','fYear','fCategory','fCategoryBn','fImpact','fDuration','fImage','fLink','fGithubLink','fTags','fDesc','fDescBn'].forEach(id => { document.getElementById(id).value = ''; });
+    document.getElementById('fStatus').value = 'live';
+    document.getElementById('fFeatured').checked = false;
+  }
+  function closeModal() {
+    document.getElementById('projectModal').style.display = 'none';
+    editingId = null;
+  }
+  function saveProject() {
+    const title = document.getElementById('fTitle').value.trim();
+    if (!title) { toast('Title is required', 'error'); return; }
+    const data = {
+      id: editingId !== null ? projects[editingId].id : 'proj-' + Date.now(),
+      title,
+      titleBn: document.getElementById('fTitleBn').value,
+      subtitle: document.getElementById('fSubtitle').value,
+      subtitleBn: document.getElementById('fSubtitleBn').value,
+      emoji: document.getElementById('fEmoji').value || '📁',
+      year: parseInt(document.getElementById('fYear').value) || new Date().getFullYear(),
+      category: document.getElementById('fCategory').value,
+      categoryBn: document.getElementById('fCategoryBn').value,
+      status: document.getElementById('fStatus').value,
+      impact: document.getElementById('fImpact').value,
+      duration: document.getElementById('fDuration').value,
+      image: document.getElementById('fImage').value,
+      link: document.getElementById('fLink').value || '#',
+      githubLink: document.getElementById('fGithubLink').value,
+      tags: document.getElementById('fTags').value.split(',').map(t => t.trim()).filter(Boolean),
+      description: document.getElementById('fDesc').value,
+      descriptionBn: document.getElementById('fDescBn').value,
+      featured: document.getElementById('fFeatured').checked,
+      media: editingId !== null ? (projects[editingId].media || []) : [],
+    };
+    if (editingId !== null) {
+      projects[editingId] = data;
+      toast('Project updated', 'success');
+    } else {
+      projects.push(data);
+      toast('Project added', 'success');
+    }
+    saveProjects();
+    closeModal();
+    refresh();
+  }
+
+  // ── Actions ──────────────────────────────────
+  function toggleFeatured(idx) {
+    projects[idx].featured = !projects[idx].featured;
+    saveProjects();
+    refresh();
+    toast(projects[idx].featured ? 'Marked as featured' : 'Removed from featured', 'success');
+  }
+  function duplicateProject(idx) {
+    const clone = JSON.parse(JSON.stringify(projects[idx]));
+    clone.id = 'proj-' + Date.now();
+    clone.title = clone.title + ' (Copy)';
+    projects.splice(idx + 1, 0, clone);
+    saveProjects();
+    refresh();
+    toast('Project duplicated', 'success');
+  }
+  function confirmDelete(idx) {
+    showConfirm('Delete Project', `Delete "${projects[idx].title}"? This cannot be undone.`, () => {
+      projects.splice(idx, 1);
+      saveProjects();
+      refresh();
+      toast('Project deleted', 'success');
+    });
+  }
+
+  // ── Confirm ──────────────────────────────────
+  function showConfirm(title, msg, cb) {
+    document.getElementById('confirmTitle').textContent = title;
+    document.getElementById('confirmMsg').textContent = msg;
+    confirmCallback = cb;
+    document.getElementById('confirmDialog').style.display = 'flex';
+    document.getElementById('confirmOkBtn').onclick = () => { closeConfirm(); if (confirmCallback) confirmCallback(); };
+  }
+  function closeConfirm() {
+    document.getElementById('confirmDialog').style.display = 'none';
+    confirmCallback = null;
+  }
+
+  // ── Toast ─────────────────────────────────────
+  function toast(msg, type = 'success') {
+    const container = document.getElementById('toastContainer');
+    const el = document.createElement('div');
+    el.className = 'toast toast-' + type;
+    el.innerHTML = (type === 'success' ? '✓' : '✗') + ' ' + msg;
+    container.appendChild(el);
+    setTimeout(() => el.remove(), 3000);
+  }
+
+  // ── GitHub Sync ───────────────────────────────
+  function previewJSON() {
+    document.getElementById('jsonPreview').value = JSON.stringify(projects, null, 2);
+  }
+  function exportJSON() {
+    const blob = new Blob([JSON.stringify(projects, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'projects.json'; a.click();
+    URL.revokeObjectURL(url);
+    toast('JSON exported', 'success');
+  }
+  function copyJSON() {
+    navigator.clipboard.writeText(JSON.stringify(projects, null, 2)).then(() => toast('JSON copied to clipboard', 'success')).catch(() => toast('Copy failed', 'error'));
+  }
+  function importJSON() {
+    const area = document.getElementById('jsonImportArea');
+    area.focus();
+    toast('Paste JSON into the import area below and click Apply Import', 'success');
+  }
+  function doImport() {
+    try {
+      const raw = document.getElementById('jsonImportArea').value.trim();
+      const data = JSON.parse(raw);
+      if (!Array.isArray(data)) { toast('Invalid JSON: expected an array', 'error'); return; }
+      showConfirm('Import Projects', `Replace all projects with ${data.length} imported items?`, () => {
+        projects = data;
+        saveProjects();
+        refresh();
+        document.getElementById('jsonImportArea').value = '';
+        toast('Import successful', 'success');
+      });
+    } catch { toast('Invalid JSON', 'error'); }
+  }
+
+  // ── Analytics ─────────────────────────────────
+  function renderAnalytics() {
+    const catMap = {};
+    projects.forEach(p => { catMap[p.category] = (catMap[p.category] || 0) + 1; });
+    const max = Math.max(...Object.values(catMap), 1);
+    document.getElementById('catBreakdown').innerHTML = Object.entries(catMap).map(([cat, count]) => `
+      <div class="cat-bar-row">
+        <div class="cat-bar-label"><span>${cat}</span><span>${count}</span></div>
+        <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${(count/max)*100}%"></div></div>
+      </div>
+    `).join('');
+
+    const tagMap = {};
+    projects.forEach(p => (p.tags || []).forEach(t => { tagMap[t] = (tagMap[t] || 0) + 1; }));
+    document.getElementById('tagCloud').innerHTML = Object.entries(tagMap)
+      .sort((a,b) => b[1]-a[1])
+      .map(([tag]) => `<span class="tag-cloud-item">${tag}</span>`)
+      .join('');
+  }
+
+  // ── Settings ─────────────────────────────────
+  function saveSettings() {
+    const s = {
+      name: document.getElementById('settName').value,
+      email: document.getElementById('settEmail').value,
+      status: document.getElementById('settStatus').value,
+      location: document.getElementById('settLocation').value,
+      lang: document.getElementById('settLang').value,
+    };
+    localStorage.setItem('nexus_admin_settings', JSON.stringify(s));
+    toast('Settings saved', 'success');
+  }
+  function loadSettings() {
+    try {
+      const s = JSON.parse(localStorage.getItem('nexus_admin_settings') || '{}');
+      if (s.name) document.getElementById('settName').value = s.name;
+      if (s.email) document.getElementById('settEmail').value = s.email;
+      if (s.status) document.getElementById('settStatus').value = s.status;
+      if (s.location) document.getElementById('settLocation').value = s.location;
+      if (s.lang) document.getElementById('settLang').value = s.lang;
+    } catch {}
+  }
+  function resetToDefaults() {
+    showConfirm('Reset Projects', 'Reset all projects to the default set?', () => {
+      projects = JSON.parse(JSON.stringify(DEFAULT_PROJECTS));
+      saveProjects();
+      refresh();
+      toast('Reset to defaults', 'success');
+    });
+  }
+  function clearAllData() {
+    showConfirm('Clear All Data', 'Delete ALL projects permanently? This cannot be undone.', () => {
+      projects = [];
+      saveProjects();
+      refresh();
+      toast('All data cleared', 'success');
+    });
+  }
+
+  // ── Full refresh ──────────────────────────────
+  function refresh() {
+    updateStats();
+    renderCatPills();
+    renderTable();
+  }
+
+  // ── Keyboard shortcuts ────────────────────────
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeModal(); closeConfirm(); }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); openAddModal(); }
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      if (document.getElementById('projectModal').style.display !== 'none') saveProject();
+    }
+  });
+
+  // ── Cross-tab sync ────────────────────────────
+  window.addEventListener('storage', (e) => {
+    if (e.key === STORAGE_KEY) { loadProjects(); refresh(); }
+  });
+
+  // ── Init ──────────────────────────────────────
+  initTheme();
+  loadProjects();
+  loadSettings();
+  refresh();
+</script>
+</body>
+</html>
