@@ -1,0 +1,545 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const steps = [
+  {
+    num: '01',
+    title: 'Discovery & Research',
+    titleBn: 'আবিষ্কার ও গবেষণা',
+    desc: 'We start by understanding your vision, goals, target audience, and competitive landscape through a deep-dive discovery session.',
+    descBn: 'আমরা আপনার লক্ষ্য, দর্শক এবং প্রতিযোগিতামূলক ক্ষেত্র বোঝার মাধ্যমে শুরু করি।',
+    icon: '🔍',
+    color: 'var(--accent)',
+    details: [
+      'Stakeholder interviews & brand audit',
+      'Market research & competitor analysis',
+      'User persona development',
+      'Project scope & goal definition',
+    ],
+    duration: '1–2 weeks',
+  },
+  {
+    num: '02',
+    title: 'Strategy & Planning',
+    titleBn: 'কৌশল ও পরিকল্পনা',
+    desc: 'Translating research into actionable strategy — defining the brand narrative, technical architecture, and creative direction.',
+    descBn: 'গবেষণা থেকে কার্যকর কৌশলে রূপান্তর — ব্র্যান্ড গল্প ও সৃজনশীল দিকনির্দেশনা তৈরি।',
+    icon: '🧭',
+    color: 'var(--accent2)',
+    details: [
+      'Brand positioning & messaging framework',
+      'Information architecture',
+      'Content strategy & sitemap',
+      'Technology stack selection',
+    ],
+    duration: '1 week',
+  },
+  {
+    num: '03',
+    title: 'Design & Prototyping',
+    titleBn: 'ডিজাইন ও প্রোটোটাইপিং',
+    desc: 'Crafting pixel-perfect designs with wireframes, mood boards, and interactive prototypes that bring your brand to life.',
+    descBn: 'ওয়্যারফ্রেম, মুডবোর্ড এবং ইন্টারেক্টিভ প্রোটোটাইপ দিয়ে নিখুঁত ডিজাইন তৈরি।',
+    icon: '🎨',
+    color: 'var(--accent3)',
+    details: [
+      'Wireframing & user flow mapping',
+      'Visual identity & design system',
+      'High-fidelity Figma prototypes',
+      'Client review & iterative refinement',
+    ],
+    duration: '2–3 weeks',
+  },
+  {
+    num: '04',
+    title: 'Development & Build',
+    titleBn: 'ডেভেলপমেন্ট ও নির্মাণ',
+    desc: 'Turning approved designs into production-ready code with modern frameworks, performance optimization, and clean architecture.',
+    descBn: 'অনুমোদিত ডিজাইনকে প্রোডাকশন-রেডি কোডে রূপান্তর — আধুনিক ফ্রেমওয়ার্ক ও পারফরম্যান্স অপটিমাইজেশন।',
+    icon: '⚡',
+    color: 'var(--gold)',
+    details: [
+      'Frontend development (React/Astro/Next.js)',
+      'Responsive & accessible implementation',
+      'CMS integration & content population',
+      'Performance & SEO optimization',
+    ],
+    duration: '2–4 weeks',
+  },
+  {
+    num: '05',
+    title: 'Testing & QA',
+    titleBn: 'পরীক্ষা ও মান নিয়ন্ত্রণ',
+    desc: 'Rigorous testing across devices and browsers to ensure a flawless, accessible, and performant user experience.',
+    descBn: 'সমস্ত ডিভাইস ও ব্রাউজারে কঠোর পরীক্ষা — নিখুঁত ব্যবহারকারী অভিজ্ঞতা নিশ্চিতকরণ।',
+    icon: '🧪',
+    color: 'var(--accent)',
+    details: [
+      'Cross-browser & device testing',
+      'Accessibility (WCAG) compliance',
+      'Performance benchmarking (Core Web Vitals)',
+      'User acceptance testing',
+    ],
+    duration: '1 week',
+  },
+  {
+    num: '06',
+    title: 'Launch & Growth',
+    titleBn: 'লঞ্চ ও প্রবৃদ্ধি',
+    desc: 'Deploying to production with monitoring, analytics setup, and a growth roadmap to ensure long-term success.',
+    descBn: 'প্রোডাকশনে ডেপ্লয়মেন্ট — মনিটরিং, অ্যানালিটিক্স এবং দীর্ঘমেয়াদী সাফল্যের রোডম্যাপ।',
+    icon: '🚀',
+    color: 'var(--accent2)',
+    details: [
+      'Production deployment & DNS setup',
+      'Analytics & tracking configuration',
+      'Documentation & team handoff',
+      'Ongoing support & iteration roadmap',
+    ],
+    duration: '1 week+',
+  },
+];
+
+const principles = [
+  { icon: '◆', title: '1% Better Every Day', titleBn: 'প্রতিদিন ১% ভালো', desc: 'Marginal gains compound into extraordinary results. Every iteration refines the experience.' },
+  { icon: '◇', title: 'User-First Always', titleBn: 'সর্বদা ব্যবহারকারী প্রথম', desc: 'Every decision is validated against real user needs, not assumptions or trends.' },
+  { icon: '⬡', title: 'Aesthetic Functionality', titleBn: 'নান্দনিক কার্যকারিতা', desc: "Beauty and usability aren't opposites — they amplify each other when done right." },
+  { icon: '◈', title: 'Transparent Process', titleBn: 'স্বচ্ছ প্রক্রিয়া', desc: 'You see everything. Weekly updates, shared boards, real-time progress tracking.' },
+];
+---
+
+<Layout title="Process • Sazid Hossain — Creative Technologist" page="/process">
+  <!-- Hero -->
+  <section class="process-hero" style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+    text-align: center;
+    position: relative;
+    overflow: clip;
+  ">
+    <div class="process-hero-glow"></div>
+    <div style="max-width:800px;margin:0 auto;position:relative;z-index:1;">
+      <p class="section-label" style="justify-content:center;">
+        <span class="inline-en">How I Work</span>
+        <span class="inline-bn">আমি কীভাবে কাজ করি</span>
+      </p>
+      <h1 style="
+        font-family:var(--font-display);font-weight:800;
+        font-size:var(--text-4xl);line-height:1.05;
+        margin-bottom:20px;color:var(--text);
+      ">
+        <span class="inline-en">The Creative</span>
+        <span class="inline-bn">সৃজনশীল</span><br/>
+        <span class="gradient-text">
+          <span class="inline-en">Process</span>
+          <span class="inline-bn">প্রক্রিয়া</span>
+        </span>
+      </h1>
+      <p style="font-size:var(--text-lg);color:var(--text2);line-height:1.8;margin-bottom:8px;" class="inline-en">
+        A structured yet flexible methodology refined over 6+ years — from discovery to launch, every step is designed to deliver excellence.
+      </p>
+      <p style="font-size:var(--text-lg);color:var(--text2);line-height:1.8;margin-bottom:8px;" class="inline-bn">
+        ৬+ বছরের অভিজ্ঞতায় পরিমার্জিত একটি কাঠামোগত পদ্ধতি — আবিষ্কার থেকে লঞ্চ পর্যন্ত।
+      </p>
+      <p style="font-family:var(--font-mono);font-size:var(--text-sm);color:var(--accent);margin-top:16px;">
+        1% better, every iteration ↗
+      </p>
+    </div>
+  </section>
+
+  <!-- Process Timeline -->
+  <section class="process-timeline" style="
+    padding: clamp(60px,10vw,100px) clamp(20px,5vw,80px) clamp(80px,12vw,140px);
+    position: relative;
+  ">
+    <div style="max-width:960px;margin:0 auto;position:relative;">
+      <!-- Timeline line -->
+      <div class="timeline-line" aria-hidden="true"></div>
+
+      {steps.map((step, i) => (
+        <div class={`process-step reveal ${i % 2 === 0 ? 'step-left' : 'step-right'}`} style={`animation-delay:${i * 0.12}s`}>
+          <!-- Step number badge on timeline -->
+          <div class="step-marker" style={`--step-color:${step.color};`}>
+            <span>{step.num}</span>
+          </div>
+
+          <!-- Step card -->
+          <div class="step-card card">
+            <div style="padding:clamp(24px,4vw,36px);">
+              <!-- Header row -->
+              <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;">
+                <div class="step-icon" style={`--step-color:${step.color};`}>
+                  <span style="font-size:24px;">{step.icon}</span>
+                </div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
+                    <span style={`
+                      font-family:var(--font-mono);font-size:var(--text-xs);
+                      color:${step.color};letter-spacing:0.1em;
+                    `}>STEP {step.num}</span>
+                    <span class="tag" style={`
+                      background:${step.color}15;color:${step.color};
+                      border-color:${step.color}25;
+                    `}>{step.duration}</span>
+                  </div>
+                  <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:4px;">
+                    <span class="inline-en">{step.title}</span>
+                    <span class="inline-bn">{step.titleBn}</span>
+                  </h2>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.8;margin-bottom:4px;" class="inline-en">
+                {step.desc}
+              </p>
+              <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.8;margin-bottom:4px;" class="inline-bn">
+                {step.descBn}
+              </p>
+
+              <!-- Deliverables -->
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:16px;">
+                {step.details.map(d => (
+                  <li style="display:flex;align-items:flex-start;gap:10px;font-size:var(--text-sm);color:var(--text2);">
+                    <span style={`color:${step.color};flex-shrink:0;font-size:10px;margin-top:5px;`}>▸</span>
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <!-- Bottom accent bar -->
+            <div style={`height:3px;background:linear-gradient(90deg,${step.color}60,transparent);border-radius:0 0 16px 16px;`}></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Design Principles -->
+  <section class="process-principles reveal" style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: clip;
+  ">
+    <div class="process-principles-glow"></div>
+    <div style="max-width:1200px;margin:0 auto;position:relative;z-index:1;">
+      <div style="text-align:center;margin-bottom:clamp(40px,6vw,64px);">
+        <p class="section-label" style="justify-content:center;">
+          <span class="inline-en">Design Philosophy</span>
+          <span class="inline-bn">ডিজাইন দর্শন</span>
+        </p>
+        <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);color:var(--text);">
+          <span class="inline-en">Guiding</span>
+          <span class="inline-bn">পরিচালক</span>
+          <span class="gradient-text">
+            <span class="inline-en">Principles</span>
+            <span class="inline-bn">নীতিমালা</span>
+          </span>
+        </h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+        {principles.map((p, i) => (
+          <div class="principle-card card reveal" style={`padding:32px;animation-delay:${i * 0.1}s;`}>
+            <div style="
+              width:48px;height:48px;border-radius:12px;
+              background:var(--accent-dim);border:1px solid rgba(180,255,87,0.15);
+              display:flex;align-items:center;justify-content:center;
+              font-size:20px;color:var(--accent);margin-bottom:20px;
+              font-family:var(--font-display);font-weight:700;
+            ">{p.icon}</div>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:var(--text);margin-bottom:4px;">
+              <span class="inline-en">{p.title}</span>
+              <span class="inline-bn">{p.titleBn}</span>
+            </h3>
+            <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.7;margin-top:12px;">
+              {p.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Overview Bar -->
+  <section class="process-overview" style="
+    border-bottom: 1px solid var(--border);
+    padding: clamp(28px,5vw,48px) clamp(20px,5vw,80px);
+    background: var(--surface);
+  ">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="overview-bar" style="
+        display:flex;align-items:center;justify-content:center;
+        gap:clamp(16px,4vw,48px);flex-wrap:wrap;
+      ">
+        {[
+          { value: '6', label: 'Clear Steps', labelBn: 'সুস্পষ্ট ধাপ' },
+          { value: '8–12', label: 'Weeks Avg', labelBn: 'সপ্তাহ গড়ে' },
+          { value: '100%', label: 'Transparent', labelBn: 'স্বচ্ছ' },
+          { value: '∞', label: 'Iterations', labelBn: 'পুনরাবৃত্তি' },
+        ].map((stat, i) => (
+          <div style="display:flex;align-items:center;gap:clamp(16px,4vw,48px);">
+            <div style="text-align:center;">
+              <span style="
+                font-family:var(--font-mono);font-weight:700;
+                font-size:var(--text-2xl);color:var(--accent);
+                display:block;line-height:1.1;
+              ">{stat.value}</span>
+              <span style="
+                font-family:var(--font-mono);font-size:var(--text-xs);
+                color:var(--muted2);letter-spacing:0.1em;text-transform:uppercase;
+              ">
+                <span class="inline-en">{stat.label}</span>
+                <span class="inline-bn">{stat.labelBn}</span>
+              </span>
+            </div>
+            {i < 3 && (
+              <span style="color:var(--accent);font-family:var(--font-mono);font-size:var(--text-xl);opacity:0.4;">—</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="process-cta reveal" style="
+    padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
+    text-align:center;
+    position: relative;
+    overflow: clip;
+  ">
+    <div class="process-cta-glow"></div>
+    <div style="max-width:600px;margin:0 auto;position:relative;z-index:1;">
+      <div style="
+        display:inline-block;padding:6px 20px;border-radius:99px;
+        background:var(--accent-dim);border:1px solid rgba(180,255,87,0.2);
+        font-size:var(--text-xs);color:var(--accent);
+        font-family:var(--font-mono);letter-spacing:0.1em;
+        margin-bottom:24px;
+      ">
+        <span class="inline-en">Ready to start?</span>
+        <span class="inline-bn">শুরু করতে প্রস্তুত?</span>
+      </div>
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:20px;color:var(--text);">
+        <span class="inline-en">Let's Build Something</span>
+        <span class="inline-bn">একসাথে তৈরি করি কিছু</span>
+        <br/>
+        <span class="gradient-text">
+          <span class="inline-en">Extraordinary</span>
+          <span class="inline-bn">অসাধারণ</span>
+        </span>
+      </h2>
+      <p style="font-size:var(--text-base);color:var(--text2);margin-bottom:12px;" class="inline-en">
+        Book a free 30-minute discovery call and let's map out your path from idea to launch.
+      </p>
+      <p style="font-size:var(--text-base);color:var(--text2);margin-bottom:12px;" class="inline-bn">
+        একটি বিনামূল্যে ৩০-মিনিটের আলোচনা বুক করুন — আইডিয়া থেকে লঞ্চ পর্যন্ত।
+      </p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:32px;">
+        <a href="/contact" class="btn btn-primary">Book Discovery Call →</a>
+        <a href="/services" class="btn btn-outline">View Services</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* ── Hero Glow ──────────────────────────────────────────── */
+  .process-hero-glow {
+    position: absolute;
+    width: min(500px, 60vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* ── Timeline ───────────────────────────────────────────── */
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+    opacity: 0.35;
+    transform: translateX(-50%);
+  }
+
+  .process-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    margin-bottom: 48px;
+    align-items: start;
+  }
+
+  .step-marker {
+    grid-column: 2;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--step-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: var(--text-xs);
+    color: var(--step-color);
+    z-index: 2;
+    position: relative;
+    box-shadow: 0 0 20px color-mix(in srgb, var(--step-color) 20%, transparent);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    flex-shrink: 0;
+  }
+
+  .process-step:hover .step-marker {
+    transform: scale(1.15);
+    box-shadow: 0 0 30px color-mix(in srgb, var(--step-color) 35%, transparent);
+  }
+
+  .step-left .step-card {
+    grid-column: 1;
+    grid-row: 1;
+    margin-right: 24px;
+  }
+  .step-left .step-marker {
+    grid-row: 1;
+  }
+
+  .step-right .step-card {
+    grid-column: 3;
+    grid-row: 1;
+    margin-left: 24px;
+  }
+  .step-right .step-marker {
+    grid-row: 1;
+  }
+
+  .step-card {
+    transition: all 0.35s var(--ease);
+  }
+  .step-card:hover {
+    transform: translateY(-4px) scale(1.008);
+  }
+
+  /* ── Step Icon ──────────────────────────────────────────── */
+  .step-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--step-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--step-color) 20%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s var(--ease);
+  }
+  .step-card:hover .step-icon {
+    transform: scale(1.08);
+  }
+
+  /* ── Principles Glow ────────────────────────────────────── */
+  .process-principles-glow {
+    position: absolute;
+    width: min(400px, 50vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    background: color-mix(in srgb, var(--accent2) 10%, transparent);
+    right: -100px;
+    top: -80px;
+  }
+
+  .principle-card {
+    transition: all 0.3s var(--ease);
+  }
+  .principle-card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* ── CTA Glow ───────────────────────────────────────────── */
+  .process-cta-glow {
+    position: absolute;
+    width: min(350px, 45vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    left: -80px;
+    bottom: -100px;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .timeline-line {
+      left: 22px;
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    .step-marker {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      margin-right: 16px;
+    }
+
+    .step-left .step-card,
+    .step-right .step-card {
+      margin-left: 0;
+      margin-right: 0;
+      flex: 1;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .process-hero,
+    .process-principles,
+    .process-cta {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+
+    .step-marker {
+      width: 36px;
+      height: 36px;
+      font-size: 10px;
+      margin-right: 12px;
+    }
+
+    .process-cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .process-hero > div {
+      max-width: 920px !important;
+    }
+
+    .process-cta > div {
+      max-width: 700px !important;
+    }
+  }
+</style>
