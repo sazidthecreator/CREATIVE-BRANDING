@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 — Page Not Found • Sazid Hossain" page="">
+  <section style="
+    min-height: calc(100vh - 62px);
+    display: flex; align-items: center; justify-content: center;
+    padding: clamp(40px,8vw,100px) clamp(20px,5vw,80px);
+    text-align: center;
+  ">
+    <div style="max-width: 560px; margin: 0 auto;">
+      <p class="section-label" style="justify-content:center;">Error</p>
+      <h1 style="
+        font-family: var(--font-display); font-weight: 800;
+        font-size: clamp(6rem, 22vw, 12rem); line-height: 1;
+        color: var(--accent); margin-bottom: 0;
+        text-shadow: 0 0 60px var(--accent-glow);
+      ">404</h1>
+      <h2 style="
+        font-family: var(--font-display); font-weight: 700;
+        font-size: var(--text-2xl); color: var(--text);
+        margin-bottom: 16px; margin-top: 8px;
+      ">Page Not Found</h2>
+      <p style="font-size: var(--text-base); color: var(--text2); line-height: 1.8; margin-bottom: 8px;">
+        This page doesn't exist or has been moved.
+      </p>
+      <p style="font-family: var(--font-bn); font-size: var(--text-sm); color: var(--muted); margin-bottom: 40px;">
+        এই পেজটি খুঁজে পাওয়া যাচ্ছে না বা সরিয়ে নেওয়া হয়েছে।
+      </p>
+      <a href="/" class="btn btn-primary">← Back to Home</a>
+    </div>
+  </section>
+</Layout>

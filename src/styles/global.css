@@ -171,8 +171,13 @@ body::after {
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 /* ── REVEAL ANIMATION ────────────────────────────────────── */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── BILINGUAL TOGGLE ────────────────────────────────────── */
+[data-lang="en"] .inline-bn { display: none; }
+[data-lang="bn"] .inline-en { display: none; }
+.inline-en, .inline-bn { display: inline; }
 
 /* ── UTILITY CLASSES ─────────────────────────────────────── */
 .font-display { font-family: var(--font-display); }
