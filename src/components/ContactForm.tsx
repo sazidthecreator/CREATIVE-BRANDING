@@ -9,6 +9,9 @@ interface FormState {
 }
 
 const BUDGETS = ['< $500', '$500–$2k', '$2k–$5k', '$5k–$10k', '$10k+', 'Let\'s discuss'];
+// NOTE: Replace the placeholder below with your actual Formspree endpoint ID
+const FORMSPREE_URL = 'https://formspree.io/f/placeholder';
+const MAX_MESSAGE_LENGTH = 1000;
 
 export default function ContactForm() {
   const [form, setForm] = useState<FormState>({ name: '', email: '', subject: '', message: '', budget: '' });
@@ -29,14 +32,31 @@ export default function ContactForm() {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setStatus('sending');
-    // Simulate form submission
-    await new Promise(r => setTimeout(r, 1500));
-    setStatus('sent');
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+          budget: form.budget,
+        }),
+      });
+      if (res.ok) {
+        setStatus('sent');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   };
 
-  const field = (key: keyof FormState, label: string, type = 'text', placeholder = '') => (
+  const field = (key: keyof FormState, label: string, type = 'text', placeholder = '', autoComplete?: string) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-      <label style={{
+      <label htmlFor={`field-${key}`} style={{
         fontSize: 'var(--text-xs)', letterSpacing: '0.12em',
         textTransform: 'uppercase', color: 'var(--muted2)',
         fontFamily: 'var(--font-mono)',
@@ -44,26 +64,44 @@ export default function ContactForm() {
         {label}
       </label>
       {type === 'textarea' ? (
-        <textarea
-          value={form[key]}
-          onChange={e => { setForm(f => ({ ...f, [key]: e.target.value })); setErrors(err => ({ ...err, [key]: '' })); }}
-          placeholder={placeholder}
-          rows={5}
-          style={{
-            background: 'var(--surface2)', border: `1px solid ${errors[key] ? 'var(--accent3)' : 'var(--border2)'}`,
-            borderRadius: '8px', padding: '12px 16px', color: 'var(--text)',
-            fontSize: 'var(--text-sm)', fontFamily: 'var(--font-body)',
-            resize: 'vertical', outline: 'none', transition: 'border-color 0.2s',
-          }}
-          onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
-          onBlur={e => (e.target.style.borderColor = errors[key] ? 'var(--accent3)' : 'var(--border2)')}
-        />
+        <>
+          <textarea
+            id={`field-${key}`}
+            value={form[key]}
+            onChange={e => {
+              const val = e.target.value.slice(0, MAX_MESSAGE_LENGTH);
+              setForm(f => ({ ...f, [key]: val }));
+              setErrors(err => ({ ...err, [key]: '' }));
+            }}
+            placeholder={placeholder}
+            rows={5}
+            aria-invalid={!!errors[key]}
+            aria-describedby={errors[key] ? `error-${key}` : undefined}
+            style={{
+              background: 'var(--surface2)', border: `1px solid ${errors[key] ? 'var(--accent3)' : 'var(--border2)'}`,
+              borderRadius: '8px', padding: '12px 16px', color: 'var(--text)',
+              fontSize: 'var(--text-sm)', fontFamily: 'var(--font-body)',
+              resize: 'vertical', outline: 'none', transition: 'border-color 0.2s',
+            }}
+            onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
+            onBlur={e => (e.target.style.borderColor = errors[key] ? 'var(--accent3)' : 'var(--border2)')}
+          />
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <span style={{ fontSize: 'var(--text-xs)', color: form.message.length >= MAX_MESSAGE_LENGTH * 0.9 ? 'var(--accent3)' : 'var(--muted)', fontFamily: 'var(--font-mono)' }}>
+              {form[key].length}/{MAX_MESSAGE_LENGTH}
+            </span>
+          </div>
+        </>
       ) : (
         <input
+          id={`field-${key}`}
           type={type}
           value={form[key]}
           onChange={e => { setForm(f => ({ ...f, [key]: e.target.value })); setErrors(err => ({ ...err, [key]: '' })); }}
           placeholder={placeholder}
+          autoComplete={autoComplete}
+          aria-invalid={!!errors[key]}
+          aria-describedby={errors[key] ? `error-${key}` : undefined}
           style={{
             background: 'var(--surface2)', border: `1px solid ${errors[key] ? 'var(--accent3)' : 'var(--border2)'}`,
             borderRadius: '8px', padding: '12px 16px', color: 'var(--text)',
@@ -74,7 +112,7 @@ export default function ContactForm() {
           onBlur={e => (e.target.style.borderColor = errors[key] ? 'var(--accent3)' : 'var(--border2)')}
         />
       )}
-      {errors[key] && <span style={{ fontSize: 'var(--text-xs)', color: 'var(--accent3)' }}>{errors[key]}</span>}
+      {errors[key] && <span id={`error-${key}`} role="alert" style={{ fontSize: 'var(--text-xs)', color: 'var(--accent3)' }}>{errors[key]}</span>}
     </div>
   );
 
@@ -85,7 +123,7 @@ export default function ContactForm() {
         background: 'var(--surface)', borderRadius: '16px',
         border: '1px solid var(--border)',
       }}>
-        <div style={{ fontSize: '48px', marginBottom: '16px' }}>✓</div>
+        <div style={{ fontSize: '48px', marginBottom: '16px', color: 'var(--accent)' }}>✓</div>
         <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-2xl)', color: 'var(--accent)', marginBottom: '12px' }}>
           Message Sent!
         </h3>
@@ -96,13 +134,38 @@ export default function ContactForm() {
     );
   }
 
-  return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-        {field('name', 'Your Name', 'text', 'Sazid Hossain')}
-        {field('email', 'Email Address', 'email', 'hello@example.com')}
+  if (status === 'error') {
+    return (
+      <div style={{
+        padding: '60px 40px', textAlign: 'center',
+        background: 'var(--surface)', borderRadius: '16px',
+        border: '1px solid var(--border)',
+      }}>
+        <div style={{ fontSize: '48px', marginBottom: '16px' }}>⚠️</div>
+        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-2xl)', color: 'var(--accent3)', marginBottom: '12px' }}>
+          Something went wrong
+        </h3>
+        <p style={{ color: 'var(--text2)', fontSize: 'var(--text-sm)', marginBottom: '24px' }}>
+          Please try again or email me directly at contact@sazid.dev
+        </p>
+        <button
+          onClick={() => setStatus('idle')}
+          className="btn btn-outline"
+          tabIndex={0}
+        >
+          Try Again
+        </button>
       </div>
-      {field('subject', 'Subject', 'text', 'Let\'s collaborate on...')}
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }} noValidate>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+        {field('name', 'Your Name', 'text', 'Sazid Hossain', 'name')}
+        {field('email', 'Email Address', 'email', 'hello@example.com', 'email')}
+      </div>
+      {field('subject', 'Subject', 'text', 'Let\'s collaborate on...', 'off')}
 
       {/* Budget selector */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>

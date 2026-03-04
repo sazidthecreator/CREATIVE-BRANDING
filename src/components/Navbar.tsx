@@ -20,6 +20,17 @@ export default function Navbar({ activePage = '' }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [lang, setLang] = useState<'en' | 'bn'>('en');
 
+  // Restore lang from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('nexus_lang') as 'en' | 'bn' | null;
+    if (saved === 'en' || saved === 'bn') {
+      setLang(saved);
+      document.documentElement.setAttribute('data-lang', saved);
+    } else {
+      document.documentElement.setAttribute('data-lang', 'en');
+    }
+  }, []);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -41,11 +52,24 @@ export default function Navbar({ activePage = '' }: NavbarProps) {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
-  const currentPath = typeof window !== 'undefined' ? window.location.pathname : activePage;
+  // Close mobile menu on desktop resize
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) setMenuOpen(false);
+    };
+    window.addEventListener('resize', onResize, { passive: true });
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const currentPath = typeof window !== 'undefined'
+    ? window.location.pathname.replace('/CREATIVE-BRANDING', '') || '/'
+    : activePage;
 
   return (
     <nav
       className={`nav-fixed${scrolled ? ' scrolled' : ''}`}
+      role="navigation"
+      aria-label="Main navigation"
     >
       {/* Logo */}
       <a href="/" className="nav-logo" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
@@ -58,6 +82,7 @@ export default function Navbar({ activePage = '' }: NavbarProps) {
           fontFamily: 'var(--font-display)', fontWeight: 800,
           fontSize: '12px', letterSpacing: '0.2em',
           color: 'var(--text)', textTransform: 'uppercase',
+          position: 'relative', zIndex: 1,
         }}>
           {lang === 'en' ? 'Sazid Hossain' : 'সাজিদ হোসেন'}
         </span>
@@ -73,6 +98,7 @@ export default function Navbar({ activePage = '' }: NavbarProps) {
             <li key={href}>
               <a
                 href={href}
+                aria-current={isActive ? 'page' : undefined}
                 style={{
                   fontSize: '10px',
                   letterSpacing: '0.15em',
@@ -110,7 +136,13 @@ export default function Navbar({ activePage = '' }: NavbarProps) {
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         {/* Lang toggle */}
         <button
-          onClick={() => setLang(l => l === 'en' ? 'bn' : 'en')}
+          onClick={() => {
+            const newLang = lang === 'en' ? 'bn' : 'en';
+            setLang(newLang);
+            localStorage.setItem('nexus_lang', newLang);
+            document.documentElement.setAttribute('data-lang', newLang);
+          }}
+          title={lang === 'en' ? 'Switch to Bengali' : 'Switch to English'}
           style={{
             width: '34px', height: '34px', borderRadius: '8px',
             border: '1px solid var(--border2)', background: 'transparent',
@@ -187,6 +219,7 @@ export default function Navbar({ activePage = '' }: NavbarProps) {
               <a
                 key={href}
                 href={href}
+                aria-current={isActive ? 'page' : undefined}
                 onClick={() => setMenuOpen(false)}
                 style={{
                   padding: '12px 16px', borderRadius: '8px',

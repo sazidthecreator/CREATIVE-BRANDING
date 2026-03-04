@@ -144,13 +144,16 @@ export default function HeroSection() {
           alignItems: 'center',
           marginBottom: '32px',
         }}>
-          <span style={{
-            fontFamily: lang === 'bn' ? 'var(--font-bn)' : 'var(--font-serif)',
-            fontStyle: lang === 'en' ? 'italic' : 'normal',
-            fontSize: 'var(--text-2xl)',
-            color: 'var(--accent)',
-            fontWeight: lang === 'en' ? 400 : 600,
-          }}>
+          <span
+            role="status"
+            aria-live="polite"
+            style={{
+              fontFamily: lang === 'bn' ? 'var(--font-bn)' : 'var(--font-serif)',
+              fontStyle: lang === 'en' ? 'italic' : 'normal',
+              fontSize: 'var(--text-2xl)',
+              color: 'var(--accent)',
+              fontWeight: lang === 'en' ? 400 : 600,
+            }}>
             {displayed}
             <span style={{
               display: 'inline-block',
@@ -199,8 +202,8 @@ export default function HeroSection() {
               { num: '50+', label: 'Projects Shipped' },
               { num: '3+', label: 'Years Experience' },
               { num: '200+', label: 'Clients Helped' },
-          ].map(({ num, label }) => (
-            <div key={label}>
+          ].map(({ num, label }, i) => (
+            <div key={label} style={{ animationDelay: `${i * 0.15}s` }}>
               <div style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 800,
@@ -227,7 +230,13 @@ export default function HeroSection() {
 
       {/* Lang toggle (hero) */}
       <button
-        onClick={() => setLang(l => l === 'en' ? 'bn' : 'en')}
+        onClick={() => {
+          const newLang = lang === 'en' ? 'bn' : 'en';
+          setLang(newLang);
+          localStorage.setItem('nexus_lang', newLang);
+          document.documentElement.setAttribute('data-lang', newLang);
+        }}
+        aria-label={lang === 'en' ? 'Switch to Bengali' : 'Switch to English'}
         style={{
           position: 'absolute', bottom: '40px', right: 'clamp(20px,5vw,80px)',
           background: 'var(--surface)', border: '1px solid var(--border2)',
@@ -238,6 +247,21 @@ export default function HeroSection() {
       >
         {lang === 'en' ? '→ বাংলায় দেখুন' : '→ View in English'}
       </button>
+
+      {/* Scroll indicator */}
+      <div style={{
+        position: 'absolute', bottom: '40px', left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px',
+        animation: 'bounce 2s ease-in-out infinite',
+        color: 'var(--muted)',
+        pointerEvents: 'none',
+      }} aria-hidden="true">
+        <span style={{ fontSize: 'var(--text-xs)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>scroll</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 3L8 13M8 13L4 9M8 13L12 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
     </section>
   );
 }
