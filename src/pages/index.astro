@@ -51,7 +51,10 @@ const testimonials = [
         <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted2);line-height:1.9;margin-bottom:32px;">
           আমি সাজিদ হোসেন — ঢাকা থেকে ক্রিয়েটিভ টেকনোলজিস্ট। দর্শনের পথ বেয়ে প্রযুক্তির জগতে প্রবেশ করেছি।
         </p>
-        <a href="/about" class="btn btn-outline">Read My Story →</a>
+        <a href="/about" class="btn-ghost">
+            <span class="inline-en">Read My Story →</span>
+            <span class="inline-bn" style="font-family:var(--font-bn)">আমার গল্প পড়ুন →</span>
+          </a>
       </div>
       <div style="position:relative;">
         <!-- Profile visual -->
@@ -91,7 +94,10 @@ const testimonials = [
         <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-4xl);line-height:1.1;color:var(--text);">
           Services That<br/><span class="gradient-text">Scale</span>
         </h2>
-        <a href="/services" class="btn btn-outline" style="flex-shrink:0;">All Services →</a>
+        <a href="/services" class="btn-ghost" style="flex-shrink:0;">
+          <span class="inline-en">All Services →</span>
+          <span class="inline-bn" style="font-family:var(--font-bn)">সব সেবা →</span>
+        </a>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
         {services.map((s, i) => (
@@ -125,7 +131,10 @@ const testimonials = [
         <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-4xl);line-height:1.1;color:var(--text);">
           Projects That<br/><span class="gradient-text">Ship</span>
         </h2>
-        <a href="/portfolio" class="btn btn-outline" style="flex-shrink:0;">View All →</a>
+        <a href="/portfolio" class="btn-ghost" style="flex-shrink:0;">
+          <span class="inline-en">View All →</span>
+          <span class="inline-bn" style="font-family:var(--font-bn)">সব দেখুন →</span>
+        </a>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
         {allProjects.map((project, i) => (
@@ -156,7 +165,10 @@ const testimonials = [
       <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted);margin-bottom:40px;">
         প্রতিটি ডিজাইন, প্রতিটি সিস্টেম — অর্থবহ।
       </p>
-      <a href="/philosophy" class="btn btn-outline">Explore My Philosophy →</a>
+      <a href="/philosophy" class="btn-ghost">
+        <span class="inline-en">Explore My Philosophy →</span>
+        <span class="inline-bn" style="font-family:var(--font-bn)">আমার দর্শন অন্বেষণ করুন →</span>
+      </a>
     </div>
   </section>
 
@@ -220,8 +232,14 @@ const testimonials = [
         আপনার প্রজেক্ট নিয়ে কথা বলুন — একসাথে কিছু অসাধারণ তৈরি করি।
       </p>
       <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-        <a href="/contact" class="btn btn-primary">Start a Project →</a>
-        <a href="/portfolio" class="btn btn-outline">See My Work</a>
+        <a href="/contact" class="btn-primary">
+          <span class="inline-en">Start a Project →</span>
+          <span class="inline-bn" style="font-family:var(--font-bn)">প্রজেক্ট শুরু করুন →</span>
+        </a>
+        <a href="/portfolio" class="btn-ghost">
+          <span class="inline-en">See My Work</span>
+          <span class="inline-bn" style="font-family:var(--font-bn)">কাজ দেখুন</span>
+        </a>
       </div>
     </div>
   </section>

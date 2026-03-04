@@ -225,11 +225,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sazidthe
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 768px), (pointer: coarse) {
       body { cursor: auto; }
     }
     ::selection {
-      background: rgba(180,255,87,0.25);
+      background: color-mix(in srgb, var(--accent) 25%, transparent);
       color: var(--text);
     }
     ::-webkit-scrollbar { width: 5px; }
