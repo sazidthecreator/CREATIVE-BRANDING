@@ -26,6 +26,21 @@ export default function Navbar({ activePage = '' }: NavbarProps) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
   const currentPath = typeof window !== 'undefined' ? window.location.pathname : activePage;
 
   return (
@@ -161,26 +176,31 @@ export default function Navbar({ activePage = '' }: NavbarProps) {
       {menuOpen && (
         <div style={{
           position: 'fixed', top: '62px', left: 0, right: 0,
-          background: 'var(--bg2)', borderBottom: '1px solid var(--border)',
+          background: 'color-mix(in srgb, var(--bg2) 92%, transparent)', borderBottom: '1px solid var(--border)',
+          backdropFilter: 'blur(18px) saturate(135%)',
           padding: '20px clamp(20px,5vw,48px)',
           display: 'flex', flexDirection: 'column', gap: '4px',
         }}>
-          {NAV_LINKS.map(({ href, label }) => (
-            <a
-              key={href}
-              href={href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                padding: '12px 16px', borderRadius: '8px',
-                color: 'var(--text2)', textDecoration: 'none',
-                fontSize: 'var(--text-sm)', fontFamily: 'var(--font-display)',
-                fontWeight: 500, transition: 'all 0.2s',
-                borderBottom: '1px solid var(--border)',
-              }}
-            >
-              {label}
-            </a>
-          ))}
+          {NAV_LINKS.map(({ href, label }) => {
+            const isActive = currentPath === href || (href !== '/' && currentPath.startsWith(href));
+            return (
+              <a
+                key={href}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  padding: '12px 16px', borderRadius: '8px',
+                  color: isActive ? 'var(--text)' : 'var(--text2)', textDecoration: 'none',
+                  fontSize: 'var(--text-sm)', fontFamily: 'var(--font-display)',
+                  fontWeight: isActive ? 700 : 500, transition: 'all 0.2s',
+                  borderBottom: '1px solid var(--border)',
+                  background: isActive ? 'var(--accent-dim)' : 'transparent',
+                }}
+              >
+                {label}
+              </a>
+            );
+          })}
         </div>
       )}
     </nav>

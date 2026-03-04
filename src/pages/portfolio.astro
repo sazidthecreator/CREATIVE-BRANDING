@@ -8,7 +8,7 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
 
 <Layout title="Portfolio • Sazid Hossain — Creative Technologist" page="/portfolio">
   <!-- Hero -->
-  <section style="
+  <section class="portfolio-hero" style="
     padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
     background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
   ">
@@ -30,7 +30,7 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
       </p>
 
       <!-- Category Filter -->
-      <div style="display:flex;gap:8px;flex-wrap:wrap;" id="filterBtns">
+      <div class="portfolio-filter" style="display:flex;gap:8px;flex-wrap:wrap;" id="filterBtns">
         {categories.map((cat, i) => (
           <button
             class={`filter-btn${i === 0 ? ' active' : ''}`}
@@ -51,9 +51,9 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
   </section>
 
   <!-- Projects Grid -->
-  <section style="padding: clamp(40px,8vw,80px) clamp(20px,5vw,80px) clamp(80px,12vw,140px);" id="projectsSection">
+  <section class="portfolio-grid-wrap" style="padding: clamp(40px,8vw,80px) clamp(20px,5vw,80px) clamp(80px,12vw,140px);" id="projectsSection">
     <div style="max-width:1200px;margin:0 auto;">
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px;" id="projectsGrid">
+      <div class="portfolio-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px;" id="projectsGrid">
         {projectsData.map((project, i) => (
           <div class="project-item" data-category={project.category} style={`animation:slideIn 0.6s cubic-bezier(0.16,1,0.3,1) ${i*0.08}s both`}>
             <ProjectCard project={project} index={i} client:visible />
@@ -70,7 +70,7 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
   </section>
 
   <!-- Process -->
-  <section style="
+  <section class="portfolio-process" style="
     padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
     background: var(--bg2);
     border-top: 1px solid var(--border);
@@ -110,14 +110,8 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
       const cat = (btn as HTMLElement).dataset.category;
 
       filterBtns.forEach(b => {
-        (b as HTMLElement).style.background = 'transparent';
-        (b as HTMLElement).style.color = 'var(--muted2)';
-        (b as HTMLElement).style.borderColor = 'var(--border2)';
         b.classList.remove('active');
       });
-      (btn as HTMLElement).style.background = 'var(--accent-dim)';
-      (btn as HTMLElement).style.color = 'var(--accent)';
-      (btn as HTMLElement).style.borderColor = 'rgba(180,255,87,0.3)';
       btn.classList.add('active');
 
       let visible = 0;
@@ -136,10 +130,61 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
   });
 
   // Init active style
-  const firstBtn = document.querySelector('.filter-btn.active') as HTMLElement;
-  if (firstBtn) {
-    firstBtn.style.background = 'var(--accent-dim)';
-    firstBtn.style.color = 'var(--accent)';
-    firstBtn.style.borderColor = 'rgba(180,255,87,0.3)';
-  }
 </script>
+
+<style>
+  .portfolio-hero,
+  .portfolio-process {
+    position: relative;
+    overflow: clip;
+  }
+
+  .portfolio-hero::before,
+  .portfolio-process::before {
+    content: '';
+    position: absolute;
+    width: min(420px, 52vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    filter: blur(26px);
+    pointer-events: none;
+    background: color-mix(in srgb, var(--accent2) 12%, transparent);
+    right: -120px;
+    top: -140px;
+  }
+
+  .portfolio-filter {
+    align-items: center;
+    row-gap: 10px;
+  }
+
+  .filter-btn {
+    backdrop-filter: blur(12px);
+  }
+
+  .filter-btn.active {
+    background: var(--accent-dim) !important;
+    color: var(--accent) !important;
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border2)) !important;
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+
+  .portfolio-grid {
+    align-items: stretch;
+  }
+
+  .project-item {
+    height: 100%;
+  }
+
+  .portfolio-grid-wrap {
+    background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--surface) 18%, transparent));
+  }
+
+  @media (max-width: 640px) {
+    .portfolio-grid {
+      grid-template-columns: 1fr !important;
+      gap: 18px !important;
+    }
+  }
+</style>

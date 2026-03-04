@@ -196,9 +196,9 @@ export default function HeroSection() {
           flexWrap: 'wrap',
         }}>
           {[
-            { num: '6+', label: 'Projects Shipped' },
-            { num: '2+', label: 'Years Experience' },
-            { num: '100%', label: 'Client Satisfaction' },
+              { num: '50+', label: 'Projects Shipped' },
+              { num: '3+', label: 'Years Experience' },
+              { num: '200+', label: 'Clients Helped' },
           ].map(({ num, label }) => (
             <div key={label}>
               <div style={{

@@ -96,7 +96,7 @@ const {
         </div>
       </div>
       <div style="border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-        <p style="font-size:var(--text-xs);color:var(--muted);">© 2025 Sazid Hossain. Built with Astro + React + Tailwind.</p>
+        <p style="font-size:var(--text-xs);color:var(--muted);">© {new Date().getFullYear()} Sazid Hossain. Built with Astro + React + Tailwind.</p>
         <p style="font-size:var(--text-xs);color:var(--muted);font-family:var(--font-mono);">v2.0 — Enhanced Edition</p>
       </div>
     </div>
@@ -107,30 +107,43 @@ const {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
 
-    // Cursor
+    // Cursor (desktop pointers only)
     const cursor = document.getElementById('cursor');
     const cursorRing = document.getElementById('cursorRing');
+    const supportsFinePointer = window.matchMedia('(pointer: fine)').matches;
     let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX; mouseY = e.clientY;
-      if (cursor) { cursor.style.left = mouseX - 4.5 + 'px'; cursor.style.top = mouseY - 4.5 + 'px'; }
-    });
-    function animateRing() {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      if (cursorRing) { cursorRing.style.left = ringX - 16 + 'px'; cursorRing.style.top = ringY - 16 + 'px'; }
-      requestAnimationFrame(animateRing);
+    if (supportsFinePointer) {
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX; mouseY = e.clientY;
+        if (cursor) { cursor.style.left = mouseX - 4.5 + 'px'; cursor.style.top = mouseY - 4.5 + 'px'; }
+      });
+      function animateRing() {
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
+        if (cursorRing) { cursorRing.style.left = ringX - 16 + 'px'; cursorRing.style.top = ringY - 16 + 'px'; }
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+      document.querySelectorAll('a,button,[role="button"]').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          if(cursor) cursor.style.transform='scale(2.5)';
+          if(cursorRing) { cursorRing.style.width='48px'; cursorRing.style.height='48px'; }
+        });
+        el.addEventListener('mouseleave', () => {
+          if(cursor) cursor.style.transform='scale(1)';
+          if(cursorRing) { cursorRing.style.width='32px'; cursorRing.style.height='32px'; }
+        });
+      });
+    } else {
+      if (cursor) cursor.style.display = 'none';
+      if (cursorRing) cursorRing.style.display = 'none';
     }
-    animateRing();
-    document.querySelectorAll('a,button,[role="button"]').forEach(el => {
-      el.addEventListener('mouseenter', () => { if(cursor) cursor.style.transform='scale(2.5)'; if(cursorRing) { cursorRing.style.width='48px'; cursorRing.style.height='48px'; }});
-      el.addEventListener('mouseleave', () => { if(cursor) cursor.style.transform='scale(1)'; if(cursorRing) { cursorRing.style.width='32px'; cursorRing.style.height='32px'; }});
-    });
 
     // Scroll progress
     const scrollBar = document.getElementById('scrollBar');
     window.addEventListener('scroll', () => {
-      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+      const scrollable = document.body.scrollHeight - window.innerHeight;
+      const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
       if (scrollBar) scrollBar.style.width = pct + '%';
     });
 
