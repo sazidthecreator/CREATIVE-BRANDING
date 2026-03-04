@@ -13,27 +13,43 @@ const {
   description = 'Sazid Hossain — Philosophy-trained Creative Technologist from Dhaka. Building AI-native digital systems, automated business funnels, and bilingual web experiences.',
   page = ''
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sazidthecreator.github.io/CREATIVE-BRANDING');
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <meta name="theme-color" content="#030310" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <!-- Cursor -->
-  <div id="scrollBar"></div>
-  <div id="cursor"></div>
-  <div id="cursorRing"></div>
+  <!-- Scroll progress bar -->
+  <div id="scrollBar" role="progressbar" aria-label="Page scroll progress" aria-valuemin={0} aria-valuemax={100}></div>
+
+  <!-- Custom cursor (desktop only) -->
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="cursorRing" aria-hidden="true"></div>
 
   <!-- Navigation -->
   <Navbar activePage={page} client:load />
@@ -45,124 +61,181 @@ const {
 
   <!-- Footer -->
   <footer style="
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
+    background: rgba(3,3,16,0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(180,255,87,0.08);
     padding: clamp(40px,8vw,80px) clamp(20px,5vw,80px) 40px;
     margin-top: 120px;
   ">
     <div style="max-width: 1200px; margin: 0 auto;">
       <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px;"
            class="footer-grid">
+        <!-- Brand column -->
         <div>
           <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
-            <div style="width:7px;height:7px;border-radius:50%;background:var(--accent);"></div>
-            <span style="font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;">Sazid Hossain</span>
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--accent);animation:dotPulse 2.5s infinite;"></div>
+            <span style="font-family:var(--font-display);font-weight:800;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text);">SAZID.SYS</span>
+            <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);">[v7]</span>
           </div>
           <p style="font-size: var(--text-sm); color: var(--muted2); max-width: 280px; line-height: 1.8;">
-            Creative Technologist &amp; AI Automation Strategist from Dhaka. Philosophy meets technology.
+            <span class="inline-en">Creative Technologist &amp; AI Automation Strategist from Dhaka. Philosophy meets technology.</span>
+            <span class="inline-bn" style="font-family:var(--font-bn);">ঢাকার ক্রিয়েটিভ টেকনোলজিস্ট ও এআই স্ট্র্যাটেজিস্ট।</span>
           </p>
-          <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted);margin-top:8px;">
-            সাজিদ হোসেন — ঢাকা, বাংলাদেশ
-          </p>
-          <div style="display:flex;gap:10px;margin-top:20px;">
-            <a href="mailto:contact@sazid.dev" style="color:var(--muted2);font-size:var(--text-sm);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted2)'">Email</a>
+          <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
+            <a href="mailto:contact@sazid.dev" aria-label="Email" style="color:var(--muted2);font-size:var(--text-sm);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted2)'">Email</a>
             <span style="color:var(--border2);">·</span>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" style="color:var(--muted2);font-size:var(--text-sm);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted2)'">LinkedIn</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="color:var(--muted2);font-size:var(--text-sm);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted2)'">LinkedIn</a>
             <span style="color:var(--border2);">·</span>
-            <a href="https://github.com" target="_blank" rel="noopener" style="color:var(--muted2);font-size:var(--text-sm);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted2)'">GitHub</a>
+            <a href="https://github.com/sazidthecreator" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style="color:var(--muted2);font-size:var(--text-sm);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted2)'">GitHub</a>
           </div>
         </div>
+
+        <!-- Navigation links -->
         <div>
-          <p style="font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);font-family:var(--font-mono);margin-bottom:16px;">Navigation</p>
+          <p style="font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);font-family:var(--font-mono);margin-bottom:16px;">Navigation</p>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
             {[['/', 'Home'], ['/about', 'About'], ['/portfolio', 'Portfolio'], ['/services', 'Services']].map(([href, label]) => (
               <li><a href={href} style="font-size:var(--text-sm);color:var(--muted2);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted2)'">{label}</a></li>
             ))}
           </ul>
         </div>
+
+        <!-- More links -->
         <div>
-          <p style="font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);font-family:var(--font-mono);margin-bottom:16px;">More</p>
+          <p style="font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);font-family:var(--font-mono);margin-bottom:16px;">More</p>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
             {[['/blog', 'Blog'], ['/resume', 'Resume'], ['/philosophy', 'Philosophy'], ['/contact', 'Contact']].map(([href, label]) => (
               <li><a href={href} style="font-size:var(--text-sm);color:var(--muted2);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted2)'">{label}</a></li>
             ))}
           </ul>
         </div>
+
+        <!-- Status -->
         <div>
-          <p style="font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);font-family:var(--font-mono);margin-bottom:16px;">Status</p>
+          <p style="font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);font-family:var(--font-mono);margin-bottom:16px;">Status</p>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
             <div style="width:6px;height:6px;border-radius:50%;background:#22c55e;animation:dotPulse 2.5s infinite;"></div>
-            <span style="font-size:var(--text-xs);color:var(--muted2);">Available for work</span>
+            <span style="font-size:var(--text-xs);color:var(--muted2);">
+              <span class="inline-en">Available for work</span>
+              <span class="inline-bn" style="font-family:var(--font-bn);">কাজের জন্য উপলব্ধ</span>
+            </span>
           </div>
           <p style="font-size:var(--text-xs);color:var(--muted);margin-bottom:4px;">Dhaka, Bangladesh</p>
           <p style="font-size:var(--text-xs);color:var(--muted);">GMT+6</p>
         </div>
       </div>
-      <div style="border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-        <p style="font-size:var(--text-xs);color:var(--muted);">© {new Date().getFullYear()} Sazid Hossain. Built with Astro + React + Tailwind.</p>
-        <p style="font-size:var(--text-xs);color:var(--muted);font-family:var(--font-mono);">v2.0 — Enhanced Edition</p>
+
+      <!-- Bottom bar -->
+      <div style="border-top:1px solid rgba(180,255,87,0.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <p style="font-size:var(--text-xs);color:var(--muted);">© {new Date().getFullYear()} Sazid Hossain.</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <p style="font-size:var(--text-xs);color:var(--muted);font-family:var(--font-mono);">NEXUS_v7.0 · DHAKA, BD</p>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:5px;height:5px;border-radius:50%;background:#22c55e;animation:dotPulse 2s infinite;"></div>
+            <span style="font-size:var(--text-xs);color:var(--muted2);font-family:var(--font-mono);">Available Now</span>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
 
   <script>
-    // Theme persistence
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    // Theme init — use nexus_theme key
+    const savedTheme = localStorage.getItem('nexus_theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
 
-    // Language persistence
+    // Lang init
     const savedLang = localStorage.getItem('nexus_lang') || 'en';
     document.documentElement.setAttribute('data-lang', savedLang);
 
-    // Cursor (desktop pointers only)
+    // Scroll progress bar
+    const scrollBar = document.getElementById('scrollBar');
+    window.addEventListener('scroll', () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollBar && max > 0) scrollBar.style.width = (window.scrollY / max * 100) + '%';
+    }, { passive: true });
+
+    // Custom cursor (fine pointer only)
     const cursor = document.getElementById('cursor');
-    const cursorRing = document.getElementById('cursorRing');
-    const supportsFinePointer = window.matchMedia('(pointer: fine)').matches;
-    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-    if (supportsFinePointer) {
+    const ring = document.getElementById('cursorRing');
+    const supportsFine = window.matchMedia('(pointer: fine)').matches;
+
+    if (supportsFine && cursor && ring) {
+      let mx = 0, my = 0, rx = 0, ry = 0;
+      cursor.style.opacity = '0';
+      ring.style.opacity = '0';
+
       document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX; mouseY = e.clientY;
-        if (cursor) { cursor.style.left = mouseX - 4.5 + 'px'; cursor.style.top = mouseY - 4.5 + 'px'; }
+        mx = e.clientX; my = e.clientY;
+        cursor.style.left = (mx - 4) + 'px';
+        cursor.style.top = (my - 4) + 'px';
+        cursor.style.opacity = '1';
+        ring.style.opacity = '1';
       });
-      function animateRing() {
-        ringX += (mouseX - ringX) * 0.12;
-        ringY += (mouseY - ringY) * 0.12;
-        if (cursorRing) { cursorRing.style.left = ringX - 16 + 'px'; cursorRing.style.top = ringY - 16 + 'px'; }
+
+      (function animateRing() {
+        rx += (mx - rx) * 0.1;
+        ry += (my - ry) * 0.1;
+        ring.style.left = (rx - 18) + 'px';
+        ring.style.top = (ry - 18) + 'px';
         requestAnimationFrame(animateRing);
-      }
-      animateRing();
-      document.querySelectorAll('a,button,[role="button"]').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          if(cursor) cursor.style.transform='scale(2.5)';
-          if(cursorRing) { cursorRing.style.width='48px'; cursorRing.style.height='48px'; }
-        });
-        el.addEventListener('mouseleave', () => {
-          if(cursor) cursor.style.transform='scale(1)';
-          if(cursorRing) { cursorRing.style.width='32px'; cursorRing.style.height='32px'; }
-        });
+      })();
+
+      document.addEventListener('mouseover', (e) => {
+        const target = e.target as Element;
+        if (target.closest('a, button, [role="button"], input, textarea, select')) {
+          cursor.classList.add('hovering');
+          ring.classList.add('hovering');
+        } else {
+          cursor.classList.remove('hovering');
+          ring.classList.remove('hovering');
+        }
+      });
+
+      document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        ring.style.opacity = '0';
       });
     } else {
       if (cursor) cursor.style.display = 'none';
-      if (cursorRing) cursorRing.style.display = 'none';
+      if (ring) ring.style.display = 'none';
     }
-
-    // Scroll progress
-    const scrollBar = document.getElementById('scrollBar');
-    window.addEventListener('scroll', () => {
-      const scrollable = document.body.scrollHeight - window.innerHeight;
-      const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
-      if (scrollBar) scrollBar.style.width = pct + '%';
-    });
 
     // Reveal on scroll
     const reveals = document.querySelectorAll('.reveal');
     const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
-    }, { threshold: 0.1 });
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.07 });
     reveals.forEach(el => obs.observe(el));
   </script>
 
   <style>
+    html {
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+    body {
+      cursor: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    @media (max-width: 768px) {
+      body { cursor: auto; }
+    }
+    ::selection {
+      background: rgba(180,255,87,0.25);
+      color: var(--text);
+    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
     @media (max-width: 768px) {
       .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
     }
