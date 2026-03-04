@@ -21,6 +21,16 @@ export default function Navbar({ activePage = '' }: NavbarProps) {
   const [lang, setLang] = useState<'en' | 'bn'>('en');
 
   useEffect(() => {
+    const saved = localStorage.getItem('nexus_lang') as 'en' | 'bn' | null;
+    if (saved === 'en' || saved === 'bn') {
+      setLang(saved);
+      document.documentElement.setAttribute('data-lang', saved);
+    } else {
+      document.documentElement.setAttribute('data-lang', 'en');
+    }
+  }, []);
+
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -110,7 +120,12 @@ export default function Navbar({ activePage = '' }: NavbarProps) {
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         {/* Lang toggle */}
         <button
-          onClick={() => setLang(l => l === 'en' ? 'bn' : 'en')}
+          onClick={() => {
+            const newLang = lang === 'en' ? 'bn' : 'en';
+            setLang(newLang);
+            localStorage.setItem('nexus_lang', newLang);
+            document.documentElement.setAttribute('data-lang', newLang);
+          }}
           style={{
             width: '34px', height: '34px', borderRadius: '8px',
             border: '1px solid var(--border2)', background: 'transparent',

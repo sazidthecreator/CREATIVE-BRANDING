@@ -9,6 +9,9 @@ interface FormState {
 }
 
 const BUDGETS = ['< $500', '$500–$2k', '$2k–$5k', '$5k–$10k', '$10k+', 'Let\'s discuss'];
+// Replace 'placeholder' with your actual Formspree form ID before deploying
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/placeholder';
+const CONTACT_EMAIL = 'saazidhossain@gmail.com';
 
 export default function ContactForm() {
   const [form, setForm] = useState<FormState>({ name: '', email: '', subject: '', message: '', budget: '' });
@@ -29,9 +32,20 @@ export default function ContactForm() {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setStatus('sending');
-    // Simulate form submission
-    await new Promise(r => setTimeout(r, 1500));
-    setStatus('sent');
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setStatus('sent');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   };
 
   const field = (key: keyof FormState, label: string, type = 'text', placeholder = '') => (
@@ -92,6 +106,30 @@ export default function ContactForm() {
         <p style={{ color: 'var(--text2)', fontSize: 'var(--text-sm)' }}>
           I'll get back to you within 24 hours.
         </p>
+      </div>
+    );
+  }
+
+  if (status === 'error') {
+    return (
+      <div style={{
+        padding: '40px', textAlign: 'center',
+        background: 'var(--surface)', borderRadius: '16px',
+        border: '1px solid var(--accent3)',
+      }}>
+        <div style={{ fontSize: '48px', marginBottom: '16px' }}>✗</div>
+        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xl)', color: 'var(--accent3)', marginBottom: '12px' }}>
+          Something went wrong
+        </h3>
+        <p style={{ color: 'var(--text2)', fontSize: 'var(--text-sm)', marginBottom: '20px' }}>
+          Please try again or email me directly at {CONTACT_EMAIL}
+        </p>
+        <button
+          onClick={() => setStatus('idle')}
+          className="btn btn-outline"
+        >
+          Try Again
+        </button>
       </div>
     );
   }

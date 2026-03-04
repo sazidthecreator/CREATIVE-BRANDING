@@ -26,6 +26,7 @@
   --muted: #5050a0;
   --muted2: #8080b8;
   --nav-bg: rgba(3,3,16,0.9);
+  --surface3: #191932;
 
   /* Typography scale */
   --text-xs: clamp(0.65rem, 0.6rem + 0.25vw, 0.75rem);
@@ -60,6 +61,7 @@
   --muted: #8888a0;
   --muted2: #606070;
   --nav-bg: rgba(247,245,255,0.92);
+  --surface3: #e8e4ff;
 }
 
 /* ── GLOBAL RESET ────────────────────────────────────────── */
@@ -218,6 +220,18 @@ body::after {
   border: 1px solid rgba(180,255,87,0.15);
   font-weight: 500;
 }
+
+/* ── BILINGUAL TOGGLE ────────────────────────────────────── */
+[data-lang="en"] .inline-bn { display: none; }
+[data-lang="bn"] .inline-en { display: none; }
+
+/* ── FEATURED CARD ───────────────────────────────────────── */
+.card.featured-card {
+  border-color: rgba(255,215,0,0.3);
+}
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────── */
+h1, h2, h3 { font-family: var(--font-display); }
 
 .section-label {
   display: inline-flex;
