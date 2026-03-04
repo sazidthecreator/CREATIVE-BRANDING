@@ -203,7 +203,7 @@ export default function HeroSection() {
               { num: '3+', label: 'Years Experience' },
               { num: '200+', label: 'Clients Helped' },
           ].map(({ num, label }, i) => (
-            <div key={label} style={{ animationDelay: `${i * 0.15}s` }}>
+            <div key={label} style={{ animation: `slideIn 0.6s cubic-bezier(0.16,1,0.3,1) ${i * 0.15}s both` }}>
               <div style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 800,

@@ -87,7 +87,7 @@ export default function ContactForm() {
             onBlur={e => (e.target.style.borderColor = errors[key] ? 'var(--accent3)' : 'var(--border2)')}
           />
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <span style={{ fontSize: 'var(--text-xs)', color: form.message.length >= MAX_MESSAGE_LENGTH * 0.9 ? 'var(--accent3)' : 'var(--muted)', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: 'var(--text-xs)', color: form[key].length >= MAX_MESSAGE_LENGTH * 0.9 ? 'var(--accent3)' : 'var(--muted)', fontFamily: 'var(--font-mono)' }}>
               {form[key].length}/{MAX_MESSAGE_LENGTH}
             </span>
           </div>
