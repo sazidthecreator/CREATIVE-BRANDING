@@ -75,7 +75,7 @@ const {
         <div>
           <p style="font-size:var(--text-xs);letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);font-family:var(--font-mono);margin-bottom:16px;">Navigation</p>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
-            {[['/', 'Home'], ['/about', 'About'], ['/portfolio', 'Portfolio'], ['/services', 'Services']].map(([href, label]) => (
+            {[['/', 'Home'], ['/about', 'About'], ['/portfolio', 'Portfolio'], ['/services', 'Services'], ['/process', 'Process']].map(([href, label]) => (
               <li><a href={href} style="font-size:var(--text-sm);color:var(--muted2);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted2)'">{label}</a></li>
             ))}
           </ul>
