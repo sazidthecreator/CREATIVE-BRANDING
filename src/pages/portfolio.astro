@@ -187,4 +187,29 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
       gap: 18px !important;
     }
   }
+
+  @media (max-width: 375px) {
+    .portfolio-hero,
+    .portfolio-grid-wrap,
+    .portfolio-process {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+
+    .filter-btn {
+      padding: 7px 14px !important;
+      letter-spacing: 0.08em !important;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .portfolio-grid {
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important;
+      gap: 32px !important;
+    }
+
+    .portfolio-filter {
+      gap: 12px !important;
+    }
+  }
 </style>
