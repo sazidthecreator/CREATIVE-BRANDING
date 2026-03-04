@@ -4,58 +4,199 @@ import ProjectCard from '../components/ProjectCard.tsx';
 import projectsData from '../../data/projects.json';
 
 const categories = ['All', ...new Set(projectsData.map(p => p.category))];
+const featuredProject = projectsData.find(p => p.featured);
 ---
 
 <Layout title="Portfolio • Sazid Hossain — Creative Technologist" page="/portfolio">
-  <!-- Hero -->
-  <section class="portfolio-hero" style="
+  <!-- Page Header -->
+  <section class="portfolio-hero reveal" style="
     padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
     background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
   ">
     <div style="max-width:1200px;margin:0 auto;">
-      <p class="section-label">Selected Work</p>
+      <p class="section-label">
+        <span class="inline-en">— Portfolio</span>
+        <span class="inline-bn">— পোর্টফোলিও</span>
+      </p>
       <h1 style="
         font-family:var(--font-display);font-weight:800;
         font-size:var(--text-4xl);line-height:1.05;
         margin-bottom:20px;color:var(--text);
       ">
-        Projects That <span class="gradient-text">Matter</span>
+        <span class="inline-en">Work That <span class="gradient-text">Speaks</span></span>
+        <span class="inline-bn">কাজ যা কথা বলে</span>
       </h1>
       <p style="font-size:var(--text-lg);color:var(--text2);max-width:580px;line-height:1.8;margin-bottom:8px;">
-        From healthcare platforms to AI tools, here's a selection of work that combines design thinking
-        with technical execution.
-      </p>
-      <p style="font-family:var(--font-bn);font-size:var(--text-base);color:var(--muted);margin-bottom:48px;">
-        স্বাস্থ্যসেবা থেকে এআই টুল — আমার নির্বাচিত কাজের সংকলন।
+        <span class="inline-en">Crafted with intention. Every pixel, every line of code.</span>
+        <span class="inline-bn">উদ্দেশ্য নিয়ে তৈরি। প্রতিটি পিক্সেল, প্রতিটি কোডের লাইন।</span>
       </p>
 
-      <!-- Category Filter -->
-      <div class="portfolio-filter" style="display:flex;gap:8px;flex-wrap:wrap;" id="filterBtns">
-        {categories.map((cat, i) => (
-          <button
-            class={`filter-btn${i === 0 ? ' active' : ''}`}
-            data-category={cat}
-            style="
-              padding: 8px 20px;border-radius:99px;cursor:pointer;
-              font-size:var(--text-xs);font-family:var(--font-mono);
-              letter-spacing:0.1em;text-transform:uppercase;
-              transition:all 0.2s;border:1px solid var(--border2);
-              background:transparent;color:var(--muted2);
-            "
-          >
-            {cat}
-          </button>
+      <!-- Stats chips -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px;margin-top:16px;">
+        {['40+ Projects', '5 Countries', '2019→Present'].map(chip => (
+          <span style="
+            padding:6px 14px;border-radius:99px;
+            background:var(--accent-dim);border:1px solid rgba(180,255,87,0.2);
+            font-size:var(--text-xs);color:var(--accent);
+            font-family:var(--font-mono);letter-spacing:0.08em;
+          ">{chip}</span>
         ))}
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="portfolio-controls" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+        <!-- Category pills -->
+        <div class="portfolio-filter" style="display:flex;gap:8px;flex-wrap:wrap;flex:1;" id="filterBtns">
+          {categories.map((cat, i) => (
+            <button
+              class={`filter-btn${i === 0 ? ' active' : ''}`}
+              data-category={cat}
+              style="
+                padding: 8px 20px;border-radius:99px;cursor:pointer;
+                font-size:var(--text-xs);font-family:var(--font-mono);
+                letter-spacing:0.1em;text-transform:uppercase;
+                transition:all 0.2s;border:1px solid var(--border2);
+                background:transparent;color:var(--muted2);
+              "
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <!-- Search -->
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search projects…"
+          style="
+            padding:8px 16px;border-radius:99px;border:1px solid var(--border2);
+            background:var(--surface);color:var(--text);font-family:var(--font-mono);
+            font-size:var(--text-xs);min-width:180px;
+            outline:none;transition:border-color 0.2s;
+          "
+        />
+
+        <!-- Sort -->
+        <select
+          id="sortSelect"
+          style="
+            padding:8px 16px;border-radius:99px;border:1px solid var(--border2);
+            background:var(--surface);color:var(--muted2);font-family:var(--font-mono);
+            font-size:var(--text-xs);cursor:pointer;outline:none;
+          "
+        >
+          <option value="featured">Featured First</option>
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
       </div>
     </div>
   </section>
+
+  <!-- Featured Hero Card -->
+  {featuredProject && (
+    <section class="portfolio-featured reveal" style="
+      padding: 0 clamp(20px,5vw,80px);
+      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+    " id="featuredHero">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(40px,6vw,80px) 0;">
+        <div class="card" style="
+          padding:clamp(32px,5vw,60px);
+          background:linear-gradient(135deg,var(--surface) 0%,var(--surface2) 100%);
+          border:1px solid var(--border2);
+          position:relative;overflow:hidden;
+        ">
+          <!-- Glow accent -->
+          <div style="
+            position:absolute;top:-80px;right:-80px;
+            width:300px;height:300px;border-radius:50%;
+            background:radial-gradient(circle,rgba(180,255,87,0.12) 0%,transparent 70%);
+            pointer-events:none;
+          "></div>
+
+          <div style="display:flex;align-items:flex-start;gap:clamp(20px,4vw,48px);flex-wrap:wrap;position:relative;z-index:1;">
+            <!-- Emoji -->
+            <div style="font-size:clamp(48px,8vw,80px);flex-shrink:0;line-height:1;">{featuredProject.emoji}</div>
+
+            <div style="flex:1;min-width:260px;">
+              <!-- Featured badge -->
+              <span style="
+                display:inline-block;padding:4px 12px;border-radius:99px;
+                background:var(--accent-dim);border:1px solid rgba(180,255,87,0.25);
+                font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent);
+                letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;
+              ">★ Featured</span>
+
+              <h2 style="
+                font-family:var(--font-display);font-weight:800;
+                font-size:var(--text-3xl);color:var(--text);
+                line-height:1.1;margin-bottom:6px;
+              ">
+                <span class="inline-en">{featuredProject.title}</span>
+                <span class="inline-bn">{featuredProject.titleBn}</span>
+              </h2>
+              <p style="font-size:var(--text-base);color:var(--muted2);font-family:var(--font-mono);margin-bottom:16px;">
+                {featuredProject.subtitle}
+              </p>
+              <p style="font-size:var(--text-base);color:var(--text2);line-height:1.8;margin-bottom:20px;max-width:600px;">
+                <span class="inline-en">{featuredProject.description}</span>
+                <span class="inline-bn">{featuredProject.descriptionBn}</span>
+              </p>
+
+              <!-- Tags -->
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+                {featuredProject.tags.map(tag => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+
+              <!-- Impact -->
+              {featuredProject.impact && (
+                <div style="
+                  display:inline-flex;align-items:center;gap:8px;
+                  padding:6px 14px;border-radius:8px;
+                  background:rgba(87,255,218,0.08);border:1px solid rgba(87,255,218,0.2);
+                  font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent2);
+                  margin-bottom:28px;
+                ">
+                  ⚡ {featuredProject.impact}
+                </div>
+              )}
+
+              <!-- Buttons -->
+              <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                {featuredProject.link && featuredProject.link !== '#' && (
+                  <a href={featuredProject.link} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    View Project →
+                  </a>
+                )}
+                {featuredProject.githubLink && (
+                  <a href={featuredProject.githubLink} target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                    GitHub →
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Projects Grid -->
   <section class="portfolio-grid-wrap" style="padding: clamp(40px,8vw,80px) clamp(20px,5vw,80px) clamp(80px,12vw,140px);" id="projectsSection">
     <div style="max-width:1200px;margin:0 auto;">
       <div class="portfolio-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px;" id="projectsGrid">
         {projectsData.map((project, i) => (
-          <div class="project-item" data-category={project.category} style={`animation:slideIn 0.6s cubic-bezier(0.16,1,0.3,1) ${i*0.08}s both`}>
+          <div
+            class="project-item"
+            data-category={project.category}
+            data-title={project.title.toLowerCase()}
+            data-year={project.year}
+            data-featured={project.featured ? '1' : '0'}
+            style={`animation:slideIn 0.6s cubic-bezier(0.16,1,0.3,1) ${i*0.08}s both`}
+          >
             <ProjectCard project={project} index={i} client:visible />
           </div>
         ))}
@@ -64,83 +205,146 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
       <!-- Empty state -->
       <div id="emptyState" style="display:none;text-align:center;padding:80px 0;">
         <div style="font-size:48px;margin-bottom:16px;">🔍</div>
-        <p style="font-size:var(--text-lg);color:var(--muted2);">No projects in this category yet.</p>
+        <p style="font-size:var(--text-lg);color:var(--muted2);margin-bottom:20px;">
+          <span class="inline-en">No projects match your filter.</span>
+          <span class="inline-bn">আপনার ফিল্টারে কোনো প্রজেক্ট পাওয়া যায়নি।</span>
+        </p>
+        <button id="resetFilter" class="btn btn-outline">Reset filters</button>
       </div>
     </div>
   </section>
 
-  <!-- Process -->
-  <section class="portfolio-process" style="
+  <!-- Bottom CTA -->
+  <section class="portfolio-cta reveal" style="
     padding: clamp(80px,12vw,140px) clamp(20px,5vw,80px);
     background: var(--bg2);
     border-top: 1px solid var(--border);
-  " class="reveal">
-    <div style="max-width:1200px;margin:0 auto;">
-      <p class="section-label">How I Work</p>
-      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:clamp(40px,6vw,60px);color:var(--text);">
-        My <span class="gradient-text">Process</span>
+    text-align: center;
+  ">
+    <div style="max-width:700px;margin:0 auto;">
+      <h2 style="font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);margin-bottom:16px;color:var(--text);">
+        <span class="inline-en">Have a project in mind? <span class="gradient-text">Let's talk.</span></span>
+        <span class="inline-bn">মাথায় কোনো প্রজেক্ট আছে? <span class="gradient-text">কথা বলি।</span></span>
       </h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;">
-        {[
-          { num: '01', title: 'Discover', desc: 'Deep-dive into the problem space, users, and business context.' },
-          { num: '02', title: 'Define', desc: 'Synthesize insights into clear design principles and constraints.' },
-          { num: '03', title: 'Design', desc: 'Rapid iteration from wireframes to high-fidelity prototypes.' },
-          { num: '04', title: 'Develop', desc: 'Build with clean code, accessibility, and performance in mind.' },
-          { num: '05', title: 'Deploy', desc: 'Ship, measure, and iterate based on real user behavior.' },
-        ].map(step => (
-          <div class="card" style="padding:28px;">
-            <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--accent);margin-bottom:12px;">{step.num}</div>
-            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:var(--text);margin-bottom:8px;">{step.title}</h3>
-            <p style="font-size:var(--text-sm);color:var(--text2);line-height:1.6;">{step.desc}</p>
-          </div>
-        ))}
-      </div>
+      <p style="font-size:var(--text-base);color:var(--text2);margin-bottom:32px;">
+        <span class="inline-en">Available for freelance, consulting & long-term partnerships.</span>
+        <span class="inline-bn">ফ্রিল্যান্স, কনসালটিং ও দীর্ঘমেয়াদী অংশীদারিত্বের জন্য উপলব্ধ।</span>
+      </p>
+      <a href="/contact" class="btn btn-primary">
+        <span class="inline-en">Start a Project →</span>
+        <span class="inline-bn">প্রজেক্ট শুরু করুন →</span>
+      </a>
     </div>
   </section>
 </Layout>
 
 <script>
-  // Category filtering
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectItems = document.querySelectorAll('.project-item');
-  const emptyState = document.getElementById('emptyState');
+  function applyFilters() {
+    const params = new URLSearchParams(window.location.search);
+    const activeCat = params.get('cat') || 'All';
+    const activeQ = (params.get('q') || '').toLowerCase();
+    const activeSort = params.get('sort') || 'featured';
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const cat = (btn as HTMLElement).dataset.category;
-
-      filterBtns.forEach(b => {
-        b.classList.remove('active');
-      });
-      btn.classList.add('active');
-
-      let visible = 0;
-      projectItems.forEach(item => {
-        const el = item as HTMLElement;
-        if (cat === 'All' || el.dataset.category === cat) {
-          el.style.display = 'block';
-          visible++;
-        } else {
-          el.style.display = 'none';
-        }
-      });
-
-      if (emptyState) emptyState.style.display = visible === 0 ? 'block' : 'none';
+    // Sync UI controls
+    document.querySelectorAll<HTMLElement>('.filter-btn').forEach(btn => {
+      const isCurrent = btn.dataset.category === activeCat ||
+        (activeCat === 'All' && btn.dataset.category === 'All');
+      btn.classList.toggle('active', isCurrent);
     });
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement | null;
+    if (searchInput) searchInput.value = params.get('q') || '';
+    const sortSelect = document.getElementById('sortSelect') as HTMLSelectElement | null;
+    if (sortSelect) sortSelect.value = activeSort;
+
+    // Get all items and sort
+    const grid = document.getElementById('projectsGrid');
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.project-item'));
+
+    // Sort
+    items.sort((a, b) => {
+      if (activeSort === 'newest') return parseInt(b.dataset.year || '0') - parseInt(a.dataset.year || '0');
+      if (activeSort === 'oldest') return parseInt(a.dataset.year || '0') - parseInt(b.dataset.year || '0');
+      // featured first
+      const af = parseInt(a.dataset.featured || '0');
+      const bf = parseInt(b.dataset.featured || '0');
+      if (bf !== af) return bf - af;
+      return parseInt(b.dataset.year || '0') - parseInt(a.dataset.year || '0');
+    });
+
+    // Re-append in sorted order
+    if (grid) items.forEach(item => grid.appendChild(item));
+
+    // Filter visibility
+    let visible = 0;
+    items.forEach(item => {
+      const matchCat = activeCat === 'All' || item.dataset.category === activeCat;
+      const matchQ = !activeQ || (item.dataset.title || '').includes(activeQ);
+      if (matchCat && matchQ) {
+        item.style.display = '';
+        visible++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    const emptyState = document.getElementById('emptyState');
+    if (emptyState) emptyState.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  function updateURL(updates: Record<string, string>) {
+    const params = new URLSearchParams(window.location.search);
+    Object.entries(updates).forEach(([k, v]) => {
+      if (v && v !== 'All' && v !== '') params.set(k, v);
+      else params.delete(k);
+    });
+    const newUrl = params.toString() ? `${window.location.pathname}?${params}` : window.location.pathname;
+    history.replaceState(null, '', newUrl);
+    applyFilters();
+  }
+
+  // Category filter pills
+  document.querySelectorAll<HTMLElement>('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => updateURL({ cat: btn.dataset.category || 'All' }));
   });
 
-  // Init active style
+  // Search input (debounced)
+  const SEARCH_DEBOUNCE_MS = 220;
+  let searchTimer: ReturnType<typeof setTimeout>;
+  const searchInput = document.getElementById('searchInput') as HTMLInputElement | null;
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => updateURL({ q: searchInput.value }), SEARCH_DEBOUNCE_MS);
+    });
+  }
+
+  // Sort select
+  const sortSelect = document.getElementById('sortSelect') as HTMLSelectElement | null;
+  if (sortSelect) {
+    sortSelect.addEventListener('change', () => updateURL({ sort: sortSelect.value }));
+  }
+
+  // Reset button
+  const resetBtn = document.getElementById('resetFilter');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      history.replaceState(null, '', window.location.pathname);
+      applyFilters();
+    });
+  }
+
+  // Run on load
+  applyFilters();
 </script>
 
 <style>
   .portfolio-hero,
-  .portfolio-process {
+  .portfolio-cta {
     position: relative;
     overflow: clip;
   }
 
-  .portfolio-hero::before,
-  .portfolio-process::before {
+  .portfolio-hero::before {
     content: '';
     position: absolute;
     width: min(420px, 52vw);
@@ -151,6 +355,10 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
     background: color-mix(in srgb, var(--accent2) 12%, transparent);
     right: -120px;
     top: -140px;
+  }
+
+  .portfolio-controls {
+    row-gap: 10px;
   }
 
   .portfolio-filter {
@@ -169,6 +377,8 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
     box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 22%, transparent);
   }
 
+  #searchInput::placeholder { color: var(--muted); }
+
   .portfolio-grid {
     align-items: stretch;
   }
@@ -186,16 +396,22 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
       grid-template-columns: 1fr !important;
       gap: 18px !important;
     }
+    .portfolio-controls {
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+    #searchInput, #sortSelect {
+      width: 100% !important;
+    }
   }
 
   @media (max-width: 375px) {
     .portfolio-hero,
     .portfolio-grid-wrap,
-    .portfolio-process {
+    .portfolio-cta {
       padding-left: 16px !important;
       padding-right: 16px !important;
     }
-
     .filter-btn {
       padding: 7px 14px !important;
       letter-spacing: 0.08em !important;
@@ -207,7 +423,6 @@ const categories = ['All', ...new Set(projectsData.map(p => p.category))];
       grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important;
       gap: 32px !important;
     }
-
     .portfolio-filter {
       gap: 12px !important;
     }
