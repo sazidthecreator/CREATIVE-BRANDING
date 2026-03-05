@@ -389,6 +389,15 @@ body::after {
   color: var(--accent);
 }
 
+/* ── PROJECT CARD IMAGE HOVER ────────────────────────────── */
+.project-card-img {
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.project-card-image:hover .project-card-img,
+.project-card-image:focus-within .project-card-img {
+  transform: scale(1.05);
+}
+
 /* ── CARD ────────────────────────────────────────────────── */
 .card {
   background: color-mix(in srgb, var(--surface) 88%, transparent);

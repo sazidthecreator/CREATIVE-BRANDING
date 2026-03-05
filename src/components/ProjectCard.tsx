@@ -43,7 +43,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       <div className="card" style={{ padding: '0', cursor: 'pointer', overflow: 'hidden' }}>
         {/* Project Image */}
         {project.image && (
-          <div style={{
+          <div className="project-card-image" style={{
             width: '100%', aspectRatio: '16/9', overflow: 'hidden',
             borderRadius: '18px 18px 0 0', position: 'relative',
           }}>
@@ -51,13 +51,11 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               src={`/${project.image}`}
               alt={project.title}
               loading="lazy"
+              className="project-card-img"
               style={{
                 width: '100%', height: '100%', objectFit: 'cover',
-                transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1)',
                 display: 'block',
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.05)'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }}
             />
             {project.featured && (
               <div style={{
