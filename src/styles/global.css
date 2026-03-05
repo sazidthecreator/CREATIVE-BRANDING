@@ -380,8 +380,8 @@ body::after {
   background: var(--glass-bg);
   color: var(--text2);
   border: 1px solid var(--glass-border);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
 }
 .btn-ghost:hover {
   background: color-mix(in srgb, var(--accent) 10%, transparent);
