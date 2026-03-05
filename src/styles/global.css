@@ -27,18 +27,24 @@
   --muted2: #8080b8;
   --nav-bg: rgba(3,3,16,0.9);
 
-  /* Typography scale */
-  --text-xs: clamp(0.65rem, 0.6rem + 0.25vw, 0.75rem);
-  --text-sm: clamp(0.75rem, 0.7rem + 0.3vw, 0.875rem);
-  --text-base: clamp(0.875rem, 0.8rem + 0.4vw, 1rem);
-  --text-lg: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
-  --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
-  --text-2xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
-  --text-3xl: clamp(2rem, 1.7rem + 1.5vw, 3rem);
-  --text-4xl: clamp(2.5rem, 2rem + 2.5vw, 4.5rem);
-  --text-hero: clamp(3rem, 2.5rem + 3.5vw, 7rem);
+  /* Typography scale — fluid, clamped */
+  --text-xs:   clamp(0.65rem,  0.6rem  + 0.25vw, 0.75rem);
+  --text-sm:   clamp(0.78rem,  0.72rem + 0.3vw,  0.9rem);
+  --text-base: clamp(0.9rem,   0.82rem + 0.4vw,  1.05rem);
+  --text-lg:   clamp(1.05rem,  0.95rem + 0.5vw,  1.3rem);
+  --text-xl:   clamp(1.25rem,  1.1rem  + 0.75vw, 1.55rem);
+  --text-2xl:  clamp(1.5rem,   1.3rem  + 1vw,    2.05rem);
+  --text-3xl:  clamp(2rem,     1.75rem + 1.25vw, 3rem);
+  --text-4xl:  clamp(2.5rem,   2.1rem  + 2vw,    4.5rem);
+  --text-hero: clamp(3rem,     2.5rem  + 3vw,    7rem);
 
+  /* Spacing helpers */
+  --section-pad: clamp(80px, 12vw, 140px) clamp(20px, 5vw, 80px);
+  --section-pad-sm: clamp(60px, 10vw, 100px) clamp(20px, 5vw, 80px);
+
+  /* Easing */
   --ease: cubic-bezier(0.16,1,0.3,1);
+  --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
   --tt: background 0.4s, color 0.4s, border-color 0.4s;
 }
 
@@ -73,8 +79,10 @@ body {
   font-family: var(--font-body);
   overflow-x: hidden;
   transition: var(--tt);
-  line-height: 1.7;
+  line-height: 1.72;
   font-size: var(--text-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-image:
     radial-gradient(1200px 480px at 80% -20%, color-mix(in srgb, var(--accent2) 12%, transparent), transparent 70%),
     radial-gradient(1100px 460px at -10% 10%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 72%);
@@ -126,7 +134,8 @@ body::after {
 /* ── SCROLL PROGRESS ─────────────────────────────────────── */
 #scrollBar {
   position: fixed; top: 0; left: 0; height: 2px;
-  background: var(--accent); z-index: 9997; width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index: 9997; width: 0%;
   box-shadow: 0 0 10px var(--accent-glow);
   transition: width 0.08s linear;
 }
@@ -153,6 +162,14 @@ body::after {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
 
 /* ── SELECTION ───────────────────────────────────────────── */
 ::selection { background: var(--accent); color: #030310; }
@@ -171,8 +188,20 @@ body::after {
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 /* ── REVEAL ANIMATION ────────────────────────────────────── */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Stagger children */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay: 0.05s; }
+.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 0.12s; }
+.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay: 0.19s; }
+.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay: 0.26s; }
+.reveal-stagger.visible > *:nth-child(n+5) { opacity:1; transform:translateY(0); transition-delay: 0.33s; }
 
 /* ── UTILITY CLASSES ─────────────────────────────────────── */
 .font-display { font-family: var(--font-display); }
@@ -205,20 +234,27 @@ body::after {
   background: rgba(255,255,255,0.7);
 }
 
+/* ── TAG ─────────────────────────────────────────────────── */
 .tag {
   display: inline-flex;
   align-items: center;
   padding: 3px 10px;
   border-radius: 99px;
   font-size: var(--text-xs);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   font-family: var(--font-mono);
   background: var(--accent-dim);
   color: var(--accent);
   border: 1px solid rgba(180,255,87,0.15);
   font-weight: 500;
+  transition: background 0.2s, border-color 0.2s;
+}
+.tag:hover {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border-color: rgba(180,255,87,0.28);
 }
 
+/* ── SECTION LABEL ───────────────────────────────────────── */
 .section-label {
   display: inline-flex;
   align-items: center;
@@ -229,15 +265,18 @@ body::after {
   font-family: var(--font-mono);
   color: var(--accent);
   margin-bottom: 1rem;
+  font-weight: 600;
 }
 .section-label::before {
   content: '';
   display: block;
-  width: 24px;
+  width: 22px;
   height: 1px;
   background: var(--accent);
+  flex-shrink: 0;
 }
 
+/* ── BUTTONS ─────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -247,7 +286,7 @@ body::after {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--text-sm);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   cursor: pointer;
   transition: all 0.25s var(--ease);
   text-decoration: none;
@@ -255,21 +294,23 @@ body::after {
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  white-space: nowrap;
 }
+
 .btn-primary {
   background: var(--accent);
   color: #030310;
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px var(--accent-glow);
+  box-shadow: 0 8px 32px var(--accent-glow);
 }
 .btn-primary::before {
   content: '';
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 0.25s var(--ease);
+  transition: transform 0.6s var(--ease), opacity 0.2s;
   background: linear-gradient(120deg, transparent 10%, rgba(255,255,255,0.28), transparent 80%);
   transform: translateX(-105%);
   z-index: -1;
@@ -277,8 +318,8 @@ body::after {
 .btn-primary:hover::before {
   opacity: 1;
   transform: translateX(105%);
-  transition: transform 0.6s var(--ease), opacity 0.2s;
 }
+
 .btn-outline {
   background: transparent;
   color: var(--text);
@@ -288,6 +329,7 @@ body::after {
   border-color: var(--accent);
   color: var(--accent);
   background: var(--accent-dim);
+  transform: translateY(-2px);
 }
 
 /* ── CARD ────────────────────────────────────────────────── */
@@ -299,16 +341,27 @@ body::after {
   overflow: hidden;
   backdrop-filter: blur(14px);
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--text) 8%, transparent),
-    0 8px 30px rgba(0,0,0,0.2);
+    inset 0 1px 0 color-mix(in srgb, var(--text) 7%, transparent),
+    0 6px 24px rgba(0,0,0,0.18);
 }
 .card:hover {
-  border-color: rgba(180,255,87,0.2);
+  border-color: rgba(180,255,87,0.22);
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--text) 14%, transparent),
-    0 14px 48px rgba(0,0,0,0.35),
-    0 0 0 1px rgba(180,255,87,0.08);
-  transform: translateY(-3px) scale(1.005);
+    inset 0 1px 0 color-mix(in srgb, var(--text) 13%, transparent),
+    0 16px 48px rgba(0,0,0,0.32),
+    0 0 0 1px rgba(180,255,87,0.09);
+  transform: translateY(-3px) scale(1.004);
+}
+
+/* ── MASONRY ─────────────────────────────────────────────── */
+.masonry {
+  columns: auto 280px;
+  column-gap: 20px;
+}
+.masonry > * {
+  break-inside: avoid;
+  margin-bottom: 20px;
+  display: block;
 }
 
 /* ── NAV ─────────────────────────────────────────────────── */
@@ -327,6 +380,7 @@ body::after {
   border-bottom-color: color-mix(in srgb, var(--accent) 35%, var(--border));
 }
 
+/* ── RESPONSIVE ──────────────────────────────────────────── */
 @media (max-width: 768px) {
   #cursor,
   #cursorRing {
@@ -336,16 +390,16 @@ body::after {
 
 @media (max-width: 375px) {
   :root {
-    --text-lg: clamp(0.96rem, 3.8vw, 1.08rem);
-    --text-xl: clamp(1.18rem, 4.8vw, 1.36rem);
-    --text-2xl: clamp(1.42rem, 5.8vw, 1.75rem);
-    --text-3xl: clamp(1.85rem, 7.4vw, 2.4rem);
-    --text-4xl: clamp(2.15rem, 9vw, 3rem);
-    --text-hero: clamp(2.3rem, 9.2vw, 3.1rem);
+    --text-lg:   clamp(0.98rem, 3.8vw, 1.1rem);
+    --text-xl:   clamp(1.2rem,  4.8vw, 1.38rem);
+    --text-2xl:  clamp(1.44rem, 5.8vw, 1.78rem);
+    --text-3xl:  clamp(1.88rem, 7.4vw, 2.44rem);
+    --text-4xl:  clamp(2.2rem,  9vw,   3.1rem);
+    --text-hero: clamp(2.35rem, 9.2vw, 3.2rem);
   }
 
   body {
-    line-height: 1.62;
+    line-height: 1.64;
   }
 
   .nav-fixed {
@@ -355,7 +409,7 @@ body::after {
 
   .btn {
     padding: 10px 18px;
-    letter-spacing: 0.04em;
+    font-size: var(--text-xs);
   }
 
   .section-label {
@@ -364,22 +418,22 @@ body::after {
   }
 
   .section-label::before {
-    width: 18px;
+    width: 16px;
   }
 
   .card {
-    border-radius: 14px;
+    border-radius: 12px;
   }
 }
 
 @media (min-width: 1440px) {
   :root {
-    --text-4xl: clamp(3rem, 2.2rem + 2.2vw, 5.2rem);
+    --text-4xl:  clamp(3rem,   2.2rem + 2.2vw, 5.2rem);
     --text-hero: clamp(4.2rem, 3.4rem + 3.2vw, 8.6rem);
   }
 
   body {
-    line-height: 1.78;
+    line-height: 1.8;
   }
 
   .btn {
