@@ -59,37 +59,44 @@ const values = [
 
           <div style="display:flex;gap:16px;flex-wrap:wrap;">
             <a href="/portfolio" class="btn btn-primary">View My Work →</a>
-            <a href="/resume" class="btn btn-outline">Download Resume</a>
+            <a href="/Resume_saazidhossain.pdf" download="Sazid_Hossain_CV.pdf" class="btn btn-outline">⬇ Download CV</a>
           </div>
         </div>
 
         <div style="position:sticky;top:80px;">
           <!-- Profile Card -->
-          <div class="card" style="padding:32px;text-align:center;">
+          <div class="card" style="padding:0;text-align:center;overflow:hidden;">
             <div style="
-              width:80px;height:80px;border-radius:50%;
-              background:linear-gradient(135deg,var(--accent),var(--accent2));
-              margin:0 auto 16px;
-              display:flex;align-items:center;justify-content:center;
-              font-size:36px;
-            ">🧠</div>
-            <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:4px;">Sazid Hossain</h3>
-            <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted2);margin-bottom:4px;">সাজিদ হোসেন</p>
-            <p style="font-size:var(--text-sm);color:var(--accent);font-family:var(--font-mono);margin-bottom:20px;">Creative Technologist</p>
-            <div style="border-top:1px solid var(--border);padding-top:16px;display:flex;flex-direction:column;gap:10px;">
-              {[
-                { icon: '📍', text: 'Dhaka, Bangladesh', sub: 'GMT+6' },
-                { icon: '🎓', text: 'Jahangirnagar University', sub: 'Philosophy' },
-                { icon: '💼', text: 'Available for hire', sub: 'Open to projects' },
-              ].map(item => (
-                <div style="display:flex;align-items:center;gap:10px;text-align:left;">
-                  <span style="font-size:14px;">{item.icon}</span>
-                  <div>
-                    <p style="font-size:var(--text-xs);color:var(--text2);">{item.text}</p>
-                    <p style="font-size:var(--text-xs);color:var(--muted);">{item.sub}</p>
+              width:100%;aspect-ratio:1;max-height:260px;overflow:hidden;
+              position:relative;border-radius:20px 20px 0 0;
+            ">
+              <img
+                src="/saazidhossain.jpg"
+                alt="Sazid Hossain"
+                style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+            <div style="padding:24px;">
+              <h3 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-xl);color:var(--text);margin-bottom:4px;">Sazid Hossain</h3>
+              <p style="font-family:var(--font-bn);font-size:var(--text-sm);color:var(--muted2);margin-bottom:4px;">সাজিদ হোসেন</p>
+              <p style="font-size:var(--text-sm);color:var(--accent);font-family:var(--font-mono);margin-bottom:20px;">Creative Technologist</p>
+              <div style="border-top:1px solid var(--border);padding-top:16px;display:flex;flex-direction:column;gap:10px;">
+                {[
+                  { icon: '📍', text: 'Dhaka, Bangladesh', sub: 'GMT+6' },
+                  { icon: '🎓', text: 'Jahangirnagar University', sub: 'Philosophy' },
+                  { icon: '💼', text: 'Available for hire', sub: 'Open to projects' },
+                ].map(item => (
+                  <div style="display:flex;align-items:center;gap:10px;text-align:left;">
+                    <span style="font-size:14px;">{item.icon}</span>
+                    <div>
+                      <p style="font-size:var(--text-xs);color:var(--text2);">{item.text}</p>
+                      <p style="font-size:var(--text-xs);color:var(--muted);">{item.sub}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
