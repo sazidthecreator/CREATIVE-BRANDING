@@ -140,7 +140,7 @@ const process = [
 
             <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:20px;">
               <span style={`font-family:var(--font-display);font-weight:700;font-size:var(--text-lg);color:${s.color};`}>{s.price}</span>
-              <a href="/contact" class="btn btn-outline" style="padding:8px 20px;font-size:var(--text-xs);">Get Quote</a>
+              <a href="/contact" class="btn-outline" style="padding:8px 20px;font-size:var(--text-xs);">Get Quote</a>
             </div>
           </div>
         ))}
@@ -183,7 +183,10 @@ const process = [
       <p style="font-size:var(--text-base);color:var(--text2);margin-bottom:32px;">
         Book a free 30-minute discovery call and let's figure out how I can help.
       </p>
-      <a href="/contact" class="btn btn-primary">Book Discovery Call →</a>
+      <a href="/contact" class="btn-primary">
+        <span class="inline-en">Book Discovery Call →</span>
+        <span class="inline-bn" style="font-family:var(--font-bn)">ডিসকভারি কল বুক করুন →</span>
+      </a>
     </div>
   </section>
 </Layout>
