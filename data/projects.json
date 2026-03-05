@@ -14,7 +14,7 @@
     "emoji": "🏥",
     "description": "A full-scale digital health infrastructure for Bangladesh, uniting patients, doctors, and hospitals in one ecosystem.",
     "descriptionBn": "বাংলাদেশের জন্য পূর্ণাঙ্গ ডিজিটাল স্বাস্থ্য অবকাঠামো — রোগী, ডাক্তার এবং হাসপাতালকে একটি ইকোসিস্টেমে একত্রিত করে।",
-    "link": "#",
+    "link": "https://www.behance.net/saazidhossain",
     "githubLink": "",
     "image": "Health_care_banner.png",
     "impact": "5,000+ patients",
@@ -35,11 +35,11 @@
     "tags": ["Branding", "Logistics", "Digital Portal"],
     "year": 2025,
     "status": "live",
-    "featured": false,
+    "featured": true,
     "emoji": "🎓",
     "description": "Orchestrated branding and digital portal for 2,000+ graduating students at Jahangirnagar University.",
     "descriptionBn": "জাহাঙ্গীরনগর বিশ্ববিদ্যালয়ে ২০০০+ স্নাতকী শিক্ষার্থীদের জন্য ব্র্যান্ডিং ও ডিজিটাল পোর্টাল।",
-    "link": "#",
+    "link": "https://www.behance.net/saazidhossain",
     "githubLink": "",
     "image": "Ju45_Behance_banner_.png",
     "impact": "2,000+ students",
@@ -60,17 +60,20 @@
     "tags": ["NotebookLM", "Philosophy", "Cyber-Noir UI"],
     "year": 2025,
     "status": "live",
-    "featured": false,
+    "featured": true,
     "emoji": "🧠",
     "description": "A digital sage fused with Google NotebookLM for philosophy-driven content engineering.",
     "descriptionBn": "গুগল নোটবুকএলএম দিয়ে দর্শন-চালিত কন্টেন্ট ইঞ্জিনিয়ারিং।",
-    "link": "#",
+    "link": "https://www.behance.net/saazidhossain",
     "githubLink": "",
     "image": "VABUUK_Behance_banner_.png",
     "impact": "300+ essays",
     "duration": "4 weeks",
     "media": [
-      { "type": "image", "src": "VABUUK_Behance_banner_.png", "title": "Platform Interface" },
+      { "type": "image", "src": "VABUUK_Behance_banner_.png", "title": "Platform Banner" },
+      { "type": "image", "src": "VABUUK_Behance_1.png", "title": "Platform Interface" },
+      { "type": "image", "src": "VABUUK_Behance6.png", "title": "UI Detail 1" },
+      { "type": "image", "src": "VABUUK_Behance7.png", "title": "UI Detail 2" },
       { "type": "figma", "src": "https://www.figma.com/design/placeholder", "title": "UI/UX Design" }
     ]
   },
@@ -89,13 +92,15 @@
     "emoji": "👤",
     "description": "High-trust responsive digital portfolio for a Dhaka WASA Official with glassmorphism UI.",
     "descriptionBn": "ঢাকা ওয়াসা কর্মকর্তার জন্য গ্লাসমরফিজম UI সহ বিশ্বস্ত রেসপনসিভ পোর্টফোলিও।",
-    "link": "#",
+    "link": "https://www.behance.net/saazidhossain",
     "githubLink": "",
     "image": "Behance_banner_mrkarim_portfolio.png",
     "impact": "High-trust UX",
     "duration": "3 weeks",
     "media": [
       { "type": "image", "src": "Behance_banner_mrkarim_portfolio.png", "title": "Portfolio Design" },
+      { "type": "image", "src": "md_reza1.png", "title": "Portrait Photography" },
+      { "type": "image", "src": "reza_mockup.png", "title": "Device Mockup" },
       { "type": "figma", "src": "https://www.figma.com/design/placeholder", "title": "UI Components" }
     ]
   },
@@ -121,6 +126,7 @@
     "duration": "8 weeks",
     "media": [
       { "type": "image", "src": "unnamed-18.png", "title": "Platform Overview" },
+      { "type": "image", "src": "unnamed-17.png", "title": "Dashboard UI" },
       { "type": "figma", "src": "https://www.figma.com/design/placeholder", "title": "System Architecture" }
     ]
   },
@@ -141,10 +147,12 @@
     "descriptionBn": "ঢাকা ফ্যাশন মডেল এজেন্সির জন্য কাস্টম ওয়ার্ডপ্রেস আর্কিটেকচার সহ এডিটোরিয়াল ওয়েবসাইট।",
     "link": "#",
     "githubLink": "",
-    "image": "",
+    "image": "work_01.png",
     "impact": "50+ profiles",
     "duration": "4 weeks",
     "media": [
+      { "type": "image", "src": "work_01.png", "title": "Homepage Design" },
+      { "type": "image", "src": "work_02.png", "title": "Model Profile Page" },
       { "type": "figma", "src": "https://www.figma.com/design/placeholder", "title": "Design System" }
     ]
   }

@@ -40,90 +40,123 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         animation: `slideIn 0.6s cubic-bezier(0.16,1,0.3,1) ${index * 0.1}s both`,
       }}
     >
-      <div className="card" style={{ padding: '28px', cursor: 'pointer' }}>
-        {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
+      <div className="card" style={{ padding: '0', cursor: 'pointer', overflow: 'hidden' }}>
+        {/* Project Image */}
+        {project.image && (
           <div style={{
-            width: '52px', height: '52px', borderRadius: '12px',
-            background: 'var(--accent-dim)', border: '1px solid rgba(180,255,87,0.15)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '24px', flexShrink: 0,
+            width: '100%', aspectRatio: '16/9', overflow: 'hidden',
+            borderRadius: '18px 18px 0 0', position: 'relative',
           }}>
-            {project.emoji}
+            <img
+              src={`/${project.image}`}
+              alt={project.title}
+              loading="lazy"
+              style={{
+                width: '100%', height: '100%', objectFit: 'cover',
+                transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1)',
+                display: 'block',
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.05)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)'; }}
+            />
+            {project.featured && (
+              <div style={{
+                position: 'absolute', top: '12px', right: '12px',
+                background: 'var(--accent)', color: '#000',
+                fontSize: '10px', fontWeight: 700, fontFamily: 'var(--font-mono)',
+                padding: '3px 8px', borderRadius: '99px', letterSpacing: '0.1em',
+              }}>
+                FEATURED
+              </div>
+            )}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
+        )}
+
+        <div style={{ padding: '24px' }}>
+          {/* Header */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
             <div style={{
-              display: 'flex', alignItems: 'center', gap: '6px',
-              fontSize: 'var(--text-xs)', color: 'var(--muted2)',
-              fontFamily: 'var(--font-mono)',
+              width: '44px', height: '44px', borderRadius: '10px',
+              background: 'var(--accent-dim)', border: '1px solid rgba(180,255,87,0.15)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '22px', flexShrink: 0,
             }}>
-              <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: statusColor }} />
-              {project.status}
+              {project.emoji}
             </div>
-            <span style={{ fontSize: 'var(--text-xs)', color: 'var(--muted)', fontFamily: 'var(--font-mono)' }}>
-              {project.year}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: '6px',
+                fontSize: 'var(--text-xs)', color: 'var(--muted2)',
+                fontFamily: 'var(--font-mono)',
+              }}>
+                <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: statusColor }} />
+                {project.status}
+              </div>
+              <span style={{ fontSize: 'var(--text-xs)', color: 'var(--muted)', fontFamily: 'var(--font-mono)' }}>
+                {project.year}
+              </span>
+            </div>
+          </div>
+
+          {/* Title */}
+          <h3 style={{
+            fontFamily: 'var(--font-display)', fontWeight: 700,
+            fontSize: 'var(--text-xl)', color: 'var(--text)',
+            marginBottom: '4px', lineHeight: 1.3,
+          }}>
+            {project.title}
+          </h3>
+          {project.titleBn && (
+            <p style={{
+              fontFamily: 'var(--font-bn)', fontSize: 'var(--text-sm)',
+              color: 'var(--muted2)', marginBottom: '8px',
+            }}>
+              {project.titleBn}
+            </p>
+          )}
+          <p style={{ fontSize: 'var(--text-sm)', color: 'var(--accent)', marginBottom: '12px', fontFamily: 'var(--font-mono)' }}>
+            {project.subtitle}
+          </p>
+
+          {/* Description */}
+          <p style={{
+            fontSize: 'var(--text-sm)', color: 'var(--text2)',
+            lineHeight: 1.7, marginBottom: '20px',
+          }}>
+            {project.description}
+          </p>
+
+          {/* Tags */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px' }}>
+            {project.tags.map(tag => (
+              <span key={tag} className="tag">{tag}</span>
+            ))}
+          </div>
+
+          {/* Footer */}
+          <div style={{
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            borderTop: '1px solid var(--border)', paddingTop: '16px',
+          }}>
+            <div style={{ display: 'flex', gap: '16px' }}>
+              {project.impact && (
+                <span style={{ fontSize: 'var(--text-xs)', color: 'var(--muted2)', fontFamily: 'var(--font-mono)' }}>
+                  📈 {project.impact}
+                </span>
+              )}
+              {project.duration && (
+                <span style={{ fontSize: 'var(--text-xs)', color: 'var(--muted2)', fontFamily: 'var(--font-mono)' }}>
+                  ⏱ {project.duration}
+                </span>
+              )}
+            </div>
+            <span style={{
+              fontSize: 'var(--text-xs)', color: 'var(--accent)',
+              fontFamily: 'var(--font-mono)', letterSpacing: '0.1em',
+            }}>
+              View →
             </span>
           </div>
-        </div>
-
-        {/* Title */}
-        <h3 style={{
-          fontFamily: 'var(--font-display)', fontWeight: 700,
-          fontSize: 'var(--text-xl)', color: 'var(--text)',
-          marginBottom: '4px', lineHeight: 1.3,
-        }}>
-          {project.title}
-        </h3>
-        {project.titleBn && (
-          <p style={{
-            fontFamily: 'var(--font-bn)', fontSize: 'var(--text-sm)',
-            color: 'var(--muted2)', marginBottom: '8px',
-          }}>
-            {project.titleBn}
-          </p>
-        )}
-        <p style={{ fontSize: 'var(--text-sm)', color: 'var(--accent)', marginBottom: '12px', fontFamily: 'var(--font-mono)' }}>
-          {project.subtitle}
-        </p>
-
-        {/* Description */}
-        <p style={{
-          fontSize: 'var(--text-sm)', color: 'var(--text2)',
-          lineHeight: 1.7, marginBottom: '20px',
-        }}>
-          {project.description}
-        </p>
-
-        {/* Tags */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px' }}>
-          {project.tags.map(tag => (
-            <span key={tag} className="tag">{tag}</span>
-          ))}
-        </div>
-
-        {/* Footer */}
-        <div style={{
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          borderTop: '1px solid var(--border)', paddingTop: '16px',
-        }}>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            {project.impact && (
-              <span style={{ fontSize: 'var(--text-xs)', color: 'var(--muted2)', fontFamily: 'var(--font-mono)' }}>
-                📈 {project.impact}
-              </span>
-            )}
-            {project.duration && (
-              <span style={{ fontSize: 'var(--text-xs)', color: 'var(--muted2)', fontFamily: 'var(--font-mono)' }}>
-                ⏱ {project.duration}
-              </span>
-            )}
-          </div>
-          <span style={{
-            fontSize: 'var(--text-xs)', color: 'var(--accent)',
-            fontFamily: 'var(--font-mono)', letterSpacing: '0.1em',
-          }}>
-            View →
-          </span>
         </div>
       </div>
     </a>
